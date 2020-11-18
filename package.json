@@ -1,8 +1,9 @@
 {
   "name": "forum-website",
   "version": "1.0.0",
-  "description": "",
+  "description": "Forum for musicians to connect and discuss",
   "main": "server.js",
+  "type": "module",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
@@ -17,7 +18,11 @@
     "nodemon": "^2.0.6"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/server",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Brandon Shemilt",
   "license": "MIT"

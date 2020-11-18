@@ -40,9 +40,6 @@ const discussionSchema = mongoose.Schema(
     category: {
       type: String,
     },
-    avatar: {
-      type: String,
-    },
     likes: [
       {
         user: {
