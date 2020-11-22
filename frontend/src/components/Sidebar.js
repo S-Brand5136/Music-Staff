@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 // MaterialUI Imports
-import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
+  Box,
+  Button,
   Drawer,
   Divider,
   CssBaseline,
@@ -39,6 +42,8 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
+    backgroundColor: "#854442",
+    overflow: "hidden",
   },
   content: {
     flexGrow: 1,
@@ -47,10 +52,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Sidebar(props) {
-  const { window } = props;
+  const { window, history } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   const [categories, setCategories] = useState([
     "General",
@@ -66,20 +73,43 @@ function Sidebar(props) {
   const drawer = (
     <>
       <List>
-        <ListItem classNme="sidebar-header">
+        <ListItem>
           <ListItemText id="header">
-            <h1>Music Staff</h1>
+            <Typography variant="h4">Music Staff</Typography>
           </ListItemText>
         </ListItem>
         <ListItem>
-          <ListItemAvatar />
-          <ListItemText>
-            <Typography variant="p">Brandon Shemilt</Typography>
-          </ListItemText>
-          <ListItemIcon className="icons">
-            <AccountCircle />
-            <Forum />
-            <ExitToApp />
+          {userInfo ? (
+            <ListItemText>
+              <Typography id="userId" variant="p">
+                {userInfo.name}
+              </Typography>
+            </ListItemText>
+          ) : (
+            <Box>
+              <Button
+                size="small"
+                style={{ margin: "0rem 1rem 0rem 1.3rem" }}
+                disableElevation="true"
+                variant="contained"
+              >
+                <Link to="/login">Login</Link>
+              </Button>
+              <Button size="small" disableElevation="true" variant="contained">
+                <Link to="/register">Register</Link>
+              </Button>
+            </Box>
+          )}
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            {userInfo && (
+              <Box id="iconsBox">
+                <AccountCircle className="icon" />
+                <Forum className="icon" />
+                <ExitToApp className="icon" />
+              </Box>
+            )}
           </ListItemIcon>
         </ListItem>
         <Divider />
@@ -87,7 +117,7 @@ function Sidebar(props) {
           <ListItem className="categoryItem">
             <ListItemText>{category}</ListItemText>
             <ListItemIcon>
-              <ArrowRight />
+              <ArrowRight fontSize="large" style={{ color: "#fff4e6" }} />
             </ListItemIcon>
             <Divider />
           </ListItem>
@@ -111,9 +141,6 @@ function Sidebar(props) {
       >
         <Menu />
       </IconButton>
-      <Typography variant="h6" noWrap>
-        Responsive drawer
-      </Typography>
       <nav className={classes.drawer} aria-label="mailbox folders">
         <Hidden smUp implementation="css">
           <Drawer
