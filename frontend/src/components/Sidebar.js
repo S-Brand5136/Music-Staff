@@ -1,6 +1,7 @@
 import React, { useState, Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout } from "../actions/userActions";
 
 // MaterialUI Imports
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -16,7 +17,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  ListItemAvatar,
   Typography,
 } from "@material-ui/core";
 import {
@@ -70,6 +70,8 @@ function Sidebar(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const dispatch = useDispatch();
+
   const drawer = (
     <>
       <List>
@@ -90,12 +92,12 @@ function Sidebar(props) {
               <Button
                 size="small"
                 style={{ margin: "0rem 1rem 0rem 1.3rem" }}
-                disableElevation="true"
+                disableElevation={true}
                 variant="contained"
               >
                 <Link to="/login">Login</Link>
               </Button>
-              <Button size="small" disableElevation="true" variant="contained">
+              <Button size="small" disableElevation={true} variant="contained">
                 <Link to="/register">Register</Link>
               </Button>
             </Box>
@@ -105,16 +107,27 @@ function Sidebar(props) {
           <ListItemIcon>
             {userInfo && (
               <Box id="iconsBox">
-                <AccountCircle className="icon" />
-                <Forum className="icon" />
-                <ExitToApp className="icon" />
+                <Button>
+                  <AccountCircle className="icon" />
+                </Button>
+                <Button size="small" style={{ lineHeight: "0" }}>
+                  <Link to="/profile">
+                    <Forum className="icon" />
+                  </Link>
+                </Button>
+                <Button>
+                  <ExitToApp
+                    className="icon"
+                    onClick={() => dispatch(logout())}
+                  />
+                </Button>
               </Box>
             )}
           </ListItemIcon>
         </ListItem>
         <Divider />
         {categories.map((category) => (
-          <ListItem className="categoryItem">
+          <ListItem key={category} className="categoryItem">
             <ListItemText>{category}</ListItemText>
             <ListItemIcon>
               <ArrowRight fontSize="large" style={{ color: "#fff4e6" }} />

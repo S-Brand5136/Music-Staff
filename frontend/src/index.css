@@ -23,12 +23,12 @@
 
 #iconsBox {
   position: relative;
-  left: 6rem;
+  left: 1rem;
 }
 
 .icon {
   color: #fff4e6;
-  margin-right: 1rem;
+  padding: 0;
 }
 
 .btn-sidebar {
@@ -64,5 +64,6 @@
 
 a {
   text-decoration: none;
-  color: brown;
+  margin: 0;
+  padding: 0;
 }

@@ -42,7 +42,9 @@ const LoginPage = ({ location, history }) => {
     }
   }, [history, userInfo, redirect]);
 
-  const onSubmitHandler = () => {
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    console.log("here");
     dispatch(login(email, password));
   };
 
@@ -59,7 +61,7 @@ const LoginPage = ({ location, history }) => {
         <Divider />
 
         <Grid item id="form">
-          <form onSubmit={onSubmitHandler}>
+          <form onSubmit={(e) => onSubmitHandler(e)}>
             <Grid container spacing={6} direction="row">
               <Grid item xs={12} md={9} lg={9} xl={12}>
                 <TextField
@@ -70,7 +72,6 @@ const LoginPage = ({ location, history }) => {
                     className: classes.root,
                   }}
                   id="email"
-                  color="white"
                   label="Email"
                   type="email"
                   onChange={(e) => setEmail(e.target.value)}
@@ -83,7 +84,6 @@ const LoginPage = ({ location, history }) => {
                   }}
                   InputProps={{ className: classes.multilineColor }}
                   id="password"
-                  color="primary"
                   label="Password"
                   type="password"
                   onChange={(e) => setPassword(e.target.value)}
@@ -95,7 +95,7 @@ const LoginPage = ({ location, history }) => {
                   variant="contained"
                   type="submit"
                   id="btn-signin"
-                  disableElevation="true"
+                  disableElevation={true}
                 >
                   Sign In
                 </Button>
@@ -104,6 +104,7 @@ const LoginPage = ({ location, history }) => {
                 <Typography variant="body1" style={{ color: "white" }}>
                   Don't have an account ?{" "}
                   <Link
+                    style={{ color: "brown" }}
                     to={
                       redirect ? `/register?redirect=${redirect}` : "/register"
                     }
