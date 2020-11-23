@@ -2,22 +2,19 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { register } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
+import Messsage from "../components/Message";
 
 // MaterialUI imports
 import { makeStyles } from "@material-ui/core/styles";
-import { Close } from "@material-ui/icons";
 import {
   Box,
-  Collapse,
   Button,
   Divider,
   Grid,
-  IconButton,
   LinearProgress,
   TextField,
   Typography,
 } from "@material-ui/core";
-import { Alert, AlertTitle } from "@material-ui/lab";
 
 const useStyles = makeStyles(() => ({
   multilineColor: {
@@ -36,7 +33,6 @@ const LoginPage = ({ location, history }) => {
   const [passwordTwo, setPasswordTwo] = useState("");
   const [name, setName] = useState("");
   const [message, setMessage] = useState(null);
-  const [open, setOpen] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -71,29 +67,8 @@ const LoginPage = ({ location, history }) => {
             Please enter your email, password, and name to register an account
           </Typography>
           {loading && <LinearProgress />}
-          {message && (
-            <Collapse in={open}>
-              <Alert
-                style={{ width: "75%" }}
-                variant="filled"
-                severity="error"
-                action={
-                  <IconButton
-                    aria-label="close"
-                    color="inherit"
-                    size="small"
-                    onClick={() => {
-                      setOpen(false);
-                    }}
-                  >
-                    <Close fontSize="inherit" />
-                  </IconButton>
-                }
-              >
-                {message}
-              </Alert>
-            </Collapse>
-          )}
+          {message && <Message variant="error" message={message} />}
+          {error && <Message variant="error" message={error} />}
         </Grid>
 
         <Divider />
