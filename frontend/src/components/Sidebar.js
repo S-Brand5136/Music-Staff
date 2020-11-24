@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../actions/userActions";
@@ -18,6 +18,7 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
+  Paper,
 } from "@material-ui/core";
 import {
   AccountCircle,
@@ -42,17 +43,23 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: "#854442",
+    backgroundColor: "#8D8C8A",
     overflow: "hidden",
   },
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  MuiPaper: {
+    backgroundColor: "transparent",
+  },
+  MuiList: {
+    paddingTop: "0",
+  },
 }));
 
 function Sidebar(props) {
-  const { window, history } = props;
+  const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -73,8 +80,8 @@ function Sidebar(props) {
   const dispatch = useDispatch();
 
   const drawer = (
-    <>
-      <List>
+    <List className={classes.MuiList}>
+      <Paper className={classes.MuiPaper} elevation={6}>
         <ListItem>
           <ListItemText id="header">
             <Typography variant="h4">Music Staff</Typography>
@@ -91,7 +98,9 @@ function Sidebar(props) {
             <Box>
               <Button
                 size="small"
-                style={{ margin: "0rem 1rem 0rem 1.3rem" }}
+                style={{
+                  margin: "0rem 1rem 0rem 1.3rem",
+                }}
                 disableElevation={true}
                 variant="contained"
               >
@@ -125,18 +134,16 @@ function Sidebar(props) {
             )}
           </ListItemIcon>
         </ListItem>
-        <Divider />
-        {categories.map((category) => (
-          <ListItem key={category} className="categoryItem">
-            <ListItemText>{category}</ListItemText>
-            <ListItemIcon>
-              <ArrowRight fontSize="large" style={{ color: "#fff4e6" }} />
-            </ListItemIcon>
-            <Divider />
-          </ListItem>
-        ))}
-      </List>
-    </>
+      </Paper>
+      {categories.map((category) => (
+        <ListItem key={category} className="categoryItem">
+          <ListItemText>{category}</ListItemText>
+          <ListItemIcon>
+            <ArrowRight fontSize="large" style={{ color: "#fff4e6" }} />
+          </ListItemIcon>
+        </ListItem>
+      ))}
+    </List>
   );
 
   const container =

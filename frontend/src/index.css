@@ -1,22 +1,33 @@
+/* Colours */
+/*
+Pages
+#363538
+#8D8C8A
+#F6F6F6
+
+Buttons
+#408697
+#52D6F4 */
+
 #root {
-  background-color: #4b3832;
-  height: 925px;
+  background-color: #363538;
+  height: 913px;
   width: 100%;
   margin: 0;
 }
 
 .categoryItem {
-  margin: 2rem;
-  color: #fff4e6;
+  margin: 2rem 0 2rem 1rem;
+  color: #f6f6f6;
 }
 
 #header {
-  color: #fff4e6;
+  color: #f6f6f6;
   margin: 1rem;
 }
 
 #userId {
-  color: #fff4e6;
+  color: #f6f6f6;
   font-weight: bold;
   float: right;
 }
@@ -27,7 +38,7 @@
 }
 
 .icon {
-  color: #fff4e6;
+  color: #f6f6f6;
   padding: 0;
 }
 
@@ -50,7 +61,7 @@
 }
 
 #signin {
-  color: #fff4e6;
+  color: #f6f6f6;
 }
 
 #signin:after {
@@ -59,11 +70,12 @@
   margin: 0;
   width: 75%;
   padding-top: 20px;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #408697;
 }
 
 a {
   text-decoration: none;
   margin: 0;
   padding: 0;
+  color: black;
 }

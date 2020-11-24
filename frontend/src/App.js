@@ -11,7 +11,7 @@ const App = () => {
     <Router>
       <Sidebar />
       <main>
-        <Container>
+        <Container disableGutters style={{ marginRight: "13rem" }}>
           <Route path="/" component={HomePage} exact />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />

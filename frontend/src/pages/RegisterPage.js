@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { register } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
-import Messsage from "../components/Message";
+import Message from "../components/Message";
 
 // MaterialUI imports
 import { makeStyles } from "@material-ui/core/styles";
@@ -52,7 +52,6 @@ const LoginPage = ({ location, history }) => {
 
     if (password !== passwordTwo) {
       setMessage("Passwords do not match!");
-      setOpen(true);
     } else {
       dispatch(register(name, email, password));
     }
@@ -143,7 +142,7 @@ const LoginPage = ({ location, history }) => {
                 <Typography variant="body1" style={{ color: "white" }}>
                   have an account ?{" "}
                   <Link
-                    style={{ color: "brown" }}
+                    style={{ color: "#52D6F4" }}
                     to={redirect ? `/login?redirect=${redirect}` : "/login"}
                   >
                     Sign in here!
