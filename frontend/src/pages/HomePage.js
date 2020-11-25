@@ -1,4 +1,5 @@
 import React from "react";
+import PostListItem from "../components/PostListItem";
 
 // MaterialUI Imports
 import {
@@ -19,7 +20,7 @@ import {
   Typography,
   Input,
 } from "@material-ui/core";
-import { Search } from "@material-ui/icons";
+import { Search, PostAdd } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +43,13 @@ const useStyles = makeStyles((theme) => ({
     height: 28,
     margin: 4,
   },
+  MuiListItem: {
+    color: "white",
+    margin: "1rem",
+  },
+  MuiTypography: {
+    color: "white",
+  },
 }));
 
 const HomePage = () => {
@@ -59,7 +67,9 @@ const HomePage = () => {
             spacing={5}
           >
             <Grid item xl={7} xs={12} md={8}>
-              <Typography variant="h3">General</Typography>
+              <Typography variant="h3" className={classes.MuiTypography}>
+                General
+              </Typography>
             </Grid>
 
             <Grid item xl={4} xs={12} md={8}>
@@ -79,30 +89,27 @@ const HomePage = () => {
                 </IconButton>
               </Paper>
             </Grid>
+            <Grid item xl={11} xs={12} md={8}>
+              <Button style={{ float: "right" }} variant="contained">
+                <PostAdd /> New Post
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
 
         <Grid item xl={12}>
-          <Grid container>
+          <Grid container direction="row">
             <Grid item>
-              <Typography>Discussions</Typography>
+              <Typography className={classes.MuiTypography} variant="subtitle1">
+                Discussions
+              </Typography>
             </Grid>
 
-            <Grid item>
+            <Grid item xl={12} lg={12}>
               <List>
-                <ListItem>
-                  <ListItemText>
-                    <Typography>Title</Typography>
-                  </ListItemText>
-                  <Chip label="Announcement" color="primary" />
-
-                  <ListItemText>
-                    <Typography>Posted By: Brandon Shemilt</Typography>
-                  </ListItemText>
-                  <ListItemText>
-                    <Typography>Replies: 50</Typography>
-                  </ListItemText>
-                </ListItem>
+                <Divider />
+                <PostListItem />
+                <Divider />
               </List>
             </Grid>
           </Grid>

@@ -116,11 +116,13 @@ function Sidebar(props) {
           <ListItemIcon>
             {userInfo && (
               <Box id="iconsBox">
-                <Button>
-                  <AccountCircle className="icon" />
+                <Button style={{ lineHeight: "0" }}>
+                  <Link to="/profile">
+                    <AccountCircle className="icon" />
+                  </Link>
                 </Button>
                 <Button size="small" style={{ lineHeight: "0" }}>
-                  <Link to="/profile">
+                  <Link to="/">
                     <Forum className="icon" />
                   </Link>
                 </Button>
