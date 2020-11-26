@@ -1,8 +1,11 @@
 import React from "react";
-import PostListItem from "../components/PostListItem";
+import { useSelector } from "react-redux";
+import ProfileUpdateForm from "../components/ProfileUpdateForm";
+import ProfileTabTable from "../components/ProfileTabTable";
 
 // MaterialUI imports
 import {
+  AppBar,
   Avatar,
   Box,
   Button,
@@ -12,16 +15,47 @@ import {
   ListItem,
   ListItemAvatar,
   ListItemIcon,
-  Tabs,
+  makeStyles,
+  TextField,
   Typography,
+  Paper,
 } from "@material-ui/core";
 
+const useStyles = makeStyles(() => ({
+  MuiTypography: {
+    color: "white",
+  },
+}));
+
 const ProfilePage = () => {
+  const classes = useStyles();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   return (
     <Box>
-      <Grid container direction="column" justify="center" alignItems="center">
-        <Grid item></Grid>
-        <Grid item></Grid>
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+        spacing={4}
+      >
+        <Grid item xs={12} lg={2}>
+          <Avatar alt="userAvatar" src="../../public/images/avatar.jpeg" />
+        </Grid>
+        <Grid item xs={12} lg={10}>
+          <Typography variant="h3" className={classes.MuiTypography}>
+            {userInfo.name}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} xl={6}>
+          <ProfileUpdateForm userInfo={userInfo} />
+        </Grid>
+        <Grid item xs={12} xl={6}>
+          <ProfileTabTable />
+        </Grid>
       </Grid>
     </Box>
   );

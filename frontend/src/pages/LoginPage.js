@@ -4,12 +4,12 @@ import { login } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
 // MaterialUI imports
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Box,
   Button,
   Divider,
   Grid,
+  makeStyles,
   TextField,
   Typography,
 } from "@material-ui/core";
@@ -75,7 +75,7 @@ const LoginPage = ({ location, history }) => {
                   label="Email"
                   type="email"
                   onChange={(e) => setEmail(e.target.value)}
-                ></TextField>
+                />
               </Grid>
               <Grid item xs={12} md={9} lg={9} xl={12}>
                 <TextField
@@ -87,7 +87,7 @@ const LoginPage = ({ location, history }) => {
                   label="Password"
                   type="password"
                   onChange={(e) => setPassword(e.target.value)}
-                ></TextField>
+                />
               </Grid>
               <Grid item xs={12} md={9} xl={3}>
                 <Button
