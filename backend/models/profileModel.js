@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 const profileSchema = mongoose.Schema(
   {
@@ -11,38 +11,35 @@ const profileSchema = mongoose.Schema(
     },
     discussions: [
       {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Discussion",
       },
     ],
     comments: [
       {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "Discussion",
       },
     ],
-    instrumentsLearned: [
+    bio: {
+      type: String,
+    },
+    social: [
       {
-        type: String,
+        youtube: {
+          type: String,
+        },
+        twitter: {
+          type: String,
+        },
+        instagram: {
+          type: String,
+        },
+        linkedin: {
+          type: String,
+        },
       },
     ],
-    bio: {
-      Type: String,
-    },
-    social: {
-      youtube: {
-        type: String,
-      },
-      twitter: {
-        type: String,
-      },
-      instagram: {
-        type: String,
-      },
-      linkedin: {
-        type: String,
-      },
-    },
   },
   {
     timestamps: true,

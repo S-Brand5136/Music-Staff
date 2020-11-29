@@ -7,18 +7,23 @@ import {
   userRegisterReducer,
   userUpdateReducer,
 } from "./reducers/userReducer";
+import { profileGetReducer } from "./reducers/profileReducer";
 
 const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userUpdate: userUpdateReducer,
+  userProfile: profileGetReducer,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
 
-const initialState = { userLogin: { userInfo: userInfoFromStorage } };
+const initialState = {
+  userLogin: { userInfo: userInfoFromStorage },
+  userProfile: {},
+};
 
 const middleware = [thunk];
 

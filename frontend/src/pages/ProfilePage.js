@@ -21,9 +21,13 @@ import {
   Paper,
 } from "@material-ui/core";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   MuiTypography: {
     color: "white",
+  },
+  large: {
+    width: theme.spacing(20),
+    height: theme.spacing(20),
   },
 }));
 
@@ -42,11 +46,15 @@ const ProfilePage = () => {
         alignItems="center"
         spacing={4}
       >
-        <Grid item xs={12} lg={2}>
-          <Avatar alt="userAvatar" src="../../public/images/avatar.jpeg" />
+        <Grid item xs={12} lg={6}>
+          <Avatar
+            alt="userAvatar"
+            className={classes.large}
+            src="../../public/images/avatar.jpeg"
+          />
         </Grid>
-        <Grid item xs={12} lg={10}>
-          <Typography variant="h3" className={classes.MuiTypography}>
+        <Grid item xs={12} lg={4}>
+          <Typography variant="h2" className={classes.MuiTypography}>
             {userInfo.name}
           </Typography>
         </Grid>
