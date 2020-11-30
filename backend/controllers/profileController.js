@@ -1,14 +1,15 @@
 import asyncHandler from "express-async-handler";
 import Profile from "../models/profileModel.js";
+import User from "../models/userModel.js";
 
-// @desc    Get user Profile
+// @desc    Get logged in user Profile
 // @route   GET api/profile
 // @access  Private
-const getUserProfile = asyncHandler(async (req, res) => {
+const getLoggedInProfile = asyncHandler(async (req, res) => {
   const profile = await Profile.findOne({ user: req.user._id });
 
   if (profile) {
-    res.json({
+    return res.json({
       _id: profile._id,
       avatar: profile.avatar,
       discussions: profile.discussions,
@@ -16,12 +17,25 @@ const getUserProfile = asyncHandler(async (req, res) => {
       bio: profile.bio,
       social: profile.social,
     });
-  }
-  if (!profile) {
-    res.json({ msg: "No Profile has been created" });
   } else {
     res.status(500);
-    throw new Error("Server Error");
+    throw new Error("No Profile has been found");
+  }
+});
+
+// @desc    Get users profile by id
+// @route   GET api/profile/user/:id
+// @access  Public
+const getUserProfile = asyncHandler(async (req, res) => {
+  const profile = await Profile.findOne({
+    profile: req.params.user_id,
+  }).populate("user", ["bio", "avatar"]);
+
+  if (profile) {
+    return res.json(profile);
+  } else {
+    res.status(500);
+    throw new Error("No Profile has been found");
   }
 });
 
@@ -61,4 +75,24 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-export { getUserProfile, updateUserProfile };
+// @desc    delete logged in user Profile
+// @route   DELETE api/profile
+// @access  Private
+const deleteUser = asyncHandler(async (req, res) => {
+  const profile = await Profile.findOne({ user: req.user._id });
+  const user = await User.findOne({ user: req.user._id });
+
+  if (profile) {
+    await Profile.deleteOne(profile);
+
+    await User.deleteOne(user);
+
+    // TODO: Add delete discussions
+    res.json({ msg: "User Deleted " });
+  } else {
+    res.status(500);
+    throw new Error("Unable to delete");
+  }
+});
+
+export { getLoggedInProfile, updateUserProfile, getUserProfile, deleteUser };

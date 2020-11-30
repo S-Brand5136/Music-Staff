@@ -11,13 +11,7 @@ export const getProfile = () => async (dispatch) => {
       type: PROFILE_GET_REQUEST,
     });
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const { data } = await axios.post("/api/profile", config);
+    const { data } = await axios.get("/api/profile");
 
     dispatch({
       type: PROFILE_GET_SUCCESS,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 // MaterialUI Imports
@@ -33,6 +33,8 @@ const ProfileUpdateForm = ({ userInfo }) => {
   const classes = useStyles();
   const { name, email } = userInfo;
   const userProfile = useSelector((state) => state.userProfile);
+
+  // TODO: Write useEffect function that gets User profile details
 
   return (
     <Box>
