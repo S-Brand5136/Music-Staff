@@ -31,9 +31,6 @@ const discussionSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    name: {
-      type: String,
-    },
     title: {
       type: String,
     },
@@ -49,11 +46,6 @@ const discussionSchema = mongoose.Schema(
     ],
     comments: [commentSchema],
     numComments: {
-      type: Number,
-      required: true,
-      default: 0,
-    },
-    pageViews: {
       type: Number,
       required: true,
       default: 0,
