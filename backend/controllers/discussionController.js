@@ -13,6 +13,7 @@ const postDiscussion = asyncHandler(async (req, res) => {
     title,
     category,
     likes,
+    dislikes,
     comments,
     numComments,
   } = req.body;
@@ -23,6 +24,7 @@ const postDiscussion = asyncHandler(async (req, res) => {
     title,
     category,
     likes,
+    dislikes,
     comments,
     numComments,
   });
@@ -33,6 +35,27 @@ const postDiscussion = asyncHandler(async (req, res) => {
   } else {
     res.status(500);
     throw new Error("Error in Discussion Creation");
+  }
+});
+
+// @desc    Update a discussion
+// @route   Put api/discussion/:id
+// @access  private
+const updateDiscussion = asyncHandler(async (req, res) => {
+  const { text, title, category } = req.body;
+
+  const discussion = await Discussion.findById(req.params.id);
+
+  if (discussion) {
+    discussion.text = text;
+    discussion.title = title;
+    discussion.category = category;
+
+    const updatedDiscussion = await discussion.save();
+    return res.status(201).json(updatedDiscussion);
+  } else {
+    res.status(500);
+    throw new Error("Error in Discussion Update");
   }
 });
 
@@ -87,9 +110,90 @@ const getDiscussionsByCategory = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Put Like or unLike
+// @route   Put api/discussion/:id
+// @access  private
+const likeDiscussion = asyncHandler(async (req, res) => {
+  const discussion = await Discussion.findOne({ disccusion: req.params.id });
+
+  if (
+    discussion.likes.filter((like) => like.user.toString() === req.user.id)
+      .length > 0
+  ) {
+    const removeIndex = discussion.likes
+      .map((like) => like.user.toString())
+      .indexOf(req.user.id);
+
+    discussion.likes.splice(removeIndex, 1);
+
+    await discussion.save();
+
+    res.json(discussion.likes);
+  } else {
+    discussion.likes.unshift({ user: req.user.id });
+
+    await discussion.save();
+  }
+
+  if (!discussion) {
+    res.status(500);
+    throw new Error("Failed to like Discussion");
+  }
+});
+
+// @desc    Put Dislike or unDislike
+// @route   Put api/discussion/:id
+// @access  private
+const dislikeDiscussion = asyncHandler(async (req, res) => {
+  const discussion = await Discussion.findOne({ disccusion: req.params.id });
+
+  if (
+    discussion.dislikes.filter(
+      (dislike) => dislike.user.toString() === req.user.id
+    ).length > 0
+  ) {
+    const removeIndex = discussion.dislikes
+      .map((dislike) => dislike.user.toString())
+      .indexOf(req.user.id);
+
+    discussion.dislikes.splice(removeIndex, 1);
+
+    await discussion.save();
+
+    res.json(discussion.dislikes);
+  } else {
+    discussion.dislikes.unshift({ user: req.user.id });
+
+    await discussion.save();
+  }
+
+  if (!discussion) {
+    res.status(500);
+    throw new Error("Failed to like Discussion");
+  }
+});
+
+// @desc    Delete a discussion
+// @route   Delete api/discussion/:id
+// @access  private
+const getDiscussionById = asyncHandler(async (req, res) => {
+  const discussion = await Discussion.findOne({ disccusion: req.params.id });
+
+  if (discussion.postedBy.user._id === req.user.id) {
+    Discussion.deleteOne(discussion);
+
+    return res.json({ msg: "Discussion Deleted " });
+  } else {
+    res.status(500);
+    throw new Error("No Discussion has been found");
+  }
+});
+
 export {
   getDiscussionById,
   getAllDiscussions,
   getDiscussionsByCategory,
   postDiscussion,
+  likeDiscussion,
+  dislikeDiscussion,
 };

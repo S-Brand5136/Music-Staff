@@ -41,6 +41,15 @@ const discussionSchema = mongoose.Schema(
       {
         user: {
           type: Schema.Types.ObjectId,
+          Ref: "User",
+        },
+      },
+    ],
+    dislikes: [
+      {
+        user: {
+          type: Schema.Types.ObjectId,
+          Ref: "User",
         },
       },
     ],
