@@ -36,6 +36,9 @@ const discussionSchema = mongoose.Schema(
     category: {
       type: String,
     },
+    badge: {
+      type: String,
+    },
     likes: [
       {
         user: {

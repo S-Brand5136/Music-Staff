@@ -19,6 +19,7 @@ const getDiscussionById = asyncHandler(async (req, res) => {
       title: discussion.title,
       category: discussion.category,
       likes: discussion.likes,
+      badge: discussion.badge,
       comments: discussion.comments,
       numComments: discussion.numComments,
     });
@@ -46,7 +47,7 @@ const getAllDiscussions = asyncHandler(async (req, res) => {
 // @route   Post api/discussion
 // @access  private
 const postDiscussion = asyncHandler(async (req, res) => {
-  const { text, title, category } = req.body;
+  const { text, title, category, badge } = req.body;
 
   const discussion = new Discussion({
     postedBy: req.user,
@@ -54,6 +55,7 @@ const postDiscussion = asyncHandler(async (req, res) => {
     title,
     category,
     comments: [],
+    badge,
   });
 
   if (discussion) {
@@ -69,7 +71,7 @@ const postDiscussion = asyncHandler(async (req, res) => {
 // @route   Put api/discussion/:id
 // @access  private
 const updateDiscussion = asyncHandler(async (req, res) => {
-  const { text, title, category } = req.body;
+  const { text, title, category, badge } = req.body;
 
   const discussion = await Discussion.findById(req.params.id);
 
@@ -77,6 +79,7 @@ const updateDiscussion = asyncHandler(async (req, res) => {
     discussion.text = text;
     discussion.title = title;
     discussion.category = category;
+    discussion.badge = badge;
 
     const updatedDiscussion = await discussion.save();
     return res.status(201).json(updatedDiscussion);
