@@ -1,9 +1,9 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose from "mongoose";
 
 const commentSchema = mongoose.Schema(
   {
     user: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
     text: {
@@ -24,12 +24,11 @@ const commentSchema = mongoose.Schema(
 const discussionSchema = mongoose.Schema(
   {
     postedBy: {
-      type: Schema.Types.ObjectId,
+      type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
     text: {
       type: String,
-      required: true,
     },
     title: {
       type: String,
@@ -40,23 +39,22 @@ const discussionSchema = mongoose.Schema(
     likes: [
       {
         user: {
-          type: Schema.Types.ObjectId,
-          Ref: "User",
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
         },
       },
     ],
     dislikes: [
       {
         user: {
-          type: Schema.Types.ObjectId,
-          Ref: "User",
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
         },
       },
     ],
     comments: [commentSchema],
     numComments: {
       type: Number,
-      required: true,
       default: 0,
     },
   },
