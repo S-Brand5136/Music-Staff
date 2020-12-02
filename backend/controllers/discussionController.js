@@ -198,4 +198,4 @@ export {
   updateDiscussion,
 };
 
-// TODO add post comment and delete comment controllers
+// TODO add post comment and delete comment controllers, add checks for likes and dislikes
