@@ -5,20 +5,14 @@ import PostListItem from "../components/PostListItem";
 import {
   Box,
   Button,
-  Chip,
   Divider,
   Grid,
-  InputLabel,
   IconButton,
   InputBase,
   List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
   makeStyles,
   Paper,
   Typography,
-  Input,
 } from "@material-ui/core";
 import { Search, PostAdd } from "@material-ui/icons";
 

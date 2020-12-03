@@ -9,7 +9,7 @@ const Message = ({ message, variant }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <>
+    <div>
       <Collapse in={open}>
         <Alert
           style={{ width: "75%" }}
@@ -31,7 +31,7 @@ const Message = ({ message, variant }) => {
           {message}
         </Alert>
       </Collapse>
-    </>
+    </div>
   );
 };
 

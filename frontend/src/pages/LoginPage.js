@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { login } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
+import Message from "../components/Message";
 
 // MaterialUI imports
 import {
@@ -9,9 +10,11 @@ import {
   Button,
   Divider,
   Grid,
+  LinearProgress,
   makeStyles,
   TextField,
   Typography,
+  Snackbar,
 } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
@@ -44,7 +47,6 @@ const LoginPage = ({ location, history }) => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    console.log("here");
     dispatch(login(email, password));
   };
 
@@ -56,8 +58,9 @@ const LoginPage = ({ location, history }) => {
           <Typography variant="body1">
             Please enter your Music Staff email and password to sign in
           </Typography>
+          {loading && <LinearProgress />}
+          {error && <Message message={error} variant="error" />}
         </Grid>
-
         <Divider />
 
         <Grid item id="form">
