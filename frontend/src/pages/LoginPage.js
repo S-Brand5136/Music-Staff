@@ -59,7 +59,7 @@ const LoginPage = ({ location, history }) => {
             Please enter your Music Staff email and password to sign in
           </Typography>
           {loading && <LinearProgress />}
-          {error && <Message message={error} variant="error" />}
+          {error && <Message message={error} variant="error" open={true} />}
         </Grid>
         <Divider />
 

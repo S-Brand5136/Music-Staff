@@ -37,7 +37,10 @@ const LoginPage = ({ location, history }) => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const { userInfo } = userLogin;
+
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, error } = userRegister;
 
   const redirect = location.search ? location.search.split("=")[1] : "/";
 
@@ -66,8 +69,8 @@ const LoginPage = ({ location, history }) => {
             Please enter your email, password, and name to register an account
           </Typography>
           {loading && <LinearProgress />}
-          {message && <Message variant="error" message={message} />}
-          {error && <Message variant="error" message={error} />}
+          {message && <Message variant="error" message={message} open={true} />}
+          {error && <Message variant="error" message={error} open={true} />}
         </Grid>
 
         <Divider />

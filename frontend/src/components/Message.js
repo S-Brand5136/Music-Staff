@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 // Material UI Imports
 import { Close } from "@material-ui/icons";
 import { Collapse, IconButton } from "@material-ui/core";
 import { Alert } from "@material-ui/lab";
 
-const Message = ({ message, variant }) => {
-  const [open, setOpen] = useState(false);
+const Message = ({ message, variant, open }) => {
+  const [openAlert, setOpenAlert] = useState(open);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setOpenAlert(false);
+    }, 3000);
+  }, []);
 
   return (
     <div>
-      <Collapse in={open}>
+      <Collapse in={openAlert}>
         <Alert
           style={{ width: "75%" }}
           variant="filled"
@@ -21,7 +27,7 @@ const Message = ({ message, variant }) => {
               color="inherit"
               size="small"
               onClick={() => {
-                setOpen(false);
+                setOpenAlert(false);
               }}
             >
               <Close fontSize="inherit" />
