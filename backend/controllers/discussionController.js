@@ -1,7 +1,6 @@
 import asyncHandler from "express-async-handler";
 import Discussion from "../models/discussionModel.js";
 import Profile from "../models/profileModel.js";
-import User from "../models/userModel.js";
 
 // @desc    Get discussion by ID
 // @route   GET api/discussion/:id
@@ -190,6 +189,54 @@ const deleteDiscussion = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Post a comment
+// @route   Post api/discussion/:id/comments
+// @access  private
+const createDiscussionComment = asyncHandler(async (req, res) => {
+  const { text } = req.body;
+  const profile = await Profile.findOne({ user: req.user._id });
+
+  const discussion = await Discussion.findById(req.params.id);
+
+  if (discussion) {
+    const comment = {
+      user: req.user._id,
+      text,
+      name: req.user.name,
+      avatar: profile.avatar,
+    };
+
+    discussion.comments.push(comment);
+    discussion.numComments = discussion.comments.length;
+
+    await discussion.save();
+    res.status(201).json({ message: "Comment posted" });
+  } else {
+    res.status(500);
+    throw new Error("Error in Comment Creation");
+  }
+});
+
+// @desc    Delete a comment
+// @route   Delete api/discussion/:id/comments/:commentid
+// @access  private
+const deleteDiscussionComment = asyncHandler(async (req, res) => {
+  const discussion = await Discussion.findById(req.params.id);
+
+  if (discussion) {
+    const removeIndex = discussion.comments.findIndex(
+      (comment) => comment.id === req.params.commentid
+    );
+    discussion.comments.splice(removeIndex, 1);
+
+    await discussion.save();
+    res.status(201).json({ message: "Comment deleted" });
+  } else {
+    res.status(500);
+    throw new Error("Error in Comment Deletion");
+  }
+});
+
 export {
   getDiscussionById,
   getAllDiscussions,
@@ -199,6 +246,6 @@ export {
   dislikeDiscussion,
   deleteDiscussion,
   updateDiscussion,
+  createDiscussionComment,
+  deleteDiscussionComment,
 };
-
-// TODO add post comment and delete comment controllers, add checks for likes and dislikes

@@ -9,10 +9,16 @@ import {
   deleteDiscussion,
   updateDiscussion,
   postDiscussion,
+  createDiscussionComment,
+  deleteDiscussionComment,
 } from "../controllers/discussionController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
 router.route("/").get(getAllDiscussions).put(protect, postDiscussion);
+router.route("/:id/comments").post(protect, createDiscussionComment);
+router
+  .route("/:id/comments/:commentid")
+  .delete(protect, deleteDiscussionComment);
 router
   .route("/:id")
   .get(getDiscussionById)
