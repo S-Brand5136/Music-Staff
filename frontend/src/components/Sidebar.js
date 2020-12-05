@@ -9,7 +9,6 @@ import {
   Box,
   Button,
   Drawer,
-  Divider,
   CssBaseline,
   Hidden,
   IconButton,
@@ -55,6 +54,10 @@ const useStyles = makeStyles((theme) => ({
   },
   MuiList: {
     paddingTop: "0",
+  },
+  MuiListItem: {
+    margin: "2rem 0 2rem 1rem",
+    color: "#f6f6f6",
   },
 }));
 
@@ -138,7 +141,7 @@ function Sidebar(props) {
         </ListItem>
       </Paper>
       {categories.map((category) => (
-        <ListItem key={category} className="categoryItem">
+        <ListItem button key={category} className={classes.MuiListItem}>
           <ListItemText>{category}</ListItemText>
           <ListItemIcon>
             <ArrowRight fontSize="large" style={{ color: "#fff4e6" }} />
