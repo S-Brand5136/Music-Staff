@@ -23,18 +23,25 @@ const commentSchema = mongoose.Schema(
 
 const discussionSchema = mongoose.Schema(
   {
-    postedBy: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    postedBy: {
+      type: String,
+      required: true,
+    },
     text: {
       type: String,
+      required: true,
     },
     title: {
       type: String,
+      required: true,
     },
     category: {
       type: String,
+      required: true,
     },
     badge: {
       type: String,

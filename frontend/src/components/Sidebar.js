@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../actions/userActions";
@@ -55,20 +55,20 @@ const useStyles = makeStyles((theme) => ({
   MuiList: {
     paddingTop: "0",
   },
-  MuiListItem: {
-    margin: "2rem 0 2rem 1rem",
+  MuiButtonBase: {
+    padding: "2rem 0 2rem 1rem",
     color: "#f6f6f6",
   },
 }));
 
 function Sidebar(props) {
+  const dispatch = useDispatch();
+
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
 
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [categories, setCategories] = useState([
     "General",
     "Music Theory",
@@ -76,11 +76,12 @@ function Sidebar(props) {
     "New Music",
   ]);
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
-  const dispatch = useDispatch();
 
   const drawer = (
     <List className={classes.MuiList}>
@@ -141,7 +142,7 @@ function Sidebar(props) {
         </ListItem>
       </Paper>
       {categories.map((category) => (
-        <ListItem button key={category} className={classes.MuiListItem}>
+        <ListItem button key={category} className={classes.MuiButtonBase}>
           <ListItemText>{category}</ListItemText>
           <ListItemIcon>
             <ArrowRight fontSize="large" style={{ color: "#fff4e6" }} />

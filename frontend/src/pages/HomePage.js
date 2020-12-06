@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PostListItem from "../components/PostListItem";
+import { useSelector, useDispatch } from "react-redux";
+import { getDiscussions } from "../actions/discussionActions";
 
 // MaterialUI Imports
 import {
@@ -9,6 +11,7 @@ import {
   Grid,
   IconButton,
   InputBase,
+  LinearProgress,
   List,
   makeStyles,
   Paper,
@@ -48,7 +51,14 @@ const useStyles = makeStyles((theme) => ({
 
 const HomePage = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
+  const discussions = useSelector((state) => state.discussions);
+  const { discussionList, loading } = discussions;
+
+  useEffect(() => {
+    dispatch(getDiscussions());
+  }, [dispatch]);
   return (
     <Box>
       <Grid container direction="row">
@@ -100,11 +110,19 @@ const HomePage = () => {
             </Grid>
 
             <Grid item xl={12} lg={12}>
-              <List>
-                <Divider />
-                <PostListItem />
-                <Divider />
-              </List>
+              {loading ? (
+                <LinearProgress color="primary" />
+              ) : (
+                <List>
+                  <Divider />
+                  {discussionList.map((item) => (
+                    <>
+                      <PostListItem discussion={item} />
+                      <Divider />
+                    </>
+                  ))}
+                </List>
+              )}
             </Grid>
           </Grid>
         </Grid>

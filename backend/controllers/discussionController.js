@@ -29,7 +29,7 @@ const getDiscussionById = asyncHandler(async (req, res) => {
 });
 
 // @desc    Get all discussions
-// @route   GET api/discussion
+// @route   GET api/discussions
 // @access  public
 const getAllDiscussions = asyncHandler(async (req, res) => {
   const discussions = await Discussion.find({});
@@ -49,7 +49,8 @@ const postDiscussion = asyncHandler(async (req, res) => {
   const { text, title, category, badge } = req.body;
 
   const discussion = new Discussion({
-    postedBy: req.user,
+    user: req.user,
+    postedBy: req.user.name,
     text,
     title,
     category,
