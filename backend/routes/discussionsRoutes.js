@@ -26,6 +26,6 @@ router
   .delete(protect, deleteDiscussion);
 router.route("/like/:id").put(protect, likeDiscussion);
 router.route("/dislike/:id").put(protect, dislikeDiscussion);
-router.route("/:category").get(getDiscussionsByCategory);
+router.route("/category").get(getDiscussionsByCategory);
 
 export default router;

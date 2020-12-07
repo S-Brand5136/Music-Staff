@@ -56,9 +56,7 @@ const HomePage = () => {
   const discussions = useSelector((state) => state.discussions);
   const { discussionList, loading } = discussions;
 
-  useEffect(() => {
-    dispatch(getDiscussions());
-  }, [dispatch]);
+  useEffect(() => {}, [dispatch]);
   return (
     <Box>
       <Grid container direction="row">

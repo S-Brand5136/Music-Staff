@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../actions/userActions";
+import { getDiscussionsByCategory } from "../actions/discussionActions";
 
 // MaterialUI Imports
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -63,6 +64,10 @@ const useStyles = makeStyles((theme) => ({
 
 function Sidebar(props) {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getDiscussionsByCategory("General"));
+  }, [dispatch]);
 
   const { window } = props;
   const classes = useStyles();

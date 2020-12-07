@@ -6,9 +6,7 @@ import Profile from "../models/profileModel.js";
 // @route   GET api/discussion/:id
 // @access  public
 const getDiscussionById = asyncHandler(async (req, res) => {
-  const discussion = await Discussion.findOne({
-    discussion: req.params.discussion_id,
-  });
+  const discussion = await Discussion.findById(req.params.id);
 
   if (discussion) {
     return res.json({
@@ -90,10 +88,10 @@ const updateDiscussion = asyncHandler(async (req, res) => {
 });
 
 // @desc    Get discussion by category
-// @route   GET api/discussion/:category
+// @route   GET api/discussion/category
 // @access  public
 const getDiscussionsByCategory = asyncHandler(async (req, res) => {
-  const discussions = await Discussion.find({ category: req.params.category });
+  const discussions = await Discussion.find({});
 
   if (discussions) {
     return res.json(discussions);
@@ -104,12 +102,10 @@ const getDiscussionsByCategory = asyncHandler(async (req, res) => {
 });
 
 // @desc    Put Like or unLike
-// @route   Put api/discussion/:id
+// @route   Put api/discussion/like/:id
 // @access  private
 const likeDiscussion = asyncHandler(async (req, res) => {
-  const discussion = await Discussion.findOne({
-    discussion: req.params.discussion_id,
-  });
+  const discussion = await Discussion.findById(req.params.id);
 
   if (
     discussion.likes.filter(
@@ -142,9 +138,8 @@ const likeDiscussion = asyncHandler(async (req, res) => {
 // @route   Put api/discussion/:id
 // @access  private
 const dislikeDiscussion = asyncHandler(async (req, res) => {
-  const discussion = await Discussion.findOne({
-    discussion: req.params.discussion_id,
-  });
+  const discussion = await Discussion.findById(req.params.id);
+
   if (
     discussion.dislikes.filter(
       (dislike) => dislike.user.toString() === req.user._id.toString()
