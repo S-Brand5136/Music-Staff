@@ -76,10 +76,11 @@ export const getDiscussionsByCategory = (category) => async (dispatch) => {
     };
 
     const { data } = await axios.get(
-      `/api/discussions/category`,
-      { category },
+      `/api/discussions/cat/${category}`,
       config
     );
+
+    console.log(data);
 
     dispatch({
       type: DISCUSSION_GET_BY_CATEGORY_SUCCESS,

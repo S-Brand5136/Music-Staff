@@ -16,6 +16,7 @@ import { protect } from "../middleware/authMiddleware.js";
 
 router.route("/").get(getAllDiscussions).put(protect, postDiscussion);
 router.route("/:id/comments").post(protect, createDiscussionComment);
+router.route("/cat/:category").get(getDiscussionsByCategory);
 router
   .route("/:id/comments/:commentid")
   .delete(protect, deleteDiscussionComment);
@@ -26,6 +27,5 @@ router
   .delete(protect, deleteDiscussion);
 router.route("/like/:id").put(protect, likeDiscussion);
 router.route("/dislike/:id").put(protect, dislikeDiscussion);
-router.route("/cat").get(getDiscussionsByCategory);
 
 export default router;

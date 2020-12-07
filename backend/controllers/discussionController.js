@@ -40,13 +40,6 @@ const getAllDiscussions = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Get all discussions by category
-// @route   GET api/discussions/category
-// @access  public
-const getDiscussionsByCategory = asyncHandler(async (req, res) => {
-  console.log("Hello");
-});
-
 // @desc    Post a discussion
 // @route   Post api/discussion
 // @access  private
@@ -91,6 +84,24 @@ const updateDiscussion = asyncHandler(async (req, res) => {
   } else {
     res.status(500);
     throw new Error("Error in Discussion Update");
+  }
+});
+
+// @desc    Get discussion by category
+// @route   GET api/discussion/cat/:category
+// @access  public
+const getDiscussionsByCategory = asyncHandler(async (req, res) => {
+  const category = req.params.category;
+
+  const discussions = await Discussion.find({
+    category: category,
+  }).exec();
+
+  if (discussions) {
+    return res.json(discussions);
+  } else {
+    res.status(500);
+    throw new Error("Discussions not found");
   }
 });
 

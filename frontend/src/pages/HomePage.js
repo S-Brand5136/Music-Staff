@@ -56,6 +56,9 @@ const HomePage = () => {
   const discussions = useSelector((state) => state.discussions);
   const { discussionList, loading } = discussions;
 
+  const discussionsByCat = useSelector((state) => state.discussionsByCat);
+  const { discussionsByCategory, loading: catLoading } = discussionsByCat;
+
   useEffect(() => {}, [dispatch]);
   return (
     <Box>
