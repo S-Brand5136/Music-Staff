@@ -74,15 +74,19 @@ function Sidebar(props) {
   const theme = useTheme();
 
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [categories, setCategories] = useState([
+  const categories = [
     "General",
     "Music Theory",
     "Instrument Talk",
     "New Music",
-  ]);
+  ];
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const forumCategoryClickHandler = (category) => {
+    dispatch(getDiscussionsByCategory(category));
+  };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -147,7 +151,12 @@ function Sidebar(props) {
         </ListItem>
       </Paper>
       {categories.map((category) => (
-        <ListItem button key={category} className={classes.MuiButtonBase}>
+        <ListItem
+          button
+          key={category}
+          onClick={() => forumCategoryClickHandler(category)}
+          className={classes.MuiButtonBase}
+        >
           <ListItemText>{category}</ListItemText>
           <ListItemIcon>
             <ArrowRight fontSize="large" style={{ color: "#fff4e6" }} />

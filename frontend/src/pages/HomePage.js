@@ -71,7 +71,7 @@ const HomePage = () => {
           >
             <Grid item xl={7} xs={12} md={8}>
               <Typography variant="h3" className={classes.MuiTypography}>
-                General
+                Forum
               </Typography>
             </Grid>
 
