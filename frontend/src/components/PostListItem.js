@@ -1,15 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  likeDiscussion,
-  dislikeDiscussion,
-  getDiscussionById,
-} from "../actions/discussionActions";
 
 // MaterialUI Imports
 import {
-  Button,
   Grid,
   Chip,
   makeStyles,
@@ -17,7 +10,6 @@ import {
   ListItemText,
   Typography,
 } from "@material-ui/core";
-import { ArrowUpward, ArrowDownward } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   MuiListItem: {
@@ -29,42 +21,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PostListItem = ({ dis }) => {
+const PostListItem = ({ discussion }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
 
-  const like = useSelector((state) => state.like);
-  const { success } = like;
-
-  const dislike = useSelector((state) => state.dislike);
-  const { success: dislikeSuccess } = dislike;
-
-  const discussion = useSelector((state) => state.discussion);
-  const { likes: updatedLikes, dislikes: updatedDislikes } = discussion;
-
-  let {
-    numComments,
-    postedBy,
-    title,
-    badge,
-    likes,
-    dislikes,
-    createdAt,
-    _id,
-  } = dis;
-
-  useEffect(() => {
-    if (success || dislikeSuccess) {
-      dispatch(getDiscussionById(discussion));
-      likes = updatedLikes;
-      dislikes = updatedDislikes;
-    }
-  }, [success, dislikeSuccess]);
+  let { numComments, postedBy, title, badge } = discussion;
 
   return (
     <ListItem className={classes.MuiListItem}>
       <Grid container>
-        <Grid item lg={3}>
+        <Grid item lg={4}>
           <ListItemText>
             <NavLink to="/" activeClasses="navLink">
               <Typography>
@@ -74,34 +39,16 @@ const PostListItem = ({ dis }) => {
             </NavLink>
           </ListItemText>
         </Grid>
-        <Grid item lg={3}>
+        <Grid item lg={4}>
           <ListItemText>
             <NavLink to="/" activeClasses="navLink">
               <Typography>Posted By: {postedBy}</Typography>
             </NavLink>
           </ListItemText>
         </Grid>
-        <Grid item lg={3}>
+        <Grid item lg={4}>
           <ListItemText>
             <Typography>Replies: {numComments}</Typography>
-          </ListItemText>
-        </Grid>
-        <Grid item lg={3}>
-          <ListItemText>
-            <Button
-              className={classes.MuiButton}
-              startIcon={<ArrowUpward />}
-              onClick={() => dispatch(likeDiscussion(dis))}
-            >
-              <Typography>{likes.length}</Typography>
-            </Button>
-            <Button
-              className={classes.MuiButton}
-              startIcon={<ArrowDownward />}
-              onClick={() => dispatch(dislikeDiscussion(dis))}
-            >
-              <Typography>{dislikes.length}</Typography>
-            </Button>
           </ListItemText>
         </Grid>
       </Grid>

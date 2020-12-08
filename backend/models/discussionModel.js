@@ -46,22 +46,6 @@ const discussionSchema = mongoose.Schema(
     badge: {
       type: String,
     },
-    likes: [
-      {
-        user: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-        },
-      },
-    ],
-    dislikes: [
-      {
-        user: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-        },
-      },
-    ],
     comments: [commentSchema],
     numComments: {
       type: Number,

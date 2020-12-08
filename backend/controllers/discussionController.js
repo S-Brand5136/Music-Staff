@@ -105,72 +105,6 @@ const getDiscussionsByCategory = asyncHandler(async (req, res) => {
   }
 });
 
-// @desc    Put Like or unLike
-// @route   Put api/discussion/like/:id
-// @access  private
-const likeDiscussion = asyncHandler(async (req, res) => {
-  const discussion = await Discussion.findById(req.params.id);
-
-  if (
-    discussion.likes.filter(
-      (like) => like.user.toString() === req.user._id.toString()
-    ).length > 0
-  ) {
-    const removeIndex = discussion.likes
-      .map((like) => like.user.toString())
-      .indexOf(req.user.id.toString());
-
-    discussion.likes.splice(removeIndex, 1);
-
-    await discussion.save();
-
-    return res.json(discussion.likes);
-  } else {
-    discussion.likes.unshift({ user: req.user._id });
-
-    await discussion.save();
-
-    res.json(discussion.likes);
-  }
-  if (!discussion) {
-    res.status(500);
-    throw new Error("Failed to like Discussion");
-  }
-});
-
-// @desc    Put Dislike or unDislike
-// @route   Put api/discussion/:id
-// @access  private
-const dislikeDiscussion = asyncHandler(async (req, res) => {
-  const discussion = await Discussion.findById(req.params.id);
-
-  if (
-    discussion.dislikes.filter(
-      (dislike) => dislike.user.toString() === req.user._id.toString()
-    ).length > 0
-  ) {
-    const removeIndex = discussion.dislikes
-      .map((dislike) => dislike.user.toString())
-      .indexOf(req.user.id.toString());
-
-    discussion.dislikes.splice(removeIndex, 1);
-
-    await discussion.save();
-
-    res.json(discussion.dislikes);
-  } else {
-    discussion.dislikes.unshift({ user: req.user._id });
-
-    await discussion.save();
-    res.json(discussion.dislikes);
-  }
-
-  if (!discussion) {
-    res.status(500);
-    throw new Error("Failed to like Discussion");
-  }
-});
-
 // @desc    Delete a discussion
 // @route   Delete api/discussion/:id
 // @access  private
@@ -242,8 +176,6 @@ export {
   getAllDiscussions,
   getDiscussionsByCategory,
   postDiscussion,
-  likeDiscussion,
-  dislikeDiscussion,
   deleteDiscussion,
   updateDiscussion,
   createDiscussionComment,

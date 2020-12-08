@@ -10,10 +10,7 @@ import {
 import { profileGetReducer } from "./reducers/profileReducer";
 import {
   getDiscussions,
-  likeDiscussion,
-  dislikeDiscussion,
   getDiscussionById,
-  getDiscussionByCategory,
 } from "./reducers/discussionReducer";
 
 const reducer = combineReducers({
@@ -22,10 +19,7 @@ const reducer = combineReducers({
   userUpdate: userUpdateReducer,
   userProfile: profileGetReducer,
   discussions: getDiscussions,
-  discussionsByCat: getDiscussionByCategory,
   discussion: getDiscussionById,
-  like: likeDiscussion,
-  dislike: dislikeDiscussion,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

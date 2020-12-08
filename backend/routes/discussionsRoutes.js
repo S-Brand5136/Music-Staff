@@ -4,8 +4,6 @@ import {
   getAllDiscussions,
   getDiscussionById,
   getDiscussionsByCategory,
-  dislikeDiscussion,
-  likeDiscussion,
   deleteDiscussion,
   updateDiscussion,
   postDiscussion,
@@ -25,7 +23,5 @@ router
   .get(getDiscussionById)
   .put(protect, updateDiscussion)
   .delete(protect, deleteDiscussion);
-router.route("/like/:id").put(protect, likeDiscussion);
-router.route("/dislike/:id").put(protect, dislikeDiscussion);
 
 export default router;

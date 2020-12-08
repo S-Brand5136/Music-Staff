@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import PostListItem from "../components/PostListItem";
 import { useSelector, useDispatch } from "react-redux";
-import { getDiscussions } from "../actions/discussionActions";
+import {
+  getDiscussions,
+  getDiscussionsByCategory,
+} from "../actions/discussionActions";
 
 // MaterialUI Imports
 import {
@@ -51,15 +54,10 @@ const useStyles = makeStyles((theme) => ({
 
 const HomePage = () => {
   const classes = useStyles();
-  const dispatch = useDispatch();
 
   const discussions = useSelector((state) => state.discussions);
   const { discussionList, loading } = discussions;
 
-  const discussionsByCat = useSelector((state) => state.discussionsByCat);
-  const { discussionsByCategory, loading: catLoading } = discussionsByCat;
-
-  useEffect(() => {}, [dispatch]);
   return (
     <Box>
       <Grid container direction="row">
