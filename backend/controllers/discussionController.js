@@ -40,6 +40,24 @@ const getAllDiscussions = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc    Get searched discussions
+// @route   GET api/discussions/:search
+// @access  public
+const getSearchedDiscussions = asyncHandler(async (req, res) => {
+  const search = req.params.search;
+
+  const discussions = await Discussion.find({
+    title: { $regex: search },
+  });
+
+  if (discussions) {
+    return res.json(discussions);
+  } else {
+    res.status(500);
+    throw new Error("Discussions not found");
+  }
+});
+
 // @desc    Post a discussion
 // @route   Post api/discussion
 // @access  private
@@ -175,6 +193,7 @@ export {
   getDiscussionById,
   getAllDiscussions,
   getDiscussionsByCategory,
+  getSearchedDiscussions,
   postDiscussion,
   deleteDiscussion,
   updateDiscussion,

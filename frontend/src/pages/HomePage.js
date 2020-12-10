@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import PostListItem from "../components/PostListItem";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getDiscussions,
-  getDiscussionsByCategory,
-} from "../actions/discussionActions";
+import { getDiscussionsBySearch } from "../actions/discussionActions";
 
 // MaterialUI Imports
 import {
@@ -54,9 +51,20 @@ const useStyles = makeStyles((theme) => ({
 
 const HomePage = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const [searchTerm, setSearchTerm] = useState("");
 
   const discussions = useSelector((state) => state.discussions);
   const { discussionList, loading } = discussions;
+
+  const category = useSelector((state) => state.category);
+  const { category: catTitle, loading: catloading } = category;
+
+  const searchHandler = (e) => {
+    e.preventDefault();
+    dispatch(getDiscussionsBySearch(searchTerm));
+  };
 
   return (
     <Box>
@@ -71,16 +79,21 @@ const HomePage = () => {
           >
             <Grid item xl={7} xs={12} md={8}>
               <Typography variant="h3" className={classes.MuiTypography}>
-                Forum
+                {catloading ? "...." : catTitle.toString()}
               </Typography>
             </Grid>
 
             <Grid item xl={4} xs={12} md={8}>
-              <Paper component="form" className={classes.root}>
+              <Paper
+                component="form"
+                onSubmit={(e) => searchHandler(e)}
+                className={classes.root}
+              >
                 <InputBase
                   className={classes.input}
                   placeholder="Search Forum..."
                   inputProps={{ "aria-label": "search google maps" }}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
                 <Divider className={classes.divider} orientation="vertical" />
                 <IconButton

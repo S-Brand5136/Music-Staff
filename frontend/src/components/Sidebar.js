@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../actions/userActions";
-import { getDiscussionsByCategory } from "../actions/discussionActions";
+import {
+  getDiscussionsByCategory,
+  setCategory,
+} from "../actions/discussionActions";
 
 // MaterialUI Imports
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -67,6 +70,7 @@ function Sidebar(props) {
 
   useEffect(() => {
     dispatch(getDiscussionsByCategory("General"));
+    dispatch(setCategory("General"));
   }, []);
 
   const { window } = props;
@@ -86,6 +90,7 @@ function Sidebar(props) {
 
   const forumCategoryClickHandler = (category) => {
     dispatch(getDiscussionsByCategory(category));
+    dispatch(setCategory(category));
   };
 
   const handleDrawerToggle = () => {

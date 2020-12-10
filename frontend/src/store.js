@@ -11,6 +11,7 @@ import { profileGetReducer } from "./reducers/profileReducer";
 import {
   getDiscussions,
   getDiscussionById,
+  setCategory,
 } from "./reducers/discussionReducer";
 
 const reducer = combineReducers({
@@ -20,6 +21,7 @@ const reducer = combineReducers({
   userProfile: profileGetReducer,
   discussions: getDiscussions,
   discussion: getDiscussionById,
+  category: setCategory,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
