@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Sidebar(props) {
+const Sidebar = ({ window }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -73,7 +73,6 @@ function Sidebar(props) {
     dispatch(setCategory("General"));
   }, []);
 
-  const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
 
@@ -114,19 +113,27 @@ function Sidebar(props) {
             </ListItemText>
           ) : (
             <Box>
-              <Button
-                size="small"
-                style={{
-                  margin: "0rem 1rem 0rem 1.3rem",
-                }}
-                disableElevation={true}
-                variant="contained"
-              >
-                <Link to="/login">Login</Link>
-              </Button>
-              <Button size="small" disableElevation={true} variant="contained">
-                <Link to="/register">Register</Link>
-              </Button>
+              <Link to="/login">
+                <Button
+                  size="small"
+                  style={{
+                    margin: "0rem 1rem 0rem 1.3rem",
+                  }}
+                  disableElevation={true}
+                  variant="contained"
+                >
+                  Login
+                </Button>
+              </Link>
+              <Link to="/register">
+                <Button
+                  size="small"
+                  disableElevation={true}
+                  variant="contained"
+                >
+                  Register
+                </Button>
+              </Link>
             </Box>
           )}
         </ListItem>
@@ -156,17 +163,19 @@ function Sidebar(props) {
         </ListItem>
       </Paper>
       {categories.map((category) => (
-        <ListItem
-          button
-          key={category}
-          onClick={() => forumCategoryClickHandler(category)}
-          className={classes.MuiButtonBase}
-        >
-          <ListItemText>{category}</ListItemText>
-          <ListItemIcon>
-            <ArrowRight fontSize="large" style={{ color: "#fff4e6" }} />
-          </ListItemIcon>
-        </ListItem>
+        <Link to="/">
+          <ListItem
+            button
+            key={category}
+            onClick={() => forumCategoryClickHandler(category)}
+            className={classes.MuiButtonBase}
+          >
+            <ListItemText>{category}</ListItemText>
+            <ListItemIcon>
+              <ArrowRight fontSize="large" style={{ color: "#fff4e6" }} />
+            </ListItemIcon>
+          </ListItem>
+        </Link>
       ))}
     </List>
   );
@@ -218,6 +227,6 @@ function Sidebar(props) {
       </nav>
     </div>
   );
-}
+};
 
 export default Sidebar;

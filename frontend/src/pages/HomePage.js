@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HomePage = () => {
+const HomePage = ({ history }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -106,7 +106,11 @@ const HomePage = () => {
               </Paper>
             </Grid>
             <Grid item xl={11} xs={12} md={8}>
-              <Button style={{ float: "right" }} variant="contained">
+              <Button
+                style={{ float: "right" }}
+                onClick={() => history.push("/createPost")}
+                variant="contained"
+              >
                 <PostAdd /> New Post
               </Button>
             </Grid>

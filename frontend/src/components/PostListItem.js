@@ -24,14 +24,14 @@ const useStyles = makeStyles((theme) => ({
 const PostListItem = ({ discussion }) => {
   const classes = useStyles();
 
-  let { numComments, postedBy, title, badge } = discussion;
+  let { numComments, postedBy, title, badge, _id, user } = discussion;
 
   return (
     <ListItem className={classes.MuiListItem}>
       <Grid container>
         <Grid item lg={4}>
           <ListItemText>
-            <NavLink to="/" activeClasses="navLink">
+            <NavLink to={`/discussion/${_id}`} activeClasses="navLink">
               <Typography>
                 {title}{" "}
                 {badge && <Chip label={badge} color="primary" size="small" />}
@@ -41,7 +41,7 @@ const PostListItem = ({ discussion }) => {
         </Grid>
         <Grid item lg={4}>
           <ListItemText>
-            <NavLink to="/" activeClasses="navLink">
+            <NavLink to={`/profile/${user}`} activeClasses="navLink">
               <Typography>Posted By: {postedBy}</Typography>
             </NavLink>
           </ListItemText>
