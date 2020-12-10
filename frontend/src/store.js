@@ -7,7 +7,10 @@ import {
   userRegisterReducer,
   userUpdateReducer,
 } from "./reducers/userReducer";
-import { profileGetReducer } from "./reducers/profileReducer";
+import {
+  getProfileReducer,
+  getProfileByIdReducer,
+} from "./reducers/profileReducer";
 import {
   getDiscussions,
   getDiscussionById,
@@ -18,7 +21,8 @@ const reducer = combineReducers({
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userUpdate: userUpdateReducer,
-  userProfile: profileGetReducer,
+  userProfile: getProfileReducer,
+  userProfileById: getProfileByIdReducer,
   discussions: getDiscussions,
   discussion: getDiscussionById,
   category: setCategory,
