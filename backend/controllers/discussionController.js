@@ -15,7 +15,6 @@ const getDiscussionById = asyncHandler(async (req, res) => {
       text: discussion.text,
       title: discussion.title,
       category: discussion.category,
-      likes: discussion.likes,
       badge: discussion.badge,
       comments: discussion.comments,
       numComments: discussion.numComments,

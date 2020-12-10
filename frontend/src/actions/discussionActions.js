@@ -95,13 +95,15 @@ export const getDiscussionsBySearch = (search) => async (dispatch) => {
   }
 };
 
-export const getDiscussionById = (discussion) => async (dispatch) => {
+export const getDiscussionById = (id) => async (dispatch) => {
   try {
     dispatch({
       type: DISCUSSION_GET_BY_ID_REQUEST,
     });
 
-    const { data } = await axios.get(`/api/discussions/${discussion._id}`);
+    const { data } = await axios.get(`/api/discussions/${id}`);
+
+    console.log(data);
 
     dispatch({
       type: DISCUSSION_GET_BY_ID_SUCCESS,
