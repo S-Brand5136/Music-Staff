@@ -78,7 +78,10 @@ export const getDiscussionsBySearch = (search) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.get(`/api/discussions/${search}`, config);
+    const { data } = await axios.get(
+      `/api/discussions/search/${search}`,
+      config
+    );
 
     dispatch({
       type: DISCUSSION_GET_SUCCESS,
@@ -101,9 +104,13 @@ export const getDiscussionById = (id) => async (dispatch) => {
       type: DISCUSSION_GET_BY_ID_REQUEST,
     });
 
-    const { data } = await axios.get(`/api/discussions/${id}`);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-    console.log(data);
+    const { data } = await axios.get(`/api/discussions/${id}`, config);
 
     dispatch({
       type: DISCUSSION_GET_BY_ID_SUCCESS,

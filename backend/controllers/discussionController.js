@@ -9,16 +9,7 @@ const getDiscussionById = asyncHandler(async (req, res) => {
   const discussion = await Discussion.findById(req.params.id);
 
   if (discussion) {
-    return res.json({
-      _id: discussion._id,
-      postedBy: discussion.postedBy,
-      text: discussion.text,
-      title: discussion.title,
-      category: discussion.category,
-      badge: discussion.badge,
-      comments: discussion.comments,
-      numComments: discussion.numComments,
-    });
+    return res.json(discussion);
   } else {
     res.status(500);
     throw new Error("No Discussion has been found");
