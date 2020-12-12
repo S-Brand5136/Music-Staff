@@ -3,39 +3,38 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile, getProfileById } from "../actions/profileActions";
 import { getDiscussionById } from "../actions/discussionActions";
+import DiscussPageItem from "../components/DiscussPageItem";
 
 // MaterialUI imports
 import {
   Badge,
   Box,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
   Divider,
   Grid,
+  makeStyles,
   LinearProgress,
   Typography,
 } from "@material-ui/core";
 
+const useStyles = makeStyles((theme) => ({
+  AddMargin: {
+    marginTop: "3rem",
+  },
+}));
+
 const DiscussionPage = ({ history, match }) => {
   const dispatch = useDispatch();
 
-  const discussion = useSelector((state) => state.discussion);
-  const { loading, discussion: discussItem, error } = discussion;
-
-  const originalPoster = useSelector((state) => state.userProfileById);
-  const {
-    loading: opLoading,
-    userProfileById,
-    error: opError,
-  } = originalPoster;
+  const classes = useStyles();
 
   useEffect(() => {
     (async function getDetails() {
       await dispatch(getDiscussionById(match.params.id));
     })();
   }, [dispatch, match.params.id]);
+
+  const discussion = useSelector((state) => state.discussion);
+  const { loading, discussion: discussItem, error } = discussion;
 
   return (
     <Box>
@@ -50,14 +49,24 @@ const DiscussionPage = ({ history, match }) => {
             </Typography>
             <Divider />
           </Grid>
-          <Grid item lg={12}>
-            <ListItem>
-              <ListItemAvatar></ListItemAvatar>
-              <ListItemText></ListItemText>
-            </ListItem>
+          <Grid item lg={12} className={classes.AddMargin}>
+            <DiscussPageItem data={discussItem} />
           </Grid>
-          <Grid container>
-            <Grid item></Grid>
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+          >
+            <Grid item lg={12} className={classes.AddMargin}>
+              {discussItem.comments.length > 0 ? (
+                discussItem.comments.map((item) => (
+                  <DiscussPageItem data={item} />
+                ))
+              ) : (
+                <Typography>Be the first to leave a comment!</Typography>
+              )}
+            </Grid>
           </Grid>
         </Grid>
       )}
