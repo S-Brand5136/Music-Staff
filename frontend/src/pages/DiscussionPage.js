@@ -6,9 +6,12 @@ import { getDiscussionById } from "../actions/discussionActions";
 
 // MaterialUI imports
 import {
-  Avatar,
   Badge,
   Box,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
   Divider,
   Grid,
   LinearProgress,
@@ -18,12 +21,21 @@ import {
 const DiscussionPage = ({ history, match }) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getDiscussionById(match.params.id));
-  }, [dispatch, match]);
-
   const discussion = useSelector((state) => state.discussion);
   const { loading, discussion: discussItem, error } = discussion;
+
+  const originalPoster = useSelector((state) => state.userProfileById);
+  const {
+    loading: opLoading,
+    userProfileById,
+    error: opError,
+  } = originalPoster;
+
+  useEffect(() => {
+    (async function getDetails() {
+      await dispatch(getDiscussionById(match.params.id));
+    })();
+  }, [dispatch, match.params.id]);
 
   return (
     <Box>
@@ -38,9 +50,15 @@ const DiscussionPage = ({ history, match }) => {
             </Typography>
             <Divider />
           </Grid>
-          <Grid item></Grid>
-          <Grid item></Grid>
-          <Grid item></Grid>
+          <Grid item lg={12}>
+            <ListItem>
+              <ListItemAvatar></ListItemAvatar>
+              <ListItemText></ListItemText>
+            </ListItem>
+          </Grid>
+          <Grid container>
+            <Grid item></Grid>
+          </Grid>
         </Grid>
       )}
     </Box>

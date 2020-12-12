@@ -54,9 +54,12 @@ const getSearchedDiscussions = asyncHandler(async (req, res) => {
 const postDiscussion = asyncHandler(async (req, res) => {
   const { text, title, category, badge } = req.body;
 
+  const profile = await Profile.findOne({ user: req.user._id });
+
   const discussion = new Discussion({
     user: req.user,
     postedBy: req.user.name,
+    avatar: profile.avatar || "a",
     text,
     title,
     category,

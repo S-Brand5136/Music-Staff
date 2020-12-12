@@ -28,8 +28,8 @@ const getLoggedInProfile = asyncHandler(async (req, res) => {
 // @access  Public
 const getUserProfile = asyncHandler(async (req, res) => {
   const profile = await Profile.findOne({
-    profile: req.params.user_id,
-  }).populate("user", ["bio", "avatar"]);
+    user: req.params.id,
+  }).populate("user", ["name"]);
 
   if (profile) {
     return res.json(profile);

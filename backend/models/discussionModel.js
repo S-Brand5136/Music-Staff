@@ -16,6 +16,7 @@ const commentSchema = mongoose.Schema(
     },
     avatar: {
       type: String,
+      required: true,
     },
   },
   { timestamps: true }
@@ -26,6 +27,10 @@ const discussionSchema = mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+    },
+    avatar: {
+      type: String,
+      required: true,
     },
     postedBy: {
       type: String,
