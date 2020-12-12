@@ -147,8 +147,8 @@ const createDiscussionComment = asyncHandler(async (req, res) => {
     const comment = {
       user: req.user._id,
       text,
-      name: req.user.name,
-      avatar: profile.avatar,
+      postedBy: req.user.name,
+      avatar: "P",
     };
 
     discussion.comments.push(comment);

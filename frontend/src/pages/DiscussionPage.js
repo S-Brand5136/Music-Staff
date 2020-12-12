@@ -52,14 +52,11 @@ const DiscussionPage = ({ history, match }) => {
           <Grid item lg={12} className={classes.AddMargin}>
             <DiscussPageItem data={discussItem} />
           </Grid>
-          <Grid
-            container
-            direction="column"
-            justify="center"
-            alignItems="center"
-          >
+          <Grid container direction="row" justify="center" alignItems="center">
             <Grid item lg={12} className={classes.AddMargin}>
-              {discussItem.comments.length > 0 ? (
+              {!loading &&
+              discussItem.comments !== undefined &&
+              discussItem.comments.length > 0 ? (
                 discussItem.comments.map((item) => (
                   <DiscussPageItem data={item} />
                 ))

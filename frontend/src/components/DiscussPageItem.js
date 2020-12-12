@@ -50,7 +50,8 @@ const DiscussPageItem = ({ data }) => {
             <Grid item lg={8}>
               <Typography variant="h6">Posted By: {data.postedBy}</Typography>
               <Typography variant="subtitle2">
-                Posted on: {data.createdAt}
+                Posted on:{" "}
+                {new Date(data.createdAt).toLocaleDateString("en-gb")}
               </Typography>
             </Grid>
           </Grid>

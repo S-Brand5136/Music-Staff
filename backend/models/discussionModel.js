@@ -10,13 +10,12 @@ const commentSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    name: {
+    postedBy: {
       type: String,
       required: true,
     },
     avatar: {
       type: String,
-      required: true,
     },
   },
   { timestamps: true }

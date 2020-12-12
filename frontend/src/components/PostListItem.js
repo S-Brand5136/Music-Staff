@@ -24,7 +24,15 @@ const useStyles = makeStyles((theme) => ({
 const PostListItem = ({ discussion }) => {
   const classes = useStyles();
 
-  let { numComments, postedBy, title, badge, _id, user } = discussion;
+  let {
+    numComments,
+    postedBy,
+    title,
+    badge,
+    _id,
+    user,
+    createdAt,
+  } = discussion;
 
   return (
     <ListItem className={classes.MuiListItem}>
@@ -51,9 +59,16 @@ const PostListItem = ({ discussion }) => {
             <Typography>Replies: {numComments}</Typography>
           </ListItemText>
         </Grid>
+
+        <Grid item lg={4}>
+          <ListItemText>
+            <Typography variant="subtitle2">
+              Created On: {new Date(createdAt).toLocaleDateString("en-gb")}
+            </Typography>
+          </ListItemText>
+        </Grid>
       </Grid>
     </ListItem>
   );
 };
-
 export default PostListItem;
