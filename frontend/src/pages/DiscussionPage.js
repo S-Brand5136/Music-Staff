@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProfile, getProfileById } from "../actions/profileActions";
 import { getDiscussionById } from "../actions/discussionActions";
 import DiscussPageItem from "../components/DiscussPageItem";
 
@@ -19,6 +17,9 @@ import {
 const useStyles = makeStyles((theme) => ({
   AddMargin: {
     marginTop: "3rem",
+  },
+  MuiTypography: {
+    color: "white",
   },
 }));
 
@@ -43,7 +44,7 @@ const DiscussionPage = ({ history, match }) => {
       ) : (
         <Grid container direction="row">
           <Grid item lg={12}>
-            <Typography variant="h3">
+            <Typography variant="h3" className={classes.MuiTypography}>
               {discussItem.category} - {discussItem.title}{" "}
               {discussItem.badge && <Badge color="primary"></Badge>}
             </Typography>
@@ -61,7 +62,15 @@ const DiscussionPage = ({ history, match }) => {
                   <DiscussPageItem data={item} />
                 ))
               ) : (
-                <Typography>Be the first to leave a comment!</Typography>
+                <Grid item lg={12}>
+                  <Typography
+                    className={classes.MuiTypography}
+                    variant="h5"
+                    align="center"
+                  >
+                    Be the first to leave a comment!
+                  </Typography>
+                </Grid>
               )}
             </Grid>
           </Grid>

@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Sidebar = ({ window }) => {
+const Sidebar = (props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -152,10 +152,12 @@ const Sidebar = ({ window }) => {
                   </Link>
                 </Button>
                 <Button>
-                  <ExitToApp
-                    className="icon"
-                    onClick={() => dispatch(logout())}
-                  />
+                  <Link to="/" style={{ position: "relative", top: ".25rem" }}>
+                    <ExitToApp
+                      className="icon"
+                      onClick={() => dispatch(logout())}
+                    />
+                  </Link>
                 </Button>
               </Box>
             )}
@@ -181,7 +183,7 @@ const Sidebar = ({ window }) => {
   );
 
   const container =
-    window !== undefined ? () => window().document.body : undefined;
+    props.window !== undefined ? () => props.window().document.body : undefined;
 
   return (
     <div className={classes.root}>

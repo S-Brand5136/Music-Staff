@@ -37,7 +37,7 @@ const PostListItem = ({ discussion }) => {
   return (
     <ListItem className={classes.MuiListItem}>
       <Grid container>
-        <Grid item lg={4}>
+        <Grid item lg={3}>
           <ListItemText>
             <NavLink to={`/discussion/${_id}`} activeClasses="navLink">
               <Typography>
@@ -47,24 +47,24 @@ const PostListItem = ({ discussion }) => {
             </NavLink>
           </ListItemText>
         </Grid>
-        <Grid item lg={4}>
+        <Grid item lg={3}>
           <ListItemText>
             <NavLink to={`/profile/${user}`} activeClasses="navLink">
               <Typography>Posted By: {postedBy}</Typography>
             </NavLink>
           </ListItemText>
         </Grid>
-        <Grid item lg={4}>
-          <ListItemText>
-            <Typography>Replies: {numComments}</Typography>
-          </ListItemText>
-        </Grid>
-
-        <Grid item lg={4}>
+        <Grid item lg={3}>
           <ListItemText>
             <Typography variant="subtitle2">
               Created On: {new Date(createdAt).toLocaleDateString("en-gb")}
             </Typography>
+          </ListItemText>
+        </Grid>
+
+        <Grid item lg={3}>
+          <ListItemText>
+            <Typography>Replies: {numComments}</Typography>
           </ListItemText>
         </Grid>
       </Grid>

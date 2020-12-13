@@ -1,4 +1,6 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 // Material UI imports
 import {
@@ -9,7 +11,7 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import { Reply, Flag } from "@material-ui/icons";
+import { Delete, Flag, Reply } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   MuiTypography: {
@@ -26,6 +28,22 @@ const useStyles = makeStyles((theme) => ({
 
 const DiscussPageItem = ({ data }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading, userInfo, error } = userLogin;
+
+  const deleteHandler = () => {
+    // TODO: Create delete comment, post
+  };
+
+  const replyHandler = () => {
+    // TODO: Create comment action
+  };
+
+  const flagHandler = () => {
+    // TODO: Create flag action
+  };
 
   return (
     <Paper variant="outlined" square>
@@ -48,7 +66,12 @@ const DiscussPageItem = ({ data }) => {
               />
             </Grid>
             <Grid item lg={8}>
-              <Typography variant="h6">Posted By: {data.postedBy}</Typography>
+              <Typography variant="h6">
+                Posted By:{" "}
+                <Link style={{ color: "black" }} to="/profile/:id">
+                  {data.postedBy}
+                </Link>
+              </Typography>
               <Typography variant="subtitle2">
                 Posted on:{" "}
                 {new Date(data.createdAt).toLocaleDateString("en-gb")}
@@ -61,7 +84,7 @@ const DiscussPageItem = ({ data }) => {
             {data.text}
           </Typography>
         </Grid>
-        <Grid item lg={6}>
+        <Grid item lg={4}>
           <Grid container justify="center" direction="row" alignItems="center">
             <Grid item lg={12}>
               <IconButton color="primary">
@@ -73,6 +96,20 @@ const DiscussPageItem = ({ data }) => {
             </Grid>
           </Grid>
         </Grid>
+        {(userInfo && userInfo._id === data.user) ||
+        userInfo.isAdmin === true ? (
+          <Grid item lg={8}>
+            <IconButton
+              style={{ float: "right" }}
+              color="secondary"
+              onClick={() => deleteHandler()}
+            >
+              <Delete />
+            </IconButton>
+          </Grid>
+        ) : (
+          " "
+        )}
       </Grid>
     </Paper>
   );
