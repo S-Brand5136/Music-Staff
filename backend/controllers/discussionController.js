@@ -148,7 +148,7 @@ const createDiscussionComment = asyncHandler(async (req, res) => {
       user: req.user._id,
       text,
       postedBy: req.user.name,
-      avatar: "P",
+      avatar: profile.avatar,
     };
 
     discussion.comments.push(comment);
@@ -173,12 +173,51 @@ const deleteDiscussionComment = asyncHandler(async (req, res) => {
       (comment) => comment.id === req.params.commentid
     );
     discussion.comments.splice(removeIndex, 1);
+    discussion.numComments = discussion.comments.length;
 
     await discussion.save();
     res.status(201).json({ message: "Comment deleted" });
   } else {
     res.status(500);
     throw new Error("Error in Comment Deletion");
+  }
+});
+
+// @desc    Flag a comment
+// @route   PUT api/discussion/:id/flag/comment/:commentid
+// @access  private
+const flagDiscussionComment = asyncHandler(async (req, res) => {
+  const discussion = await Discussion.findById(req.params.id);
+
+  if (discussion) {
+    const flagIndex = discussion.comments.findIndex(
+      (comment) => comment.id === req.params.commentid
+    );
+
+    discussion.comments[flagIndex].flag += 1;
+
+    await discussion.save();
+    res.status(201).json({ message: "Comment Flagged" });
+  } else {
+    res.status(500);
+    throw new Error("Error in Comment flagging");
+  }
+});
+
+// @desc    Flag a discussion
+// @route   PUT api/discussion/flag/:id
+// @access  private
+const flagDiscussion = asyncHandler(async (req, res) => {
+  const discussion = await Discussion.findById(req.params.id);
+
+  if (discussion) {
+    discussion.flag += 1;
+
+    await discussion.save();
+    res.status(201).json({ message: "Discussion Flagged" });
+  } else {
+    res.status(500);
+    throw new Error("Error in Discussion flagging");
   }
 });
 
@@ -192,4 +231,6 @@ export {
   updateDiscussion,
   createDiscussionComment,
   deleteDiscussionComment,
+  flagDiscussionComment,
+  flagDiscussion,
 };

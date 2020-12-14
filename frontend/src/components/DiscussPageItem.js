@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import {
+  deleteComment,
+  flagComment,
+  flagDiscussion,
+} from "../actions/discussionActions";
+import Dialog from "../components/Dialog";
+import { CREATE_COMMENT_REQUEST } from "../constants/discussionConstants";
 
 // Material UI imports
 import {
@@ -26,24 +33,40 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const DiscussPageItem = ({ data }) => {
+const DiscussPageItem = ({ data, discussionId, OGpost }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
   const { loading, userInfo, error } = userLogin;
 
+  const createComment = useSelector((state) => state.createComment);
+  const { open } = createComment;
+
+  const [colour, setColour] = useState("primary");
+
   const deleteHandler = () => {
-    // TODO: Create delete comment, post
+    dispatch(deleteComment(data._id, discussionId));
   };
 
   const replyHandler = () => {
-    // TODO: Create comment action
+    dispatch({ type: CREATE_COMMENT_REQUEST });
   };
 
   const flagHandler = () => {
-    // TODO: Create flag action
+    if (OGpost) {
+      dispatch(flagDiscussion(data._id));
+    } else {
+      dispatch(flagComment(data._id, discussionId));
+    }
+    setColour("secondary");
   };
+
+  useEffect(() => {
+    if (data.flag > 0) {
+      setColour("secondary");
+    }
+  }, []);
 
   return (
     <Paper variant="outlined" square>
@@ -87,10 +110,10 @@ const DiscussPageItem = ({ data }) => {
         <Grid item lg={4}>
           <Grid container justify="center" direction="row" alignItems="center">
             <Grid item lg={12}>
-              <IconButton color="primary">
+              <IconButton color="primary" onClick={() => replyHandler()}>
                 <Reply /> <Typography variant="button">Reply</Typography>
               </IconButton>
-              <IconButton color="primary">
+              <IconButton color={colour} onClick={() => flagHandler()}>
                 <Flag /> <Typography variant="button">Flag</Typography>
               </IconButton>
             </Grid>
@@ -111,6 +134,7 @@ const DiscussPageItem = ({ data }) => {
           " "
         )}
       </Grid>
+      {open && <Dialog />}
     </Paper>
   );
 };

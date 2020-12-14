@@ -15,6 +15,10 @@ import {
   getDiscussions,
   getDiscussionById,
   setCategory,
+  createComment,
+  deleteComment,
+  flagComment,
+  flagDiscussion,
 } from "./reducers/discussionReducer";
 
 const reducer = combineReducers({
@@ -26,6 +30,10 @@ const reducer = combineReducers({
   discussions: getDiscussions,
   discussion: getDiscussionById,
   category: setCategory,
+  createComment: createComment,
+  deleteComment: deleteComment,
+  flagComment: flagComment,
+  flagDiscussion: flagDiscussion,
 });
 
 const userInfoFromStorage = localStorage.getItem("userInfo")

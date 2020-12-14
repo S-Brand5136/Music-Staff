@@ -17,6 +17,10 @@ const commentSchema = mongoose.Schema(
     avatar: {
       type: String,
     },
+    flag: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );
@@ -52,6 +56,10 @@ const discussionSchema = mongoose.Schema(
     },
     comments: [commentSchema],
     numComments: {
+      type: Number,
+      default: 0,
+    },
+    flag: {
       type: Number,
       default: 0,
     },
