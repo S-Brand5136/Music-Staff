@@ -22,6 +22,9 @@ import {
   FLAG_DISCUSSION_REQUEST,
   FLAG_DISCUSSION_SUCCESS,
   FLAG_DISCUSSION_FAIL,
+  CREATE_DISCUSSION_REQUEST,
+  CREATE_DISCUSSION_SUCCESS,
+  CREATE_DISCUSSION_FAIL,
 } from "../constants/discussionConstants";
 
 export const getDiscussions = (state = { discussionList: [] }, action) => {
@@ -44,6 +47,23 @@ export const getDiscussionById = (state = { discussion: {} }, action) => {
     case DISCUSSION_GET_BY_ID_SUCCESS:
       return { loading: false, discussion: action.payload };
     case DISCUSSION_GET_BY_ID_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const createDiscussion = (state = {}, action) => {
+  switch (action.type) {
+    case CREATE_DISCUSSION_REQUEST:
+      return { loading: true };
+    case CREATE_DISCUSSION_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        discussionCreated: action.payload,
+      };
+    case CREATE_DISCUSSION_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;

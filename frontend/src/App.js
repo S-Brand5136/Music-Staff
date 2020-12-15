@@ -6,7 +6,7 @@ import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
-import CreatePage from "./pages/CreatePage";
+import CreatePost from "./pages/CreatePost";
 import DiscussionPage from "./pages/DiscussionPage";
 import VisitProfile from "./pages/VisitProfile";
 
@@ -21,7 +21,7 @@ const App = () => {
           <Route path="/register" component={RegisterPage} />
           <Route path="/profile" component={ProfilePage} />
           <Route path="/profile/:id" component={VisitProfile} />
-          <Route path="/createpage" component={CreatePage} />
+          <Route path="/createPost" component={CreatePost} />
           <Route path="/discussion/:id" component={DiscussionPage} />
         </Container>
       </main>

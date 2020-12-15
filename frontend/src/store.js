@@ -19,6 +19,7 @@ import {
   deleteComment,
   flagComment,
   flagDiscussion,
+  createDiscussion,
 } from "./reducers/discussionReducer";
 
 const reducer = combineReducers({
@@ -29,6 +30,7 @@ const reducer = combineReducers({
   userProfileById: getProfileByIdReducer,
   discussions: getDiscussions,
   discussion: getDiscussionById,
+  createDiscussion: createDiscussion,
   category: setCategory,
   createComment: createComment,
   deleteComment: deleteComment,

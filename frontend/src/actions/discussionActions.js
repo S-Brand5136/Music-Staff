@@ -2,6 +2,9 @@ import {
   CREATE_COMMENT_FAIL,
   CREATE_COMMENT_REQUEST,
   CREATE_COMMENT_SUCCESS,
+  CREATE_DISCUSSION_FAIL,
+  CREATE_DISCUSSION_REQUEST,
+  CREATE_DISCUSSION_SUCCESS,
   DELETE_COMMENT_CLEAR,
   DELETE_COMMENT_FAIL,
   DELETE_COMMENT_REQUEST,
@@ -22,7 +25,6 @@ import {
   SET_CATEGORY_SUCCESS,
 } from "../constants/discussionConstants";
 import axios from "axios";
-import { AccordionSummary } from "@material-ui/core";
 
 export const getDiscussions = () => async (dispatch) => {
   try {
@@ -71,6 +73,45 @@ export const getDiscussionsByCategory = (category) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DISCUSSION_GET_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const createDiscussion = (text, title, badge, category) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({ type: CREATE_DISCUSSION_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/discussions`,
+      { text, title, category, badge },
+      config
+    );
+
+    dispatch({
+      type: CREATE_DISCUSSION_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: CREATE_DISCUSSION_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
