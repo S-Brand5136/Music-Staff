@@ -28,9 +28,6 @@ const useStyles = makeStyles((theme) => ({
   MuiGrid: {
     marginTop: "1rem",
   },
-  MuiTypography: {
-    color: "black",
-  },
 }));
 
 const DiscussPageItem = ({ data, discussionId, OGpost }) => {
@@ -89,13 +86,21 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
               />
             </Grid>
             <Grid item lg={8}>
-              <Typography variant="h6" className={classes.MuiTypography}>
+              <Typography
+                style={{ color: "black" }}
+                variant="h6"
+                className={classes.MuiTypography}
+              >
                 Posted By:{" "}
                 <Link style={{ color: "black" }} to="/profile/:id">
                   {data.postedBy}
                 </Link>
               </Typography>
-              <Typography variant="subtitle2" className={classes.MuiTypography}>
+              <Typography
+                style={{ color: "black" }}
+                variant="subtitle2"
+                className={classes.MuiTypography}
+              >
                 Posted on:{" "}
                 {new Date(data.createdAt).toLocaleDateString("en-gb")}
               </Typography>
@@ -104,6 +109,7 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
         </Grid>
         <Grid item lg={12}>
           <Typography
+            style={{ color: "black" }}
             className={classes.MuiTypography}
             variant="body1"
             align="center"
@@ -116,21 +122,28 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
             <Grid item lg={12}>
               <IconButton color="primary" onClick={() => replyHandler()}>
                 <Reply />{" "}
-                <Typography className={classes.MuiTypography} variant="button">
+                <Typography
+                  style={{ color: "black" }}
+                  className={classes.MuiTypography}
+                  variant="button"
+                >
                   Reply
                 </Typography>
               </IconButton>
               <IconButton color={colour} onClick={() => flagHandler()}>
                 <Flag />{" "}
-                <Typography className={classes.MuiTypography} variant="button">
+                <Typography
+                  style={{ color: "black" }}
+                  className={classes.MuiTypography}
+                  variant="button"
+                >
                   Flag
                 </Typography>
               </IconButton>
             </Grid>
           </Grid>
         </Grid>
-        {(userInfo && userInfo._id === data.user) ||
-        userInfo.isAdmin === true ? (
+        {userInfo && (userInfo._id === data.user || userInfo.isAdmin) ? (
           <Grid item lg={8}>
             <IconButton
               style={{ float: "right" }}

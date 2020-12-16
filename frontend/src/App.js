@@ -32,7 +32,7 @@ const App = () => {
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/profile" component={ProfilePage} />
-          <Route path="/profile/:id" component={VisitProfile} />
+          <Route path="/profiles/:id" component={VisitProfile} />
           <Route path="/createPost" component={CreatePost} />
           <Route path="/discussion/:id" component={DiscussionPage} />
         </Container>

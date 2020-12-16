@@ -37,8 +37,6 @@ export const getProfileById = (id) => async (dispatch) => {
       type: PROFILE_GET_BY_ID_REQUEST,
     });
 
-    console.log(id);
-
     const { data } = await axios.get(`/api/profile/user/${id}`);
 
     dispatch({
