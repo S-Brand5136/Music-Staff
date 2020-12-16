@@ -44,9 +44,6 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     margin: "1rem",
   },
-  MuiTypography: {
-    color: "white",
-  },
 }));
 
 const HomePage = ({ history }) => {

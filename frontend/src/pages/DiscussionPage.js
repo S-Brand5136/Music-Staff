@@ -19,9 +19,6 @@ const useStyles = makeStyles((theme) => ({
   AddMargin: {
     marginTop: "3rem",
   },
-  MuiTypography: {
-    color: "white",
-  },
 }));
 
 const DiscussionPage = ({ history, match }) => {

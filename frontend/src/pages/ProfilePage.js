@@ -22,9 +22,6 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  MuiTypography: {
-    color: "white",
-  },
   large: {
     width: theme.spacing(20),
     height: theme.spacing(20),

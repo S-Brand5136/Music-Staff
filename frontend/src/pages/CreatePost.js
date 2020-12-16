@@ -17,9 +17,6 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
-  MuiTypography: {
-    color: "white",
-  },
   MuiTextField: {
     color: "white",
     marginTop: "1rem",

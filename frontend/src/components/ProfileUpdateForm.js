@@ -13,9 +13,6 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
-  MuiTypography: {
-    color: "white",
-  },
   MuiTextField: {
     color: "white",
     margin: "1rem",
@@ -26,6 +23,9 @@ const useStyles = makeStyles(() => ({
   },
   MuiButton: {
     marginRight: ".5rem",
+  },
+  MuiTypography: {
+    color: "black",
   },
 }));
 
@@ -54,6 +54,7 @@ const ProfileUpdateForm = ({ userInfo }) => {
           >
             <Grid item xs={12} lg={12}>
               <Typography
+                className={classes.MuiTypography}
                 className={classes.MuiTypography}
                 variant="h5"
                 align="center"

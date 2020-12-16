@@ -21,15 +21,15 @@ import {
 import { Delete, Flag, Reply } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
-  MuiTypography: {
-    color: "white",
-  },
   large: {
     width: theme.spacing(8),
     height: theme.spacing(8),
   },
   MuiGrid: {
     marginTop: "1rem",
+  },
+  MuiTypography: {
+    color: "black",
   },
 }));
 
@@ -89,13 +89,13 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
               />
             </Grid>
             <Grid item lg={8}>
-              <Typography variant="h6">
+              <Typography variant="h6" className={classes.MuiTypography}>
                 Posted By:{" "}
                 <Link style={{ color: "black" }} to="/profile/:id">
                   {data.postedBy}
                 </Link>
               </Typography>
-              <Typography variant="subtitle2">
+              <Typography variant="subtitle2" className={classes.MuiTypography}>
                 Posted on:{" "}
                 {new Date(data.createdAt).toLocaleDateString("en-gb")}
               </Typography>
@@ -103,7 +103,11 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
           </Grid>
         </Grid>
         <Grid item lg={12}>
-          <Typography variant="body1" align="center">
+          <Typography
+            className={classes.MuiTypography}
+            variant="body1"
+            align="center"
+          >
             {data.text}
           </Typography>
         </Grid>
@@ -111,10 +115,16 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
           <Grid container justify="center" direction="row" alignItems="center">
             <Grid item lg={12}>
               <IconButton color="primary" onClick={() => replyHandler()}>
-                <Reply /> <Typography variant="button">Reply</Typography>
+                <Reply />{" "}
+                <Typography className={classes.MuiTypography} variant="button">
+                  Reply
+                </Typography>
               </IconButton>
               <IconButton color={colour} onClick={() => flagHandler()}>
-                <Flag /> <Typography variant="button">Flag</Typography>
+                <Flag />{" "}
+                <Typography className={classes.MuiTypography} variant="button">
+                  Flag
+                </Typography>
               </IconButton>
             </Grid>
           </Grid>
