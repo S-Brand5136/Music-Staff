@@ -92,7 +92,7 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
                 className={classes.MuiTypography}
               >
                 Posted By:{" "}
-                <Link style={{ color: "black" }} to="/profile/:id">
+                <Link style={{ color: "black" }} to={`/profiles/${data.user}`}>
                   {data.postedBy}
                 </Link>
               </Typography>

@@ -49,7 +49,7 @@ const PostListItem = ({ discussion }) => {
         </Grid>
         <Grid item lg={3}>
           <ListItemText>
-            <NavLink to={`/profile/${user}`} activeClasses="navLink">
+            <NavLink to={`/profiles/${user}`} activeClasses="navLink">
               <Typography>Posted By: {postedBy}</Typography>
             </NavLink>
           </ListItemText>

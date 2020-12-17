@@ -69,6 +69,8 @@ const postDiscussion = asyncHandler(async (req, res) => {
 
   if (discussion) {
     const createdDiscussion = await discussion.save();
+    profile.discussions.push(discussion);
+    profile.save();
     return res.status(201).json(createdDiscussion);
   } else {
     res.status(500);
@@ -125,7 +127,15 @@ const deleteDiscussion = asyncHandler(async (req, res) => {
   });
 
   if (discussion.postedBy.toString() == req.user._id) {
+    const profile = await Profile.findOne({ user: req.user._id });
+
+    const index = profile.discussions.indexOf(
+      (disc) => disc._id === discussion._id
+    );
+    profile.discussions.splice(index, 1);
+
     await Discussion.deleteOne(discussion);
+    await profile.save();
 
     return res.json({ msg: "Discussion Deleted " });
   } else {
@@ -151,9 +161,11 @@ const createDiscussionComment = asyncHandler(async (req, res) => {
       avatar: profile.avatar,
     };
 
+    profile.comments.push(comment);
     discussion.comments.push(comment);
     discussion.numComments = discussion.comments.length;
 
+    await profile.save();
     await discussion.save();
     res.status(201).json({ message: "Comment posted" });
   } else {
@@ -167,14 +179,21 @@ const createDiscussionComment = asyncHandler(async (req, res) => {
 // @access  private
 const deleteDiscussionComment = asyncHandler(async (req, res) => {
   const discussion = await Discussion.findById(req.params.id);
+  const profile = await Profile.findById({ user: req.user._id });
 
   if (discussion) {
     const removeIndex = discussion.comments.findIndex(
       (comment) => comment.id === req.params.commentid
     );
+    const proRemoveIndex = profile.comments.findIndex(
+      (comment) => comment.id === req.params.commentid
+    );
     discussion.comments.splice(removeIndex, 1);
     discussion.numComments = discussion.comments.length;
 
+    profile.comments.splice(proRemoveIndex, 1);
+
+    await profile.save();
     await discussion.save();
     res.status(201).json({ message: "Comment deleted" });
   } else {
