@@ -22,20 +22,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const VisitProfile = ({ match }) => {
+const VisitProfile = ({ match, history }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  useEffect(async () => {
-    await dispatch(getProfileById(match.params.id));
-  }, [dispatch]);
+  useEffect(() => {
+    async function fetchData() {
+      await dispatch(getProfileById(match.params.id));
+    }
+    fetchData();
+  }, [dispatch, match]);
 
   const userProfile = useSelector((state) => state.userProfileById);
   const { userProfileById, loading, error } = userProfile;
 
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  if (userInfo && !loading) {
+    if (userProfileById.user._id === userInfo._id) {
+      history.push(`/profile`);
+    }
+  }
+
   return (
     <Box>
-      {loading ? (
+      {error && "error"}
+      {loading || !userProfileById ? (
         <LinearProgress color="primary" />
       ) : (
         <Grid
@@ -52,23 +65,19 @@ const VisitProfile = ({ match }) => {
               src="../../public/images/avatar.jpeg"
             />
           </Grid>
+          <Grid item xs={12} lg={6}>
+            <Typography variant="h2" className={classes.MuiTypography}>
+              {userProfileById.user.name}
+            </Typography>
+          </Grid>
           {!userProfileById.discussion && !userProfileById.comments ? (
-            <Box>
+            <Grid item lg={6}>
               <Typography variant="h5">
                 This User has not made any comments or posts!
               </Typography>
-            </Box>
+            </Grid>
           ) : (
-            <Box>
-              {" "}
-              <Grid item xs={12} lg={4}>
-                <Typography variant="h2" className={classes.MuiTypography}>
-                  {userProfileById.user.name}
-                </Typography>
-              </Grid>
-              <Grid item xs={12} lg={4}>
-                <Typography variant="h2"></Typography>
-              </Grid>
+            <Grid container variant="row">
               <Grid item xs={12} xl={6}>
                 <List>
                   {userProfileById.discussions.map((item) => (
@@ -83,7 +92,7 @@ const VisitProfile = ({ match }) => {
                   ))}
                 </List>
               </Grid>
-            </Box>
+            </Grid>
           )}
         </Grid>
       )}

@@ -8,19 +8,10 @@ const profileSchema = mongoose.Schema(
     },
     avatar: {
       type: String,
+      required: true,
     },
-    discussions: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Discussion",
-      },
-    ],
-    comments: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Discussion",
-      },
-    ],
+    discussions: [],
+    comments: [],
     bio: {
       type: String,
     },

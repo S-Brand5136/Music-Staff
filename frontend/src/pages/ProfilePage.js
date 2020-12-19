@@ -4,22 +4,7 @@ import ProfileUpdateForm from "../components/ProfileUpdateForm";
 import ProfileTabTable from "../components/ProfileTabTable";
 
 // MaterialUI imports
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Button,
-  Grid,
-  List,
-  ListItemText,
-  ListItem,
-  ListItemAvatar,
-  ListItemIcon,
-  makeStyles,
-  TextField,
-  Typography,
-  Paper,
-} from "@material-ui/core";
+import { Avatar, Box, Grid, makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -33,6 +18,8 @@ const ProfilePage = () => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+
+  // TODO: ADD ADMIN SUPPORT
 
   return (
     <Box>

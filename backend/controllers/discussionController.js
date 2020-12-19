@@ -59,7 +59,7 @@ const postDiscussion = asyncHandler(async (req, res) => {
   const discussion = new Discussion({
     user: req.user,
     postedBy: req.user.name,
-    avatar: profile.avatar || "a",
+    avatar: profile.avatar,
     text,
     title,
     category,
@@ -122,11 +122,9 @@ const getDiscussionsByCategory = asyncHandler(async (req, res) => {
 // @route   Delete api/discussion/:id
 // @access  private
 const deleteDiscussion = asyncHandler(async (req, res) => {
-  const discussion = await Discussion.findOne({
-    discussion: req.params.discussion_id,
-  });
+  const discussion = await Discussion.findById(req.params.id);
 
-  if (discussion.postedBy.toString() == req.user._id) {
+  if (discussion.user.toString() === req.user._id.toString()) {
     const profile = await Profile.findOne({ user: req.user._id });
 
     const index = profile.discussions.indexOf(

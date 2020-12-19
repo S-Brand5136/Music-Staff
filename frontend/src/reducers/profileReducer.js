@@ -21,7 +21,7 @@ export const getProfileReducer = (state = { userProfile: {} }, action) => {
 };
 
 export const getProfileByIdReducer = (
-  state = { userProfileById: {} },
+  state = { loading: true, userProfileById: {} },
   action
 ) => {
   switch (action.type) {

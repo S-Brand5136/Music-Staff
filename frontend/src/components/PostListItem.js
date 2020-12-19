@@ -1,5 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { deleteDiscussion } from "../actions/discussionActions";
 
 // MaterialUI Imports
 import {
@@ -8,8 +10,10 @@ import {
   makeStyles,
   ListItem,
   ListItemText,
+  IconButton,
   Typography,
 } from "@material-ui/core";
+import { Delete } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   MuiListItem: {
@@ -23,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const PostListItem = ({ discussion }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   let {
     numComments,
@@ -33,6 +38,13 @@ const PostListItem = ({ discussion }) => {
     user,
     createdAt,
   } = discussion;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const deleteHandler = () => {
+    dispatch(deleteDiscussion(discussion._id));
+  };
 
   return (
     <ListItem className={classes.MuiListItem}>
@@ -66,6 +78,17 @@ const PostListItem = ({ discussion }) => {
           <ListItemText>
             <Typography>Replies: {numComments}</Typography>
           </ListItemText>
+          {userInfo || (userInfo && userInfo.isAdmin) ? (
+            <IconButton
+              style={{ float: "right" }}
+              color="secondary"
+              onClick={() => deleteHandler()}
+            >
+              <Delete />
+            </IconButton>
+          ) : (
+            ""
+          )}
         </Grid>
       </Grid>
     </ListItem>

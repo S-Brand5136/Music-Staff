@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PostListItem from "../components/PostListItem";
 import { useSelector, useDispatch } from "react-redux";
-import { getDiscussionsBySearch } from "../actions/discussionActions";
+import {
+  getDiscussionsBySearch,
+  getDiscussionsByCategory,
+} from "../actions/discussionActions";
 
 // MaterialUI Imports
 import {
@@ -58,10 +61,17 @@ const HomePage = ({ history }) => {
   const category = useSelector((state) => state.category);
   const { category: catTitle, loading: catloading } = category;
 
+  const deleteDiscussion = useSelector((state) => state.deleteDiscussion);
+  const { success } = deleteDiscussion;
+
   const searchHandler = (e) => {
     e.preventDefault();
     dispatch(getDiscussionsBySearch(searchTerm));
   };
+
+  useEffect(() => {
+    dispatch(getDiscussionsByCategory(catTitle));
+  }, [success]);
 
   return (
     <Box>

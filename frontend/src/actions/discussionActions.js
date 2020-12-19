@@ -9,6 +9,10 @@ import {
   DELETE_COMMENT_FAIL,
   DELETE_COMMENT_REQUEST,
   DELETE_COMMENT_SUCCESS,
+  DELETE_DISCUSSION_CLEAR,
+  DELETE_DISCUSSION_FAIL,
+  DELETE_DISCUSSION_REQUEST,
+  DELETE_DISCUSSION_SUCCESS,
   DISCUSSION_GET_BY_ID_FAIL,
   DISCUSSION_GET_BY_ID_REQUEST,
   DISCUSSION_GET_BY_ID_SUCCESS,
@@ -173,6 +177,39 @@ export const getDiscussionById = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: DISCUSSION_GET_BY_ID_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const deleteDiscussion = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: DELETE_DISCUSSION_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+        "Content-Type": "application/json",
+      },
+    };
+
+    await axios.delete(`/api/discussions/${id}`, config);
+
+    dispatch({
+      type: DELETE_DISCUSSION_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: DELETE_DISCUSSION_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

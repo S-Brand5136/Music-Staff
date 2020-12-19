@@ -25,6 +25,10 @@ import {
   CREATE_DISCUSSION_REQUEST,
   CREATE_DISCUSSION_SUCCESS,
   CREATE_DISCUSSION_FAIL,
+  DELETE_DISCUSSION_REQUEST,
+  DELETE_DISCUSSION_SUCCESS,
+  DELETE_DISCUSSION_FAIL,
+  DELETE_DISCUSSION_CLEAR,
 } from "../constants/discussionConstants";
 
 export const getDiscussions = (state = { discussionList: [] }, action) => {
@@ -64,6 +68,22 @@ export const createDiscussion = (state = {}, action) => {
         discussionCreated: action.payload,
       };
     case CREATE_DISCUSSION_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+
+export const deleteDiscussion = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_DISCUSSION_REQUEST:
+      return { loading: true };
+    case DELETE_DISCUSSION_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+    case DELETE_DISCUSSION_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
