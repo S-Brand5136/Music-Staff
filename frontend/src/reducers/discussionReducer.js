@@ -28,7 +28,6 @@ import {
   DELETE_DISCUSSION_REQUEST,
   DELETE_DISCUSSION_SUCCESS,
   DELETE_DISCUSSION_FAIL,
-  DELETE_DISCUSSION_CLEAR,
 } from "../constants/discussionConstants";
 
 export const getDiscussions = (state = { discussionList: [] }, action) => {

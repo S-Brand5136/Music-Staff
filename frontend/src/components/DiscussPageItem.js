@@ -35,7 +35,7 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
   const dispatch = useDispatch();
 
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading, userInfo, error } = userLogin;
+  const { userInfo } = userLogin;
 
   const createComment = useSelector((state) => state.createComment);
   const { open } = createComment;
@@ -63,7 +63,7 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
     if (data.flag > 0) {
       setColour("secondary");
     }
-  }, []);
+  }, [data.flag]);
 
   return (
     <Paper variant="outlined" square>

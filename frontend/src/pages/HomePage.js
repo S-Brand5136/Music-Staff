@@ -71,7 +71,7 @@ const HomePage = ({ history }) => {
 
   useEffect(() => {
     dispatch(getDiscussionsByCategory(catTitle));
-  }, [success]);
+  }, [success, dispatch, catTitle]);
 
   return (
     <Box>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 
 // MaterialUI Imports
@@ -54,7 +54,6 @@ const ProfileUpdateForm = ({ userInfo }) => {
           >
             <Grid item xs={12} lg={12}>
               <Typography
-                className={classes.MuiTypography}
                 className={classes.MuiTypography}
                 variant="h5"
                 align="center"
