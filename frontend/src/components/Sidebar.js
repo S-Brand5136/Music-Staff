@@ -107,8 +107,8 @@ const Sidebar = (props) => {
         <ListItem>
           {userInfo ? (
             <ListItemText>
-              <Typography id="userId" variant="p">
-                {userInfo.name}
+              <Typography id="userId" variant="subtitle2" align="center">
+                Welcome, {userInfo.name}
               </Typography>
             </ListItemText>
           ) : (
@@ -165,7 +165,7 @@ const Sidebar = (props) => {
         </ListItem>
       </Paper>
       {categories.map((category) => (
-        <Link to="/">
+        <Link to="/" key={category}>
           <ListItem
             button
             key={category}

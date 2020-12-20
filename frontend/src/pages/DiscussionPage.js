@@ -85,10 +85,12 @@ const DiscussionPage = ({ match }) => {
                   item.flag > 0 ? (
                     ""
                   ) : (
-                    <DiscussPageItem
-                      data={item}
-                      discussionId={discussItem._id}
-                    />
+                    <div key={item._id}>
+                      <DiscussPageItem
+                        data={item}
+                        discussionId={discussItem._id}
+                      />
+                    </div>
                   )
                 )
               ) : (

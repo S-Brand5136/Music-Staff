@@ -11,6 +11,7 @@ import {
   Grid,
   LinearProgress,
   List,
+  ListItem,
   makeStyles,
   Typography,
 } from "@material-ui/core";
@@ -81,14 +82,16 @@ const VisitProfile = ({ match, history }) => {
               <Grid item xs={12} xl={6}>
                 <List>
                   {userProfileById.discussions.map((item) => (
-                    <PostListItem discussion={item} />
+                    <PostListItem key={item._id} discussion={item} />
                   ))}
                 </List>
               </Grid>
               <Grid item xs={12} xl={6}>
                 <List>
-                  {userProfileById.comments.map((item) => (
-                    <DiscussPageItem data={item} />
+                  {userProfileById.comments.map((item, index) => (
+                    <ListItem key={index}>
+                      <DiscussPageItem data={item} />
+                    </ListItem>
                   ))}
                 </List>
               </Grid>

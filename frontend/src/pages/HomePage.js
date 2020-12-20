@@ -138,12 +138,13 @@ const HomePage = ({ history }) => {
               ) : (
                 <List>
                   <Divider />
-                  {discussionList.map((item) => (
-                    <>
-                      <PostListItem discussion={item} />
-                      <Divider />
-                    </>
-                  ))}
+                  {discussionList &&
+                    discussionList.map((item) => (
+                      <div key={item}>
+                        <PostListItem discussion={item} />
+                        <Divider />
+                      </div>
+                    ))}
                 </List>
               )}
             </Grid>

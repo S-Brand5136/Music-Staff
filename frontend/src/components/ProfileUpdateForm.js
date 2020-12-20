@@ -38,12 +38,7 @@ const ProfileUpdateForm = ({ userInfo }) => {
 
   return (
     <Box>
-      <Paper
-        variant="outlined"
-        elementType="div"
-        elevation={3}
-        className={classes.MuiPaper}
-      >
+      <Paper variant="outlined" elevation={3} className={classes.MuiPaper}>
         <form>
           <Grid
             container
@@ -172,12 +167,7 @@ const ProfileUpdateForm = ({ userInfo }) => {
           </Grid>
         </form>
       </Paper>
-      <Paper
-        variant="outlined"
-        elementType="div"
-        elevation={3}
-        className={classes.MuiPaper}
-      >
+      <Paper variant="outlined" elevation={3} className={classes.MuiPaper}>
         <form>
           <Grid
             container

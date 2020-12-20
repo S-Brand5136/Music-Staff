@@ -51,8 +51,8 @@ const PostListItem = ({ discussion }) => {
       <Grid container>
         <Grid item lg={3}>
           <ListItemText>
-            <NavLink to={`/discussion/${_id}`} activeClasses="navLink">
-              <Typography>
+            <NavLink to={`/discussion/${_id}`} className="navLink">
+              <Typography variant="subtitle1">
                 {title}{" "}
                 {badge && <Chip label={badge} color="primary" size="small" />}
               </Typography>
@@ -61,14 +61,14 @@ const PostListItem = ({ discussion }) => {
         </Grid>
         <Grid item lg={3}>
           <ListItemText>
-            <NavLink to={`/profiles/${user}`} activeClasses="navLink">
-              <Typography>Posted By: {postedBy}</Typography>
+            <NavLink to={`/profiles/${user}`} className="navLink">
+              <Typography variant="subtitle1">Posted By: {postedBy}</Typography>
             </NavLink>
           </ListItemText>
         </Grid>
         <Grid item lg={3}>
           <ListItemText>
-            <Typography variant="subtitle2">
+            <Typography variant="subtitle1">
               Created On: {new Date(createdAt).toLocaleDateString("en-gb")}
             </Typography>
           </ListItemText>
@@ -76,7 +76,7 @@ const PostListItem = ({ discussion }) => {
 
         <Grid item lg={3}>
           <ListItemText>
-            <Typography>Replies: {numComments}</Typography>
+            <Typography variant="subtitle1">Replies: {numComments}</Typography>
           </ListItemText>
           {userInfo || (userInfo && userInfo.isAdmin) ? (
             <IconButton

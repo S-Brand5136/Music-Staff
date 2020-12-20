@@ -32,15 +32,12 @@ const ProfilePage = () => {
       >
         <Grid item xs={12} lg={6}>
           <Avatar
-            alt="userAvatar"
             className={classes.large}
             src="../../public/images/avatar.jpeg"
           />
         </Grid>
         <Grid item xs={12} lg={4}>
-          <Typography variant="h2" className={classes.MuiTypography}>
-            {userInfo.name}
-          </Typography>
+          <Typography variant="h2">{userInfo.name}</Typography>
         </Grid>
         <Grid item xs={12} xl={6}>
           <ProfileUpdateForm userInfo={userInfo} />
