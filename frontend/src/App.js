@@ -15,9 +15,9 @@ import { withStyles } from "@material-ui/core";
 
 const GlobalCss = withStyles({
   "@global": {
-    ".MuiTypography-root": {
-      color: "white",
-    },
+    // ".MuiTypography-root": {
+    //   color: "white",
+    // },
   },
 })(() => null);
 

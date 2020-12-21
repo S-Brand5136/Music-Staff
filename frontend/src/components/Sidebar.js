@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    backgroundColor: "#8D8C8A",
+    backgroundColor: "#363538",
     overflow: "hidden",
   },
   content: {
@@ -62,6 +62,9 @@ const useStyles = makeStyles((theme) => ({
   MuiButtonBase: {
     padding: "2rem 0 2rem 1rem",
     color: "#f6f6f6",
+  },
+  MuiTypography: {
+    color: "white",
   },
 }));
 
@@ -107,7 +110,12 @@ const Sidebar = (props) => {
         <ListItem>
           {userInfo ? (
             <ListItemText>
-              <Typography id="userId" variant="subtitle2" align="center">
+              <Typography
+                id="userId"
+                variant="subtitle2"
+                className={classes.MuiTypography}
+                align="center"
+              >
                 Welcome, {userInfo.name}
               </Typography>
             </ListItemText>

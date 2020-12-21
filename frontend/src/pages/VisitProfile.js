@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfileById } from "../actions/profileActions";
-import PostListItem from "../components/PostListItem";
+import DiscussionListItem from "../components/DiscussionListItem";
 import DiscussPageItem from "../components/DiscussPageItem";
 
 // Material UI
@@ -82,7 +82,7 @@ const VisitProfile = ({ match, history }) => {
               <Grid item xs={12} xl={6}>
                 <List>
                   {userProfileById.discussions.map((item) => (
-                    <PostListItem key={item._id} discussion={item} />
+                    <DiscussionListItem key={item._id} discussion={item} />
                   ))}
                 </List>
               </Grid>

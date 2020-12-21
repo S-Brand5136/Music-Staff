@@ -17,12 +17,8 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
-  multilineColor: {
-    color: "white",
-  },
-  root: {
-    color: "white",
-  },
+  multilineColor: {},
+  root: {},
 }));
 
 const LoginPage = ({ location, history }) => {
@@ -67,12 +63,6 @@ const LoginPage = ({ location, history }) => {
             <Grid container spacing={6} direction="row">
               <Grid item xs={12} md={9} lg={9} xl={12}>
                 <TextField
-                  InputLabelProps={{
-                    style: { color: "#fff" },
-                  }}
-                  InputProps={{
-                    className: classes.root,
-                  }}
                   id="email"
                   label="Email"
                   type="email"
@@ -81,9 +71,6 @@ const LoginPage = ({ location, history }) => {
               </Grid>
               <Grid item xs={12} md={9} lg={9} xl={12}>
                 <TextField
-                  InputLabelProps={{
-                    style: { color: "#fff" },
-                  }}
                   InputProps={{ className: classes.multilineColor }}
                   id="password"
                   label="Password"

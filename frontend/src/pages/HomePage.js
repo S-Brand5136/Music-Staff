@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import PostListItem from "../components/PostListItem";
+import DiscussionListItem from "../components/DiscussionListItem";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getDiscussionsBySearch,
@@ -141,7 +141,7 @@ const HomePage = ({ history }) => {
                   {discussionList &&
                     discussionList.map((item) => (
                       <div key={item}>
-                        <PostListItem discussion={item} />
+                        <DiscussionListItem discussion={item} />
                         <Divider />
                       </div>
                     ))}

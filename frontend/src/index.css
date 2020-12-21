@@ -11,7 +11,6 @@ Buttons
 
 html,
 #root {
-  background-color: #363538;
   height: 913px;
   width: 100%;
   margin: 0;
@@ -19,12 +18,11 @@ html,
 
 .categoryItem {
   margin: 2rem 0 2rem 1rem;
-  color: #f6f6f6;
 }
 
 #header {
-  color: #f6f6f6;
   margin: 1rem;
+  color: white;
 }
 
 #userId {
@@ -52,7 +50,6 @@ html,
 }
 
 .input {
-  color: white;
 }
 
 #btn-signin {
@@ -60,7 +57,6 @@ html,
 }
 
 #signin {
-  color: #f6f6f6;
 }
 
 #signin:after {
@@ -76,9 +72,9 @@ a {
   text-decoration: none;
   margin: 0;
   padding: 0;
-  color: white;
+  color: black;
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }

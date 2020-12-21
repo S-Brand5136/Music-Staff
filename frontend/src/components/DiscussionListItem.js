@@ -5,8 +5,8 @@ import { deleteDiscussion } from "../actions/discussionActions";
 
 // MaterialUI Imports
 import {
-  Grid,
   Chip,
+  Grid,
   makeStyles,
   ListItem,
   ListItemText,
@@ -17,15 +17,12 @@ import { Delete } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   MuiListItem: {
-    color: "white",
     margin: "1rem",
   },
-  MuiButton: {
-    color: "white",
-  },
+  MuiButton: {},
 }));
 
-const PostListItem = ({ discussion }) => {
+const DiscussionListItem = ({ discussion }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -75,23 +72,29 @@ const PostListItem = ({ discussion }) => {
         </Grid>
 
         <Grid item lg={3}>
-          <ListItemText>
-            <Typography variant="subtitle1">Replies: {numComments}</Typography>
-          </ListItemText>
           {userInfo || (userInfo && userInfo.isAdmin) ? (
-            <IconButton
-              style={{ float: "right" }}
-              color="secondary"
-              onClick={() => deleteHandler()}
-            >
-              <Delete />
-            </IconButton>
+            <ListItem>
+              <Typography variant="subtitle1">
+                Replies: {numComments}{" "}
+              </Typography>
+              <IconButton
+                style={{ padding: "0", marginLeft: "1rem" }}
+                color="secondary"
+                onClick={() => deleteHandler()}
+              >
+                <Delete />
+              </IconButton>
+            </ListItem>
           ) : (
-            ""
+            <ListItemText>
+              <Typography variant="subtitle1">
+                Replies: {numComments}{" "}
+              </Typography>
+            </ListItemText>
           )}
         </Grid>
       </Grid>
     </ListItem>
   );
 };
-export default PostListItem;
+export default DiscussionListItem;

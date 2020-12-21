@@ -80,12 +80,6 @@ const LoginPage = ({ location, history }) => {
             <Grid container spacing={6} direction="row">
               <Grid item xs={12} md={9} lg={9} xl={4}>
                 <TextField
-                  InputLabelProps={{
-                    style: { color: "#fff" },
-                  }}
-                  InputProps={{
-                    className: classes.root,
-                  }}
                   id="name"
                   label="Name"
                   type="text"
@@ -94,12 +88,6 @@ const LoginPage = ({ location, history }) => {
               </Grid>
               <Grid item xs={12} md={9} lg={9} xl={6}>
                 <TextField
-                  InputLabelProps={{
-                    style: { color: "#fff" },
-                  }}
-                  InputProps={{
-                    className: classes.root,
-                  }}
                   id="email"
                   label="Email"
                   type="email"
@@ -108,10 +96,6 @@ const LoginPage = ({ location, history }) => {
               </Grid>
               <Grid item xs={12} md={9} lg={9} xl={4}>
                 <TextField
-                  InputLabelProps={{
-                    style: { color: "#fff" },
-                  }}
-                  InputProps={{ className: classes.multilineColor }}
                   id="password"
                   label="Password"
                   type="password"
@@ -120,10 +104,6 @@ const LoginPage = ({ location, history }) => {
               </Grid>
               <Grid item xs={12} md={9} lg={9} xl={4}>
                 <TextField
-                  InputLabelProps={{
-                    style: { color: "#fff" },
-                  }}
-                  InputProps={{ className: classes.multilineColor }}
                   id="password"
                   label="Confirm Password"
                   type="password"
@@ -142,7 +122,7 @@ const LoginPage = ({ location, history }) => {
                 </Button>
               </Grid>
               <Grid item xs={12} md={9} ld={9} xl={12}>
-                <Typography variant="body1" style={{ color: "white" }}>
+                <Typography variant="body1">
                   have an account ?{" "}
                   <Link
                     style={{ color: "#52D6F4" }}

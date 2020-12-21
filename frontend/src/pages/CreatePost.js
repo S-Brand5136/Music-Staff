@@ -1,11 +1,15 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { createDiscussion } from "../actions/discussionActions";
+import Message from "../components/Message";
 
 // MaterialUI Imports
 import {
   Button,
+  Breadcrumbs,
   Box,
+  Divider,
   Grid,
   InputLabel,
   MenuItem,
@@ -14,6 +18,7 @@ import {
   TextField,
   Select,
   Paper,
+  LinearProgress,
 } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
@@ -29,11 +34,14 @@ const useStyles = makeStyles(() => ({
   },
   MuiButton: {
     marginTop: "1rem",
+    "&:hover": {
+      backgroundColor: "#363538",
+      color: "white",
+    },
   },
   MuiSelect: {
     position: "relative",
     top: ".5rem",
-    left: "5rem",
     width: "10rem",
   },
 }));
@@ -47,42 +55,72 @@ const CreatePost = () => {
   const [badge, setBadge] = useState("");
   const [category, setCategory] = useState("General");
 
+  const createDisc = useSelector((state) => state.createDiscussion);
+  const { error, loading } = createDisc;
+
   const handleChange = (e) => {
     setCategory(e.target.value);
   };
 
   const submitDiscussion = (e) => {
     e.preventDefault();
+    if (title === "" || body === "") {
+    }
     dispatch(createDiscussion(title, body, badge, category));
   };
 
   return (
     <Box>
-      <Grid container direction="row" spacing={5}>
-        <Grid item lg={12}>
-          <Grid
-            container
-            direction="row"
-            justify="center"
-            alignItems="center"
-            spacing={5}
-          >
-            <Grid item xl={12} xs={12} md={8}>
+      <Grid container direction="row">
+        <Grid item lg={10}>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <Grid item lg={10}>
               <Typography variant="h3">Create a new Discussion</Typography>
+              <Divider />
+            </Grid>
+            <Grid item lg={2}>
+              <Breadcrumbs aria-label="breadcrumb">
+                <Link to="/">HomePage</Link>
+                <Link> Create</Link>
+              </Breadcrumbs>
             </Grid>
           </Grid>
         </Grid>
 
-        <Grid item style={{ marginTop: "5rem" }} lg={6}>
-          <Paper
-            variant="outlined"
-            elementType="div"
-            elevation={3}
-            className={classes.MuiPaper}
-          >
+        <Grid item lg={12} style={{ marginTop: "2rem" }}>
+          <Paper className={classes.MuiPaper}>
+            <Typography align="center" variant="h6" gutterBottom>
+              Be sure to read the rules before posting!
+            </Typography>
+            <Divider variant="middle" style={{ marginBottom: "1rem" }} />
+            <Box style={{ marginLeft: "1rem" }}>
+              <Typography variant="subtitle1">
+                - Only post content that relates to the category
+              </Typography>
+              <Typography variant="subtitle1">
+                - No NSFW posts allowed
+              </Typography>
+              <Typography variant="subtitle1">
+                - Spamming posts will get banned from the site
+              </Typography>
+            </Box>
+          </Paper>
+        </Grid>
+
+        <Grid item lg={12}>
+          {loading ? (
+            <LinearProgress variant="primary" />
+          ) : (
             <form onSubmit={(e) => submitDiscussion(e)}>
               <Grid container alignItems="center" direction="row">
                 <Grid item lg={12}>
+                  {error && (
+                    <Message
+                      message="Error creating Discussion. Check all fields provided"
+                      variant="error"
+                      open={true}
+                    />
+                  )}
                   <TextField
                     className={classes.MuiTextField}
                     id="title"
@@ -109,7 +147,7 @@ const CreatePost = () => {
                     onChange={(e) => setBody(e.target.value)}
                   />
                 </Grid>
-                <Grid item lg={6}>
+                <Grid item lg={3}>
                   <TextField
                     className={classes.MuiTextField}
                     id="badge"
@@ -139,10 +177,11 @@ const CreatePost = () => {
                     <MenuItem value="New Music">New Music</MenuItem>
                   </Select>
                 </Grid>
+
                 <Grid item lg={12}>
                   <Button
                     className={classes.MuiButton}
-                    variant="contained"
+                    variant="outlined"
                     fullWidth
                     type="submit"
                   >
@@ -151,15 +190,7 @@ const CreatePost = () => {
                 </Grid>
               </Grid>
             </form>
-          </Paper>
-        </Grid>
-
-        <Grid item lg={6} style={{ marginTop: "5rem" }}>
-          <Paper className={classes.MuiPaper}>
-            <Typography className={classes.MuiTypography}>
-              Be sure to Check the rules before posting!
-            </Typography>
-          </Paper>
+          )}
         </Grid>
       </Grid>
     </Box>
