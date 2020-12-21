@@ -11,19 +11,11 @@ import {
   Divider,
   Grid,
   LinearProgress,
-  makeStyles,
   TextField,
   Typography,
 } from "@material-ui/core";
 
-const useStyles = makeStyles(() => ({
-  multilineColor: {},
-  root: {},
-}));
-
 const LoginPage = ({ location, history }) => {
-  const classes = useStyles();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -51,7 +43,7 @@ const LoginPage = ({ location, history }) => {
         <Grid item id="signin" xs={12} lg={12} xl={12} md={12}>
           <Typography variant="h3">Sign In</Typography>
           <Typography variant="body1">
-            Please enter your Music Staff email and password to sign in
+            Welcome back! Enter your credentials below to sign in
           </Typography>
           {loading && <LinearProgress />}
           {error && <Message message={error} variant="error" open={true} />}
@@ -71,7 +63,6 @@ const LoginPage = ({ location, history }) => {
               </Grid>
               <Grid item xs={12} md={9} lg={9} xl={12}>
                 <TextField
-                  InputProps={{ className: classes.multilineColor }}
                   id="password"
                   label="Password"
                   type="password"
@@ -90,7 +81,7 @@ const LoginPage = ({ location, history }) => {
                 </Button>
               </Grid>
               <Grid item xs={12} md={9} ld={9} xl={12}>
-                <Typography variant="body1" style={{ color: "white" }}>
+                <Typography variant="body1">
                   Don't have an account ?{" "}
                   <Link
                     style={{ color: "#52D6F4" }}

@@ -8,6 +8,7 @@ import DiscussPageItem from "../components/DiscussPageItem";
 import {
   Avatar,
   Box,
+  Divider,
   Grid,
   LinearProgress,
   List,
@@ -70,6 +71,9 @@ const VisitProfile = ({ match, history }) => {
             <Typography variant="h2" className={classes.MuiTypography}>
               {userProfileById.user.name}
             </Typography>
+          </Grid>
+          <Grid item lg={12}>
+            <Divider />
           </Grid>
           {!userProfileById.discussion && !userProfileById.comments ? (
             <Grid item lg={6}>

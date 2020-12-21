@@ -4,7 +4,14 @@ import ProfileUpdateForm from "../components/ProfileUpdateForm";
 import ProfileTabTable from "../components/ProfileTabTable";
 
 // MaterialUI imports
-import { Avatar, Box, Grid, makeStyles, Typography } from "@material-ui/core";
+import {
+  Avatar,
+  Box,
+  Divider,
+  Grid,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -20,6 +27,7 @@ const ProfilePage = () => {
   const { userInfo } = userLogin;
 
   // TODO: ADD ADMIN SUPPORT
+  // TODO: Work out Discussion and comment views
 
   return (
     <Box>
@@ -38,6 +46,9 @@ const ProfilePage = () => {
         </Grid>
         <Grid item xs={12} lg={4}>
           <Typography variant="h2">{userInfo.name}</Typography>
+        </Grid>
+        <Grid item lg={12}>
+          <Divider />
         </Grid>
         <Grid item xs={12} xl={6}>
           <ProfileUpdateForm userInfo={userInfo} />

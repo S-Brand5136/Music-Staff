@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     width: 400,
-    backgroundColor: "#8D8C8A",
+    backgroundColor: "#363538",
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -116,7 +116,7 @@ const HomePage = ({ history }) => {
               <Button
                 style={{ float: "right" }}
                 onClick={() => history.push("/createPost")}
-                variant="contained"
+                variant="outlined"
               >
                 <PostAdd /> New Post
               </Button>

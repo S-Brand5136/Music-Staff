@@ -72,7 +72,8 @@ const DiscussionListItem = ({ discussion }) => {
         </Grid>
 
         <Grid item lg={3}>
-          {userInfo || (userInfo && userInfo.isAdmin) ? (
+          {(userInfo && userInfo._id === discussion.user) ||
+          userInfo.isAdmin ? (
             <ListItem>
               <Typography variant="subtitle1">
                 Replies: {numComments}{" "}
