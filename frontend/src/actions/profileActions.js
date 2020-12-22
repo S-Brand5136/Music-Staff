@@ -8,13 +8,23 @@ import {
 } from "../constants/profileConstants";
 import axios from "axios";
 
-export const getProfile = () => async (dispatch) => {
+export const getProfile = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: PROFILE_GET_REQUEST,
     });
 
-    const { data } = await axios.get("/api/profile");
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get("/api/profile", config);
 
     dispatch({
       type: PROFILE_GET_SUCCESS,

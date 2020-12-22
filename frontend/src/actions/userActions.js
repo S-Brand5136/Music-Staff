@@ -94,7 +94,7 @@ export const register = (name, email, password) => async (dispatch) => {
   }
 };
 
-export const updateProfile = (user) => async (dispatch, getState) => {
+export const userUpdateLogin = (user) => async (dispatch, getState) => {
   try {
     dispatch({
       type: USER_UPDATE_REQUEST,
@@ -107,11 +107,11 @@ export const updateProfile = (user) => async (dispatch, getState) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
-        Authorizaition: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo.token}`,
       },
     };
 
-    const { data } = await axios.put(`/api/users/profile`, user, config);
+    const { data } = await axios.put(`/api/users/profiles`, user, config);
 
     dispatch({
       type: USER_UPDATE_SUCCESS,

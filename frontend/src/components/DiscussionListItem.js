@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteDiscussion } from "../actions/discussionActions";
 
 // MaterialUI Imports
 import {
+  Button,
   Chip,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Grid,
   makeStyles,
   ListItem,
@@ -41,6 +47,17 @@ const DiscussionListItem = ({ discussion }) => {
 
   const deleteHandler = () => {
     dispatch(deleteDiscussion(discussion._id));
+    setOpen(false);
+  };
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -81,7 +98,7 @@ const DiscussionListItem = ({ discussion }) => {
               <IconButton
                 style={{ padding: "0", marginLeft: "1rem" }}
                 color="secondary"
-                onClick={() => deleteHandler()}
+                onClick={() => handleClickOpen()}
               >
                 <Delete />
               </IconButton>
@@ -95,6 +112,31 @@ const DiscussionListItem = ({ discussion }) => {
           )}
         </Grid>
       </Grid>
+      <div>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="draggable-dialog-title"
+        >
+          <DialogTitle style={{ cursor: "move" }} id="draggable-dialog-title">
+            Delete Post
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              To delete the selected post click on the confirm button, or click
+              cancel to close the dialog
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button autoFocus onClick={() => handleClose()} color="secondary">
+              Cancel
+            </Button>
+            <Button onClick={() => deleteHandler()} color="primary">
+              Confirm
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
     </ListItem>
   );
 };

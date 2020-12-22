@@ -6,12 +6,17 @@ import {
   flagComment,
   flagDiscussion,
 } from "../actions/discussionActions";
-import Dialog from "../components/Dialog";
 import { CREATE_COMMENT_REQUEST } from "../constants/discussionConstants";
 
 // Material UI imports
 import {
   Avatar,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   Grid,
   IconButton,
   makeStyles,
@@ -41,6 +46,7 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
   const { open } = createComment;
 
   const [colour, setColour] = useState("primary");
+  const [openDelete, setOpenDelete] = useState(false);
 
   const deleteHandler = () => {
     dispatch(deleteComment(data._id, discussionId));
@@ -48,6 +54,14 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
 
   const replyHandler = () => {
     dispatch({ type: CREATE_COMMENT_REQUEST });
+  };
+
+  const handleClickOpen = () => {
+    setOpenDelete(true);
+  };
+
+  const handleClose = () => {
+    setOpenDelete(false);
   };
 
   const flagHandler = () => {
@@ -148,7 +162,7 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
             <IconButton
               style={{ float: "right" }}
               color="secondary"
-              onClick={() => deleteHandler()}
+              onClick={() => handleClickOpen()}
             >
               <Delete />
             </IconButton>
@@ -158,6 +172,31 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
         )}
       </Grid>
       {open && <Dialog />}
+      <div>
+        <Dialog
+          open={openDelete}
+          onClose={handleClose}
+          aria-labelledby="draggable-dialog-title"
+        >
+          <DialogTitle style={{ cursor: "move" }} id="draggable-dialog-title">
+            Delete Comment
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              To delete the selected comment click on the confirm button, or
+              click cancel to close the dialog
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button autoFocus onClick={() => handleClose()} color="secondary">
+              Cancel
+            </Button>
+            <Button onClick={() => deleteHandler()} color="primary">
+              Confirm
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
     </Paper>
   );
 };

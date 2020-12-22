@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import {
   Box,
   Button,
+  Divider,
   makeStyles,
   Grid,
   TextField,
@@ -13,7 +14,6 @@ import {
 
 const useStyles = makeStyles(() => ({
   MuiTextField: {
-    color: "white",
     margin: "1rem",
   },
   MuiPaper: {
@@ -24,14 +24,13 @@ const useStyles = makeStyles(() => ({
     marginRight: ".5rem",
   },
   MuiTypography: {
-    color: "black",
+    margin: "1rem",
   },
 }));
 
-const ProfileUpdateForm = ({ userInfo }) => {
+const ProfileUpdateForm = ({ userInfo, userProfile }) => {
   const classes = useStyles();
   const { name, email } = userInfo;
-  const userProfile = useSelector((state) => state.userProfile);
 
   // TODO: Write useEffect function that gets User profile details
   // TODO: Seperate both update forms into two seperate components
@@ -42,21 +41,21 @@ const ProfileUpdateForm = ({ userInfo }) => {
         <Grid
           container
           direction="row"
-          justify="center"
+          justify="space-evenly"
+          alignItems="flex-start"
           spacing={2}
-          alignItems="center"
         >
           <Grid item xs={12} lg={12}>
             <Typography
               className={classes.MuiTypography}
               variant="h5"
               align="center"
-              style={{ marginTop: "1rem" }}
             >
               {name}'s Profile
             </Typography>
+            <Divider variant="middle" />
           </Grid>
-          <Grid item xs={12} lg={5}>
+          <Grid item xs={12} lg={6}>
             <Typography
               className={classes.MuiTypography}
               variant="subtitle1"
@@ -154,58 +153,10 @@ const ProfileUpdateForm = ({ userInfo }) => {
               </Grid>
             </Grid>
             <Grid item lg={12}>
-              <Button variant="contained" fullWidth style={{ margin: "1rem" }}>
+              <Button variant="outlined" fullWidth>
                 Update Profile
               </Button>
             </Grid>
-          </Grid>
-        </Grid>
-      </form>
-      <form>
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-          spacing={2}
-        >
-          <Grid item xs={12} lg={12}>
-            <Typography
-              className={classes.MuiTypography}
-              variant="h5"
-              align="center"
-              style={{ marginTop: "1rem" }}
-            >
-              Update User Login Info
-            </Typography>
-          </Grid>
-          <Grid item xs={12} lg={6}>
-            <TextField
-              className={classes.MuiTextField}
-              id="email"
-              label={email}
-              type="email"
-              variant="outlined"
-            />
-            <TextField
-              className={classes.MuiTextField}
-              id="password"
-              label="Password"
-              type="password"
-              variant="outlined"
-            />
-            <TextField
-              className={classes.MuiTextField}
-              id="passwordTwo"
-              label="Confirm Password"
-              type="password"
-              variant="outlined"
-            />
-          </Grid>
-          <Grid item lg={8}>
-            <Button variant="contained" fullWidth style={{ margin: "1rem" }}>
-              Update User Info
-            </Button>
           </Grid>
         </Grid>
       </form>

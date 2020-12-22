@@ -25,6 +25,7 @@ import {
   CREATE_DISCUSSION_REQUEST,
   CREATE_DISCUSSION_SUCCESS,
   CREATE_DISCUSSION_FAIL,
+  CREATE_DISCUSSION_CLEAR,
   DELETE_DISCUSSION_REQUEST,
   DELETE_DISCUSSION_SUCCESS,
   DELETE_DISCUSSION_FAIL,
@@ -68,6 +69,8 @@ export const createDiscussion = (state = {}, action) => {
       };
     case CREATE_DISCUSSION_FAIL:
       return { loading: false, error: action.payload };
+    case CREATE_DISCUSSION_CLEAR:
+      return { loading: true, success: false };
     default:
       return state;
   }

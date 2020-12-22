@@ -46,7 +46,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const CreatePost = () => {
+const CreatePost = ({ history }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -56,7 +56,7 @@ const CreatePost = () => {
   const [category, setCategory] = useState("General");
 
   const createDisc = useSelector((state) => state.createDiscussion);
-  const { error, loading } = createDisc;
+  const { error, loading, success } = createDisc;
 
   const handleChange = (e) => {
     setCategory(e.target.value);
@@ -67,6 +67,13 @@ const CreatePost = () => {
     if (title === "" || body === "") {
     }
     dispatch(createDiscussion(title, body, badge, category));
+    setTitle("");
+    setBody("");
+    setBadge("");
+
+    setTimeout(() => {
+      history.push("/");
+    }, 3000);
   };
 
   return (
@@ -118,6 +125,13 @@ const CreatePost = () => {
                     <Message
                       message="Error creating Discussion. Check all fields provided"
                       variant="error"
+                      open={true}
+                    />
+                  )}
+                  {success && (
+                    <Message
+                      message="Post successfully Created!!"
+                      variant="success"
                       open={true}
                     />
                   )}

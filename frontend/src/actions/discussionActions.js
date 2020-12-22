@@ -1,6 +1,7 @@
 import {
   CREATE_COMMENT_FAIL,
   CREATE_COMMENT_SUCCESS,
+  CREATE_DISCUSSION_CLEAR,
   CREATE_DISCUSSION_FAIL,
   CREATE_DISCUSSION_REQUEST,
   CREATE_DISCUSSION_SUCCESS,
@@ -111,6 +112,10 @@ export const createDiscussion = (text, title, badge, category) => async (
       type: CREATE_DISCUSSION_SUCCESS,
       payload: data,
     });
+
+    setTimeout(() => {
+      dispatch({ type: CREATE_DISCUSSION_CLEAR });
+    }, 3000);
   } catch (error) {
     dispatch({
       type: CREATE_DISCUSSION_FAIL,
