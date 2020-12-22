@@ -46,6 +46,7 @@ const ProfilePage = ({ history }) => {
   }
 
   // TODO: ADD ADMIN SUPPORT
+  // TODO: Fix discussionPageDelete object to cast fail
 
   return (
     <Box>
