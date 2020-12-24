@@ -10,6 +10,7 @@ import {
 import {
   getProfileReducer,
   getProfileByIdReducer,
+  updateProfileReducer,
 } from "./reducers/profileReducer";
 import {
   getDiscussions,
@@ -29,6 +30,7 @@ const reducer = combineReducers({
   userUpdate: userUpdateReducer,
   userProfile: getProfileReducer,
   userProfileById: getProfileByIdReducer,
+  updateProfile: updateProfileReducer,
   discussions: getDiscussions,
   discussion: getDiscussionById,
   deleteDiscussion: deleteDiscussion,
@@ -46,7 +48,6 @@ const userInfoFromStorage = localStorage.getItem("userInfo")
 
 const initialState = {
   userLogin: { userInfo: userInfoFromStorage },
-  userProfile: {},
 };
 
 const middleware = [thunk];

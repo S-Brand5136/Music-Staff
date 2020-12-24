@@ -69,6 +69,15 @@ const UpdateUserLogin = ({ userInfo }) => {
 
   return (
     <Box>
+      {(errorMessage || updateError) && (
+        <Grid item lg={12}>
+          <Message
+            message={errorMessage ? errorMessage : updateError}
+            variant="error"
+            open={true}
+          />
+        </Grid>
+      )}
       <form onSubmit={(e) => submitHandler(e)}>
         <Grid
           container
@@ -121,15 +130,6 @@ const UpdateUserLogin = ({ userInfo }) => {
               Update User Info
             </Button>
           </Grid>
-          {(errorMessage || updateError) && (
-            <Grid item lg={12}>
-              <Message
-                message={errorMessage ? errorMessage : updateError}
-                variant="error"
-                open={true}
-              />
-            </Grid>
-          )}
         </Grid>
       </form>
     </Box>
