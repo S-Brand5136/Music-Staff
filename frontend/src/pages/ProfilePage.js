@@ -27,16 +27,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfilePage = ({ history }) => {
+const ProfilePage = ({ history, match }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
   useEffect(() => {
     dispatch(getProfile());
-  }, [dispatch]);
+  }, [dispatch, match]);
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { loading: userLoading, userInfo } = userLogin;
 
   const userProfile = useSelector((state) => state.userProfile);
   const { loading, userProfile: profile, error } = userProfile;
@@ -46,7 +46,6 @@ const ProfilePage = ({ history }) => {
   }
 
   // TODO: ADD ADMIN SUPPORT
-  // TODO: Fix discussionPageDelete object to cast fail
 
   return (
     <Box>
@@ -77,16 +76,17 @@ const ProfilePage = ({ history }) => {
         <Grid item lg={12}>
           <Divider />
         </Grid>
-        {loading ? (
-          <Grid item xs={12} sm={12} md={12} xl={12} lg={12}>
-            <LinearProgress color="primary" />
-          </Grid>
-        ) : error ? (
+        {error && (
           <Message
             variant="error"
             message="error gathering profile details"
             open={true}
           />
+        )}
+        {loading ? (
+          <Grid item xs={12} sm={12} md={12} xl={12} lg={12}>
+            <LinearProgress color="primary" />
+          </Grid>
         ) : (
           <>
             <Grid item xs={12} lg={12}>

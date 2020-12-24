@@ -121,16 +121,15 @@ const UpdateUserLogin = ({ userInfo }) => {
               Update User Info
             </Button>
           </Grid>
-          {errorMessage ||
-            (updateError && (
-              <Grid item lg={8}>
-                <Message
-                  variant="error"
-                  message={errorMessage ? errorMessage : updateError}
-                  open={true}
-                />
-              </Grid>
-            ))}
+          {(errorMessage || updateError) && (
+            <Grid item lg={12}>
+              <Message
+                message={errorMessage ? errorMessage : updateError}
+                variant="error"
+                open={true}
+              />
+            </Grid>
+          )}
         </Grid>
       </form>
     </Box>
