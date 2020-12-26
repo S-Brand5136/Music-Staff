@@ -84,13 +84,13 @@ const ProfileUpdateForm = ({ userInfo, userProfile }) => {
       {success && (
         <Grid item lg={12} className={classes.MuiGrid}>
           <Message
-            message={"Profile successfully updated!"}
+            message={"Profile successfully updated! reloading...."}
             variant="success"
             open={true}
           />
         </Grid>
       )}
-      {loading ? (
+      {loading && !success ? (
         <LinearProgress color="primary" />
       ) : (
         <form onSubmit={(e) => submitHandler(e)}>
@@ -182,7 +182,7 @@ const ProfileUpdateForm = ({ userInfo, userProfile }) => {
                       type="text"
                       multiline
                       variant="outlined"
-                      placeholder={social[0].youtube}
+                      placeholder={social.youtube ? social.youtube : "Youtube"}
                       value={newYoutube}
                       onChange={(e) => setNewYoutube(e.target.value)}
                     />
@@ -192,7 +192,9 @@ const ProfileUpdateForm = ({ userInfo, userProfile }) => {
                       type="text"
                       multiline
                       variant="outlined"
-                      placeholder={social[2].instagram}
+                      placeholder={
+                        social.instagram ? social.instagram : "Instagram"
+                      }
                       value={newInstagram}
                       onChange={(e) => setNewInstagram(e.target.value)}
                     />
@@ -205,7 +207,7 @@ const ProfileUpdateForm = ({ userInfo, userProfile }) => {
                       type="text"
                       multiline
                       variant="outlined"
-                      placeholder={social[1].twitter}
+                      placeholder={social.twitter ? social.twitter : "Twitter"}
                       value={newTwitter}
                       onChange={(e) => setNewTwitter(e.target.value)}
                     />
@@ -215,7 +217,9 @@ const ProfileUpdateForm = ({ userInfo, userProfile }) => {
                       type="text"
                       multiline
                       variant="outlined"
-                      placeholder={social[3].linkedin}
+                      placeholder={
+                        social.linkedin ? social.linkedin : "Linkedin"
+                      }
                       value={newLinkedin}
                       onChange={(e) => setNewLinkedin(e.target.value)}
                     />

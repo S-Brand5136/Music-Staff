@@ -15,22 +15,20 @@ const profileSchema = mongoose.Schema(
     bio: {
       type: String,
     },
-    social: [
-      {
-        youtube: {
-          type: String,
-        },
-        twitter: {
-          type: String,
-        },
-        instagram: {
-          type: String,
-        },
-        linkedin: {
-          type: String,
-        },
+    social: {
+      youtube: {
+        type: String,
       },
-    ],
+      twitter: {
+        type: String,
+      },
+      linkedin: {
+        type: String,
+      },
+      instagram: {
+        type: String,
+      },
+    },
   },
   {
     timestamps: true,

@@ -44,31 +44,32 @@ const getUserProfile = asyncHandler(async (req, res) => {
 // @access  Private
 const updateUserProfile = asyncHandler(async (req, res) => {
   const profile = await Profile.findOne({ user: req.user._id });
+  const { youtube, twitter, instagram, linkedin, avatar, bio } = req.body;
 
   if (profile) {
-    profile.avatar = req.body.avatar || profile.avatar;
-    profile.bio = req.body.bio || profile.bio;
-    profile.social.youtube = req.body.youtube || profile.social.youtube;
-    profile.social.twitter = req.body.twitter || profile.social.twitter;
-    profile.social.instagram = req.body.instagram || profile.social.instagram;
-    profile.social.linkedin = req.body.linkedin || profile.social.linkedin;
+    if (avatar) profile.avatar = avatar;
+    if (bio) profile.bio = bio;
+    if (youtube) profile.social.youtube = youtube;
+    if (twitter) profile.social.twitter = twitter;
+    if (linkedin) profile.social.linkedin = linkedin;
+    if (instagram) profile.social.instagram = instagram;
 
     const updatedProfile = await profile.save();
     res.json(updatedProfile);
   } else {
     const profile = new Profile({
       user: req.user._id,
-      bio: req.body.bio,
-      avatar: req.body.avatar,
-      social: [
-        { youtube: req.body.youtube },
-        { twitter: req.body.twitter },
-        { instagram: req.body.instagram },
-        { linkedin: req.body.linkedin },
-      ],
+      bio: bio,
+      avatar: avatar,
       discussions: [],
       comments: [],
     });
+
+    profile.social = {};
+    if (youtube) profile.social.youtube = youtube;
+    if (twitter) profile.social.twitter = twitter;
+    if (linkedin) profile.social.linkedin = linkedin;
+    if (instagram) profile.social.instagram = instagram;
 
     const createdProfile = await profile.save();
     res.json(createdProfile);

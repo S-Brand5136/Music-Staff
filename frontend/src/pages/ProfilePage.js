@@ -27,19 +27,22 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProfilePage = ({ history, match }) => {
+const ProfilePage = ({ history }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getProfile());
-  }, [dispatch, match]);
-
   const userLogin = useSelector((state) => state.userLogin);
-  const { loading: userLoading, userInfo } = userLogin;
+  const { userInfo } = userLogin;
 
   const userProfile = useSelector((state) => state.userProfile);
   const { loading, userProfile: profile, error } = userProfile;
+
+  const updateProfile = useSelector((state) => state.updateProfile);
+  const { reload } = updateProfile;
+
+  useEffect(() => {
+    dispatch(getProfile());
+  }, [reload]);
 
   if (!userInfo) {
     history.push("/");

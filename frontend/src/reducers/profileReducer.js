@@ -52,7 +52,7 @@ export const updateProfileReducer = (state = {}, action) => {
     case UPDATE_PROFILE_FAIL:
       return { loading: false, error: action.payload };
     case UPDATE_PROFILE_CLEAR:
-      return { loading: false, success: false };
+      return { loading: false, success: false, reload: true };
     default:
       return state;
   }

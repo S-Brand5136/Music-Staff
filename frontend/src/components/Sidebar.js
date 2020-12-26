@@ -149,24 +149,24 @@ const Sidebar = (props) => {
           <ListItemIcon>
             {userInfo && (
               <Box id="iconsBox">
-                <Button style={{ lineHeight: "0" }}>
-                  <Link to="/profile">
+                <Link to="/profile">
+                  <Button style={{ lineHeight: "0" }}>
                     <AccountCircle className="icon" />
-                  </Link>
-                </Button>
-                <Button size="small" style={{ lineHeight: "0" }}>
-                  <Link to="/">
+                  </Button>
+                </Link>
+                <Link to="/">
+                  <Button size="small" style={{ lineHeight: "0" }}>
                     <Forum className="icon" />
-                  </Link>
-                </Button>
-                <Button>
-                  <Link to="/" style={{ position: "relative", top: ".25rem" }}>
+                  </Button>
+                </Link>
+                <Link to="/" style={{ lineHeight: "0" }}>
+                  <Button>
                     <ExitToApp
                       className="icon"
                       onClick={() => dispatch(logout())}
                     />
-                  </Link>
-                </Button>
+                  </Button>
+                </Link>
               </Box>
             )}
           </ListItemIcon>

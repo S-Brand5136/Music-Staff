@@ -68,7 +68,13 @@ export const getProfileById = (id) => async (dispatch) => {
   }
 };
 
-export const updateUserProfile = (profile) => async (dispatch, getState) => {
+export const updateUserProfile = (
+  bio,
+  youtube,
+  instagram,
+  twitter,
+  linkedin
+) => async (dispatch, getState) => {
   try {
     dispatch({
       type: UPDATE_PROFILE_REQUEST,
@@ -84,7 +90,11 @@ export const updateUserProfile = (profile) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.put(`/api/profile`, { profile }, config);
+    const { data } = await axios.put(
+      `/api/profile`,
+      { bio, youtube, instagram, twitter, linkedin },
+      config
+    );
 
     dispatch({
       type: UPDATE_PROFILE_SUCCESS,
