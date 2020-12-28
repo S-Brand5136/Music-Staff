@@ -29,6 +29,7 @@ import {
   DELETE_DISCUSSION_REQUEST,
   DELETE_DISCUSSION_SUCCESS,
   DELETE_DISCUSSION_FAIL,
+  CREATE_COMMENT_CLEAR,
 } from "../constants/discussionConstants";
 
 export const getDiscussions = (state = { discussionList: [] }, action) => {
@@ -113,6 +114,8 @@ export const createComment = (state = { open: false }, action) => {
       return { loading: false, success: true, open: false };
     case CREATE_COMMENT_FAIL:
       return { loading: false, error: action.payload };
+    case CREATE_COMMENT_CLEAR:
+      return { loading: false, open: false };
     case CREATE_COMMENT_CLOSE:
       return { loading: false, open: false };
     default:

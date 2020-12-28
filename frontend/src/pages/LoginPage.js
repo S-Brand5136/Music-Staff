@@ -84,7 +84,7 @@ const LoginPage = ({ location, history }) => {
                 <Typography variant="body1">
                   Don't have an account ?{" "}
                   <Link
-                    style={{ color: "#52D6F4" }}
+                    style={{ color: "#363538" }}
                     to={
                       redirect ? `/register?redirect=${redirect}` : "/register"
                     }

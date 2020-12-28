@@ -147,8 +147,12 @@ const HomePage = ({ history }) => {
                   {discussionList &&
                     discussionList.map((item) => (
                       <div key={item}>
-                        <DiscussionListItem discussion={item} />
-                        <Divider />
+                        {!item.archived && (
+                          <>
+                            <DiscussionListItem discussion={item} />
+                            <Divider />
+                          </>
+                        )}
                       </div>
                     ))}
                 </List>

@@ -2,10 +2,12 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfile } from "../actions/profileActions";
 import { listUsersAdmin } from "../actions/userActions";
+import { getDiscussions } from "../actions/discussionActions";
 import ProfileUpdateForm from "../components/ProfileUpdateForm";
 import ProfileTabTable from "../components/ProfileTabTable";
 import UpdateUserLogin from "../components/UpdateUserLogin";
 import ListUsersItem from "../components/ListUsersItem";
+import DiscussionListItem from "../components/DiscussionListItem";
 import Message from "../components/Message";
 
 // MaterialUI imports
@@ -27,6 +29,12 @@ const useStyles = makeStyles((theme) => ({
   },
   marginBot: {
     marginBottom: "2.5rem",
+  },
+  boxScroll: {
+    maxHeight: "40rem",
+    maxWidth: "100%",
+    overflowY: "auto",
+    overflowX: "hidden",
   },
 }));
 
@@ -50,6 +58,9 @@ const ProfilePage = ({ history }) => {
     success,
   } = adminDeleteUser;
 
+  const discussions = useSelector((state) => state.discussions);
+  const { discussionList: adminDiscussionList } = discussions;
+
   const userList = useSelector((state) => state.userList);
   const {
     userList: list,
@@ -62,13 +73,13 @@ const ProfilePage = ({ history }) => {
       dispatch(getProfile());
     } else {
       dispatch(listUsersAdmin());
+      dispatch(getDiscussions());
     }
   }, [reload, success]);
 
   if (!userInfo) {
     history.push("/");
   }
-
   return (
     <Box>
       <Grid
@@ -88,7 +99,7 @@ const ProfilePage = ({ history }) => {
           <Grid item xs={12} lg={6}>
             <Avatar
               className={classes.large}
-              src="../../public/images/avatar.jpeg"
+              src={loading ? "loading.." : profile.avatar}
             />
           </Grid>
           <Grid item xs={12} lg={6}>
@@ -142,14 +153,25 @@ const ProfilePage = ({ history }) => {
                   </Grid>
                 ) : (
                   <>
-                    <Typography variant="h5">Welcome Admin!</Typography>
-                    <Grid item lg={12}>
-                      <List>
-                        {list.map((user) => (
-                          <ListUsersItem key={user} user={user} />
-                        ))}
-                      </List>
-                    </Grid>
+                    <>
+                      <Typography variant="h5">Welcome Admin!</Typography>
+                      <Grid item lg={12}>
+                        <List className={classes.boxScroll}>
+                          {list.map((user) => (
+                            <ListUsersItem key={user} user={user} />
+                          ))}
+                        </List>
+                      </Grid>
+                    </>
+                    <>
+                      <Grid item lg={12}>
+                        <List className={classes.boxScroll}>
+                          {adminDiscussionList.map((item) => (
+                            <DiscussionListItem key={item} discussion={item} />
+                          ))}
+                        </List>
+                      </Grid>
+                    </>
                   </>
                 )}
               </>

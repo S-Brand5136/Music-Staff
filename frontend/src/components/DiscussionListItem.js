@@ -19,7 +19,7 @@ import {
   IconButton,
   Typography,
 } from "@material-ui/core";
-import { Delete } from "@material-ui/icons";
+import { Delete, Flag } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   MuiListItem: {
@@ -39,6 +39,7 @@ const DiscussionListItem = ({ discussion }) => {
     _id,
     user,
     createdAt,
+    archived,
   } = discussion;
 
   const userLogin = useSelector((state) => state.userLogin);
@@ -92,7 +93,7 @@ const DiscussionListItem = ({ discussion }) => {
           (userInfo._id === discussion.user || userInfo.isAdmin) ? (
             <ListItem>
               <Typography variant="subtitle1">
-                Replies: {numComments}{" "}
+                Replies: {numComments}
               </Typography>
               <IconButton
                 style={{ padding: "0", marginLeft: "1rem" }}
@@ -101,11 +102,14 @@ const DiscussionListItem = ({ discussion }) => {
               >
                 <Delete />
               </IconButton>
+              {userInfo.isAdmin && (
+                <Flag color={archived ? "secondary" : "primary"} />
+              )}
             </ListItem>
           ) : (
             <ListItemText>
               <Typography variant="subtitle1">
-                Replies: {numComments}{" "}
+                Replies: {numComments}
               </Typography>
             </ListItemText>
           )}

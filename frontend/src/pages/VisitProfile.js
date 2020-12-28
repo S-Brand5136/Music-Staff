@@ -66,7 +66,7 @@ const VisitProfile = ({ match, history }) => {
             <Avatar
               alt="userAvatar"
               className={classes.large}
-              src="../../public/images/avatar.jpeg"
+              src={loading ? "loading.." : userProfileById.avatar}
             />
           </Grid>
           <Grid item xs={12} lg={6}>

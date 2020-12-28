@@ -73,7 +73,8 @@ export const updateUserProfile = (
   youtube,
   instagram,
   twitter,
-  linkedin
+  linkedin,
+  avatar
 ) => async (dispatch, getState) => {
   try {
     dispatch({
@@ -92,7 +93,7 @@ export const updateUserProfile = (
 
     const { data } = await axios.put(
       `/api/profile`,
-      { bio, youtube, instagram, twitter, linkedin },
+      { bio, youtube, instagram, twitter, linkedin, avatar },
       config
     );
 

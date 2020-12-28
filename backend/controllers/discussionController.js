@@ -20,16 +20,13 @@ const getDiscussionById = asyncHandler(async (req, res) => {
 // @route   GET api/discussions
 // @access  public
 const getAllDiscussions = asyncHandler(async (req, res) => {
-  const discussions = await Discussion.find({})
-    .sort({ timestamp: -1 })
-    .exec((err, res) => {
-      if (discussions) {
-        return res.json(discussions);
-      } else {
-        res.status(500);
-        throw new Error("Discussions not found");
-      }
-    });
+  const discussions = await Discussion.find({});
+  if (discussions) {
+    return res.json(discussions);
+  } else {
+    res.status(500);
+    throw new Error("Discussions not found");
+  }
 });
 
 // @desc    Get searched discussions
@@ -71,7 +68,7 @@ const postDiscussion = asyncHandler(async (req, res) => {
 
   if (discussion) {
     const createdDiscussion = await discussion.save();
-    profile.discussions.unshift(discussion);
+    profile.discussions.push(discussion);
     profile.save();
     return res.status(201).json(createdDiscussion);
   } else {
@@ -133,11 +130,12 @@ const deleteDiscussion = asyncHandler(async (req, res) => {
       (disc) => disc._id === discussion._id
     );
     profile.discussions.splice(index, 1);
+    discussion.archived = true;
+    discussion.flag += 1;
 
-    await Discussion.deleteOne(discussion);
     await profile.save();
-
-    return res.json({ msg: "Discussion Deleted " });
+    await discussion.save();
+    return res.json({ msg: "Discussion removed from profile and archived " });
   } else {
     res.status(500);
     throw new Error("Failed to Delete");
@@ -153,6 +151,8 @@ const createDiscussionComment = asyncHandler(async (req, res) => {
 
   const discussion = await Discussion.findById(req.params.id);
 
+  console.log(discussion);
+
   if (discussion) {
     const comment = {
       user: req.user._id,
@@ -162,9 +162,17 @@ const createDiscussionComment = asyncHandler(async (req, res) => {
     };
 
     profile.comments.push(comment);
+
+    const index = profile.discussions.findIndex(
+      (disc) => disc._id.toString() === discussion._id.toString()
+    );
+
     discussion.comments.push(comment);
     discussion.numComments = discussion.comments.length;
 
+    profile.discussions[index].numComments = discussion.comments.length;
+
+    profile.markModified("discussions");
     await profile.save();
     await discussion.save();
     res.status(201).json({ message: "Comment posted" });
@@ -192,6 +200,14 @@ const deleteDiscussionComment = asyncHandler(async (req, res) => {
     discussion.numComments = discussion.comments.length;
 
     profile.comments.splice(proRemoveIndex, 1);
+
+    const index = profile.discussions.findIndex(
+      (disc) => disc._id.toString() === discussion._id.toString()
+    );
+
+    profile.discussions[index].numComments = discussion.comments.length;
+
+    profile.markModified("discussions");
 
     await profile.save();
     await discussion.save();

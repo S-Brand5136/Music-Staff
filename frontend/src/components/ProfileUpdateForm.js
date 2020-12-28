@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import { updateUserProfile } from "../actions/profileActions";
 import Message from "../components/Message";
 
@@ -46,6 +47,8 @@ const ProfileUpdateForm = ({ userInfo, userProfile }) => {
   const [newTwitter, setNewTwitter] = useState(null);
   const [newLinkedin, setNewLinkedin] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [avatar, setAvatar] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
   const updateProfile = useSelector((state) => state.updateProfile);
   const { loading, error, success } = updateProfile;
@@ -53,14 +56,22 @@ const ProfileUpdateForm = ({ userInfo, userProfile }) => {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (newBio || newYoutube || newInstagram || newTwitter || newLinkedin) {
+    if (
+      newBio ||
+      newYoutube ||
+      newInstagram ||
+      newTwitter ||
+      newLinkedin ||
+      avatar
+    ) {
       dispatch(
         updateUserProfile(
           newBio,
           newYoutube,
           newInstagram,
           newTwitter,
-          newLinkedin
+          newLinkedin,
+          avatar
         )
       );
       setNewBio("");
@@ -77,7 +88,29 @@ const ProfileUpdateForm = ({ userInfo, userProfile }) => {
     }
   };
 
-  // TODO: Fix updateProfile action
+  const uploadFileHandler = async (e) => {
+    const file = e.target.files[0];
+    setAvatar(e.target.files[0]);
+    const formData = new FormData();
+    formData.append("image", file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+
+      const { data } = await axios.post("/api/upload", formData, config);
+
+      setAvatar(data);
+      setUploading(false);
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
+    }
+  };
 
   return (
     <Box>
@@ -150,14 +183,20 @@ const ProfileUpdateForm = ({ userInfo, userProfile }) => {
                   component="label"
                 >
                   Upload File
-                  <input type="file" hidden />
+                  <input
+                    type="file"
+                    onClick={(e) => uploadFileHandler(e)}
+                    hidden
+                  />
                 </Button>
                 <TextField
                   id="filename"
-                  label="File Name"
+                  placeholder="File Name"
                   type="text"
                   variant="outlined"
+                  value={avatar}
                 />
+                {uploading && <LinearProgress color="primary" />}
               </Grid>
               <Grid item xs={12} lg={8}>
                 <Grid

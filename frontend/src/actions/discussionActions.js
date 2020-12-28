@@ -1,4 +1,5 @@
 import {
+  CREATE_COMMENT_CLEAR,
   CREATE_COMMENT_FAIL,
   CREATE_COMMENT_SUCCESS,
   CREATE_DISCUSSION_CLEAR,
@@ -268,6 +269,11 @@ export const createComment = (text, id) => async (dispatch, getState) => {
           ? error.response.data.message
           : error.message,
     });
+    setTimeout(() => {
+      dispatch({
+        type: CREATE_COMMENT_CLEAR,
+      });
+    }, 3000);
   }
 };
 
