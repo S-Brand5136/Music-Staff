@@ -73,7 +73,6 @@ const Sidebar = (props) => {
 
   useEffect(() => {
     dispatch(getDiscussionsByCategory("General"));
-    dispatch(setCategory("General"));
   }, [dispatch]);
 
   const classes = useStyles();

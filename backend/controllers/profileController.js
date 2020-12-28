@@ -13,7 +13,7 @@ const getLoggedInProfile = asyncHandler(async (req, res) => {
       _id: profile._id,
       avatar: profile.avatar,
       discussions: profile.discussions,
-      comments: profile.discussions,
+      comments: profile.comments,
       bio: profile.bio,
       social: profile.social,
     });

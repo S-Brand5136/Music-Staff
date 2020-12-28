@@ -20,14 +20,16 @@ const getDiscussionById = asyncHandler(async (req, res) => {
 // @route   GET api/discussions
 // @access  public
 const getAllDiscussions = asyncHandler(async (req, res) => {
-  const discussions = await Discussion.find({});
-
-  if (discussions) {
-    return res.json(discussions);
-  } else {
-    res.status(500);
-    throw new Error("Discussions not found");
-  }
+  const discussions = await Discussion.find({})
+    .sort({ timestamp: -1 })
+    .exec((err, res) => {
+      if (discussions) {
+        return res.json(discussions);
+      } else {
+        res.status(500);
+        throw new Error("Discussions not found");
+      }
+    });
 });
 
 // @desc    Get searched discussions
@@ -69,7 +71,7 @@ const postDiscussion = asyncHandler(async (req, res) => {
 
   if (discussion) {
     const createdDiscussion = await discussion.save();
-    profile.discussions.push(discussion);
+    profile.discussions.unshift(discussion);
     profile.save();
     return res.status(201).json(createdDiscussion);
   } else {
@@ -108,7 +110,7 @@ const getDiscussionsByCategory = asyncHandler(async (req, res) => {
 
   const discussions = await Discussion.find({
     category: category,
-  }).exec();
+  }).sort({ _id: -1 });
 
   if (discussions) {
     return res.json(discussions);

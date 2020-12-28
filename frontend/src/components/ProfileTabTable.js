@@ -22,6 +22,13 @@ const useStyles = makeStyles((theme) => ({
   MuiAppbar: {
     backgroundColor: "#363538",
   },
+  MuiTabPanel: {
+    maxHeight: "30rem",
+    overflowY: "auto",
+  },
+  MuiTypography: {
+    margin: "2rem",
+  },
 }));
 
 const TabPanel = (props) => {
@@ -57,13 +64,14 @@ const a11yProps = (index) => {
   };
 };
 
-const ProfileTabTable = ({ userInfo, userProfile }) => {
+const ProfileTabTable = ({ userProfile }) => {
   const classes = useStyles();
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.MuiAppbar}>
@@ -76,17 +84,41 @@ const ProfileTabTable = ({ userInfo, userProfile }) => {
           <Tab label="Comments" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
+      <TabPanel className={classes.MuiTabPanel} value={value} index={0}>
         <List>
-          {userProfile.discussions.map((item) => (
-            <DiscussionListItem discussion={item} />
-          ))}
+          {userProfile.discussions.length > 0 ? (
+            userProfile.discussions.map((item) => (
+              <DiscussionListItem discussion={item} />
+            ))
+          ) : (
+            <Box>
+              <Typography
+                className={classes.MuiTypography}
+                variant="h5"
+                align="center"
+              >
+                No Discussions have been made yet!
+              </Typography>
+            </Box>
+          )}
         </List>
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        {userProfile.comments.map((item) => (
-          <DiscussPageItem data={item} />
-        ))}
+      <TabPanel className={classes.MuiTabPanel} value={value} index={1}>
+        {userProfile.comments.length > 0 ? (
+          userProfile.comments.map((comment) => (
+            <DiscussPageItem data={comment} />
+          ))
+        ) : (
+          <Box>
+            <Typography
+              className={classes.MuiTypography}
+              variant="h5"
+              align="center"
+            >
+              No comments have been made yet!
+            </Typography>
+          </Box>
+        )}
       </TabPanel>
     </div>
   );

@@ -92,7 +92,7 @@ export const deleteDiscussion = (state = {}, action) => {
   }
 };
 
-export const setCategory = (state = { category: {} }, action) => {
+export const setCategory = (state = { category: "General" }, action) => {
   switch (action.type) {
     case SET_CATEGORY_REQUEST:
       return { loading: true };

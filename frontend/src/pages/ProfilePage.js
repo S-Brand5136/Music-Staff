@@ -93,7 +93,7 @@ const ProfilePage = ({ history }) => {
         ) : (
           <>
             <Grid item xs={12} lg={12}>
-              <ProfileTabTable userInfo={userInfo} userProfile={profile} />
+              <ProfileTabTable userProfile={profile} />
             </Grid>
             <Grid item xs={12} lg={6}>
               <ProfileUpdateForm userInfo={userInfo} userProfile={profile} />

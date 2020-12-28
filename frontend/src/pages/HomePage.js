@@ -64,14 +64,20 @@ const HomePage = ({ history }) => {
   const deleteDiscussion = useSelector((state) => state.deleteDiscussion);
   const { success } = deleteDiscussion;
 
+  const createDiscussion = useSelector((state) => state.createDiscussion);
+  const { success: createSuccess } = createDiscussion;
+
   const searchHandler = (e) => {
     e.preventDefault();
     dispatch(getDiscussionsBySearch(searchTerm));
+    dispatch(getDiscussionsByCategory(catTitle));
   };
 
   useEffect(() => {
-    dispatch(getDiscussionsByCategory(catTitle));
-  }, [success, dispatch, catTitle]);
+    if (success || createSuccess) {
+      dispatch(getDiscussionsByCategory(catTitle));
+    }
+  }, [success, createSuccess]);
 
   return (
     <Box>
