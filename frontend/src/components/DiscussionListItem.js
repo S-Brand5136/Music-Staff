@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
   MuiListItem: {
     margin: "1rem",
   },
-  MuiButton: {},
 }));
 
 const DiscussionListItem = ({ discussion }) => {

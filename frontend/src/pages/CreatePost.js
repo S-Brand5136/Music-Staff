@@ -130,7 +130,7 @@ const CreatePost = ({ history }) => {
                   )}
                   {success && (
                     <Message
-                      message="Post successfully Created!!"
+                      message="Post successfully Created!! redirecting..."
                       variant="success"
                       open={true}
                     />

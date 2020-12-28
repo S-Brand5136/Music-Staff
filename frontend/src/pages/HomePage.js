@@ -74,7 +74,7 @@ const HomePage = ({ history }) => {
   };
 
   useEffect(() => {
-    if (success || createSuccess) {
+    if (success || createSuccess || catloading) {
       dispatch(getDiscussionsByCategory(catTitle));
     }
   }, [success, createSuccess]);

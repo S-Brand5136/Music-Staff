@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { register } from "../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../components/Message";
+import { register } from "../actions/userActions";
 
 // MaterialUI imports
-import { makeStyles } from "@material-ui/core/styles";
 import {
   Box,
   Button,
   Divider,
   Grid,
+  makeStyles,
   LinearProgress,
   TextField,
   Typography,

@@ -172,7 +172,7 @@ const Sidebar = (props) => {
         </ListItem>
       </Paper>
       {categories.map((category) => (
-        <Link to="/" key={category}>
+        <Link to="/" id="sideBarTags" key={category}>
           <ListItem
             button
             key={category}

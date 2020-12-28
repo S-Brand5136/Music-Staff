@@ -84,7 +84,7 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
         setErrorText(null);
       }, 3000);
     } else {
-      dispatch(createComment(commentText));
+      dispatch(createComment(commentText, data._id));
       setCommentText("");
     }
   };
@@ -205,7 +205,7 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
             <DialogContent>
               <DialogContentText>
                 To create a comment add text below, and click on the confirm
-                button. Click cancel to close the dialog
+                button. Click cancel to close the window
               </DialogContentText>
               <form aria-label="comment-text-box">
                 <TextField
@@ -252,7 +252,7 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
           <DialogContent>
             <DialogContentText>
               To delete the selected comment click on the confirm button, or
-              click cancel to close the dialog
+              click cancel to close the window
             </DialogContentText>
           </DialogContent>
           <DialogActions>

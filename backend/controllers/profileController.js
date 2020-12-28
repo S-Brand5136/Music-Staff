@@ -59,17 +59,17 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   } else {
     const profile = new Profile({
       user: req.user._id,
-      bio: bio,
-      avatar: avatar,
+      bio: "Introduce yourself here!",
+      avatar: "P",
       discussions: [],
       comments: [],
     });
 
     profile.social = {};
-    if (youtube) profile.social.youtube = youtube;
-    if (twitter) profile.social.twitter = twitter;
-    if (linkedin) profile.social.linkedin = linkedin;
-    if (instagram) profile.social.instagram = instagram;
+    if (youtube) profile.social.youtube = youtube || "";
+    if (twitter) profile.social.twitter = twitter || "";
+    if (linkedin) profile.social.linkedin = linkedin || "";
+    if (instagram) profile.social.instagram = instagram || "";
 
     const createdProfile = await profile.save();
     res.json(createdProfile);

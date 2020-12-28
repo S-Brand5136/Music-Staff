@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfileById } from "../actions/profileActions";
-import DiscussionListItem from "../components/DiscussionListItem";
-import DiscussPageItem from "../components/DiscussPageItem";
+import ProfileTabTable from "../components/ProfileTabTable";
 
 // Material UI
 import {
@@ -11,8 +10,6 @@ import {
   Divider,
   Grid,
   LinearProgress,
-  List,
-  ListItem,
   makeStyles,
   Typography,
 } from "@material-ui/core";
@@ -22,11 +19,20 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(20),
     height: theme.spacing(20),
   },
+  MuiTypography: {
+    margin: "2rem",
+  },
 }));
 
 const VisitProfile = ({ match, history }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  const userProfile = useSelector((state) => state.userProfileById);
+  const { userProfileById, loading, error } = userProfile;
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   useEffect(() => {
     async function fetchData() {
@@ -35,21 +41,17 @@ const VisitProfile = ({ match, history }) => {
     fetchData();
   }, [dispatch, match]);
 
-  const userProfile = useSelector((state) => state.userProfileById);
-  const { userProfileById, loading, error } = userProfile;
-
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
-
   if (userInfo && !loading) {
-    if (userProfileById.user._id === userInfo._id) {
+    if (match.params.id === userInfo._id) {
       history.push(`/profile`);
     }
   }
 
   return (
     <Box>
-      {error && "error"}
+      {error && (
+        <Typography variant="h6">Uh oh! User cannot be found!</Typography>
+      )}
       {loading || !userProfileById ? (
         <LinearProgress color="primary" />
       ) : (
@@ -83,21 +85,8 @@ const VisitProfile = ({ match, history }) => {
             </Grid>
           ) : (
             <Grid container variant="row">
-              <Grid item xs={12} xl={6}>
-                <List>
-                  {userProfileById.discussions.map((item) => (
-                    <DiscussionListItem key={item._id} discussion={item} />
-                  ))}
-                </List>
-              </Grid>
-              <Grid item xs={12} xl={6}>
-                <List>
-                  {userProfileById.comments.map((item, index) => (
-                    <ListItem key={index}>
-                      <DiscussPageItem data={item} />
-                    </ListItem>
-                  ))}
-                </List>
+              <Grid item lg={12}>
+                <ProfileTabTable userProfile={userProfileById} />
               </Grid>
             </Grid>
           )}

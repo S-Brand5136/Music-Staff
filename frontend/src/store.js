@@ -6,6 +6,8 @@ import {
   userLoginReducer,
   userRegisterReducer,
   userUpdateReducer,
+  adminGetUsersReducer,
+  adminDeleteUserReducer,
 } from "./reducers/userReducer";
 import {
   getProfileReducer,
@@ -30,6 +32,8 @@ const reducer = combineReducers({
   userUpdate: userUpdateReducer,
   userProfile: getProfileReducer,
   userProfileById: getProfileByIdReducer,
+  userList: adminGetUsersReducer,
+  adminDeleteUser: adminDeleteUserReducer,
   updateProfile: updateProfileReducer,
   discussions: getDiscussions,
   discussion: getDiscussionById,
