@@ -31,7 +31,10 @@ const DiscussionPage = ({ match }) => {
   const { success, loading: deleteLoader } = deleteComment;
 
   const createComment = useSelector((state) => state.createComment);
-  const { success: createCommentSuccess } = createComment;
+  const {
+    success: createCommentSuccess,
+    error: createCommentError,
+  } = createComment;
 
   useEffect(() => {
     (async function getDetails() {
@@ -56,6 +59,13 @@ const DiscussionPage = ({ match }) => {
               {discussItem.category} - {discussItem.title}{" "}
               {discussItem.badge && <Badge color="primary"></Badge>}
             </Typography>
+            {createCommentError && (
+              <Message
+                message="Failed to post comment"
+                variant="error"
+                open={true}
+              />
+            )}
             {success && (
               <Message
                 variant="success"

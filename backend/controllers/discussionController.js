@@ -179,7 +179,7 @@ const createDiscussionComment = asyncHandler(async (req, res) => {
 // @access  private
 const deleteDiscussionComment = asyncHandler(async (req, res) => {
   const discussion = await Discussion.findById(req.params.id);
-  const profile = await Profile.findById({ user: req.user._id });
+  const profile = await Profile.findOne({ user: req.user._id });
 
   if (discussion) {
     const removeIndex = discussion.comments.findIndex(

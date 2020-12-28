@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Message from "../components/Message";
 import {
   deleteComment,
   flagComment,
   flagDiscussion,
+  createComment,
 } from "../actions/discussionActions";
 import {
   CREATE_COMMENT_REQUEST,
@@ -25,6 +27,7 @@ import {
   makeStyles,
   Paper,
   Typography,
+  TextField,
 } from "@material-ui/core";
 import { Delete, Flag, Reply } from "@material-ui/icons";
 
@@ -45,11 +48,13 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  const createComment = useSelector((state) => state.createComment);
-  const { open } = createComment;
+  const commentCreation = useSelector((state) => state.createComment);
+  const { open } = commentCreation;
 
   const [colour, setColour] = useState("primary");
   const [openDelete, setOpenDelete] = useState(false);
+  const [commentText, setCommentText] = useState("");
+  const [errorText, setErrorText] = useState(null);
 
   const deleteHandler = () => {
     dispatch(deleteComment(data._id, discussionId));
@@ -72,7 +77,16 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
   };
 
   const createCommentHandler = () => {
-    dispatch();
+    if (commentText === "") {
+      setErrorText("Unable to post comment");
+
+      setTimeout(() => {
+        setErrorText(null);
+      }, 3000);
+    } else {
+      dispatch(createComment(commentText));
+      setCommentText("");
+    }
   };
 
   const flagHandler = () => {
@@ -193,6 +207,23 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
                 To create a comment add text below, and click on the confirm
                 button. Click cancel to close the dialog
               </DialogContentText>
+              <form aria-label="comment-text-box">
+                <TextField
+                  className={classes.MuiTextField}
+                  id="comment-text"
+                  label="Comment"
+                  type="text"
+                  variant="outlined"
+                  multiline
+                  rows={7}
+                  fullWidth
+                  value={commentText}
+                  onChange={(e) => setCommentText(e.target.value)}
+                />
+              </form>
+              {errorText && (
+                <Message message={errorText} variant="error" open={true} />
+              )}
             </DialogContent>
             <DialogActions>
               <Button
