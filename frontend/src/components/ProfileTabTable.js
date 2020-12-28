@@ -88,7 +88,9 @@ const ProfileTabTable = ({ userProfile }) => {
         <List>
           {userProfile.discussions.length > 0 ? (
             userProfile.discussions.map((item) => (
-              <DiscussionListItem discussion={item} />
+              <div key={item}>
+                <DiscussionListItem discussion={item} />
+              </div>
             ))
           ) : (
             <Box>
@@ -97,7 +99,7 @@ const ProfileTabTable = ({ userProfile }) => {
                 variant="h5"
                 align="center"
               >
-                No Discussions have been made yet!
+                No discussions have been made yet!
               </Typography>
             </Box>
           )}
@@ -106,7 +108,9 @@ const ProfileTabTable = ({ userProfile }) => {
       <TabPanel className={classes.MuiTabPanel} value={value} index={1}>
         {userProfile.comments.length > 0 ? (
           userProfile.comments.map((comment) => (
-            <DiscussPageItem data={comment} />
+            <div key={comment}>
+              <DiscussPageItem data={comment} />
+            </div>
           ))
         ) : (
           <Box>

@@ -105,7 +105,7 @@ export const setCategory = (state = { category: "General" }, action) => {
   }
 };
 
-export const createComment = (state = {}, action) => {
+export const createComment = (state = { open: false }, action) => {
   switch (action.type) {
     case CREATE_COMMENT_REQUEST:
       return { loading: true, open: true };

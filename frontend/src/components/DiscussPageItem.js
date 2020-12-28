@@ -6,7 +6,10 @@ import {
   flagComment,
   flagDiscussion,
 } from "../actions/discussionActions";
-import { CREATE_COMMENT_REQUEST } from "../constants/discussionConstants";
+import {
+  CREATE_COMMENT_REQUEST,
+  CREATE_COMMENT_CLOSE,
+} from "../constants/discussionConstants";
 
 // Material UI imports
 import {
@@ -62,6 +65,14 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
 
   const handleClose = () => {
     setOpenDelete(false);
+  };
+
+  const handleCommentClose = () => {
+    dispatch({ type: CREATE_COMMENT_CLOSE });
+  };
+
+  const createCommentHandler = () => {
+    dispatch();
   };
 
   const flagHandler = () => {
@@ -171,14 +182,40 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
           " "
         )}
       </Grid>
-      {open && <Dialog />}
+      {open && (
+        <div>
+          <Dialog open={open} onClose={handleCommentClose}>
+            <DialogTitle style={{ cursor: "move" }} id="delete-comment">
+              Create Comment
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                To create a comment add text below, and click on the confirm
+                button. Click cancel to close the dialog
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                autoFocus
+                onClick={() => handleCommentClose()}
+                color="secondary"
+              >
+                Cancel
+              </Button>
+              <Button onClick={() => createCommentHandler()} color="primary">
+                Confirm
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
+      )}
       <div>
         <Dialog
           open={openDelete}
           onClose={handleClose}
-          aria-labelledby="draggable-dialog-title"
+          aria-labelledby="Delete comment"
         >
-          <DialogTitle style={{ cursor: "move" }} id="draggable-dialog-title">
+          <DialogTitle style={{ cursor: "move" }} id="delete-comment">
             Delete Comment
           </DialogTitle>
           <DialogContent>
