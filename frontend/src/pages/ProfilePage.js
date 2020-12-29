@@ -16,6 +16,7 @@ import {
   Box,
   Divider,
   Grid,
+  Hidden,
   LinearProgress,
   List,
   makeStyles,
@@ -96,15 +97,33 @@ const ProfilePage = ({ history }) => {
           justify="space-evenly"
           alignItems="center"
         >
-          <Grid item xs={12} lg={6}>
-            <Avatar
-              className={classes.large}
-              src={loading ? "loading.." : profile.avatar}
-            />
-          </Grid>
-          <Grid item xs={12} lg={6}>
-            <Typography variant="h2">{userInfo.name}</Typography>
-          </Grid>
+          <Hidden smUp>
+            <Grid style={{ marginTop: "1rem" }} item xs={10} lg={6}>
+              <Avatar
+                className={classes.large}
+                src={loading ? "loading.." : profile.avatar}
+              />
+            </Grid>
+            <Grid item style={{ marginTop: "1rem" }} xs={11} lg={6}>
+              <Typography
+                variant="h2"
+                style={{ padding: "none", margin: "none" }}
+              >
+                {userInfo.name}
+              </Typography>
+            </Grid>
+          </Hidden>
+          <Hidden mdDown>
+            <Grid item xs={10} lg={6}>
+              <Avatar
+                className={classes.large}
+                src={loading ? "loading.." : profile.avatar}
+              />
+            </Grid>
+            <Grid item xs={10} lg={6}>
+              <Typography variant="h2">{userInfo.name}</Typography>
+            </Grid>
+          </Hidden>
         </Grid>
         <Grid item lg={12}>
           <Divider />

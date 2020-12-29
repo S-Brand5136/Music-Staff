@@ -10,6 +10,7 @@ import {
   Button,
   Divider,
   Grid,
+  Hidden,
   makeStyles,
   LinearProgress,
   TextField,
@@ -64,10 +65,20 @@ const LoginPage = ({ location, history }) => {
     <Box>
       <Grid container>
         <Grid item id="signin" xs={12} lg={12} xl={12} md={12}>
-          <Typography variant="h3">Register</Typography>
-          <Typography variant="body1">
-            Please enter your email, password, and name to register an account
-          </Typography>
+          <Hidden smUp>
+            <Typography style={{ marginLeft: "1rem" }} variant="h3">
+              Register
+            </Typography>
+            <Typography style={{ margin: "1rem" }} variant="body1">
+              Please enter your email, password, and name to register an account
+            </Typography>
+          </Hidden>
+          <Hidden mdDown>
+            <Typography variant="h3">Register</Typography>
+            <Typography variant="body1">
+              Please enter your email, password, and name to register an account
+            </Typography>
+          </Hidden>
           {loading && <LinearProgress />}
           {message && <Message variant="error" message={message} open={true} />}
           {error && <Message variant="error" message={error} open={true} />}
@@ -110,7 +121,7 @@ const LoginPage = ({ location, history }) => {
                   onChange={(e) => setPasswordTwo(e.target.value)}
                 ></TextField>
               </Grid>
-              <Grid item xs={12} md={9} xl={6}>
+              <Grid item xs={10} md={9} xl={6}>
                 <Button
                   fullWidth
                   variant="contained"

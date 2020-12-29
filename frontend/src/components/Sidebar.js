@@ -10,6 +10,7 @@ import {
 // MaterialUI Imports
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import {
+  AppBar,
   Box,
   Button,
   Drawer,
@@ -21,6 +22,7 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
+  Toolbar,
   Paper,
 } from "@material-ui/core";
 import {
@@ -195,15 +197,38 @@ const Sidebar = (props) => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <IconButton
-        color="inherit"
-        aria-label="open drawer"
-        edge="start"
-        onClick={handleDrawerToggle}
-        className={classes.menuButton}
-      >
-        <Menu />
-      </IconButton>
+      <Hidden smUp>
+        <AppBar
+          position="static"
+          style={{ marginBottom: "1rem" }}
+          variant="outlined"
+          color="transparent"
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="start"
+              onClick={handleDrawerToggle}
+              className={classes.menuButton}
+            >
+              <Menu />
+            </IconButton>
+            <Typography
+              align="center"
+              style={{
+                left: "5rem",
+                marginRight: ".5rem",
+                marginTop: ".5rem",
+                position: "relative",
+              }}
+              variant="h4"
+            >
+              Music Staff
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </Hidden>
       <nav className={classes.drawer} aria-label="mailbox folders">
         <Hidden smUp implementation="css">
           <Drawer

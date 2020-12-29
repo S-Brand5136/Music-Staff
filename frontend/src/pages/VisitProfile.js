@@ -62,14 +62,14 @@ const VisitProfile = ({ match, history }) => {
           alignItems="center"
           spacing={4}
         >
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={6} lg={6}>
             <Avatar
               alt="userAvatar"
               className={classes.large}
               src={loading ? "loading.." : userProfileById.avatar}
             />
           </Grid>
-          <Grid item xs={12} lg={6}>
+          <Grid item xs={8} lg={6}>
             <Typography variant="h2" className={classes.MuiTypography}>
               {userProfileById.user.name}
             </Typography>
@@ -78,17 +78,17 @@ const VisitProfile = ({ match, history }) => {
             <Divider />
           </Grid>
           {!userProfileById.discussion && !userProfileById.comments ? (
-            <Grid item lg={6}>
+            <Grid item lg={6} xs={12}>
               <Typography variant="h5">
                 This User has not made any comments or posts!
               </Typography>
             </Grid>
           ) : (
-            <Grid container variant="row">
-              <Grid item lg={12}>
+            <>
+              <Grid item lg={12} xs={12}>
                 <ProfileTabTable userProfile={userProfileById} />
               </Grid>
-            </Grid>
+            </>
           )}
         </Grid>
       )}

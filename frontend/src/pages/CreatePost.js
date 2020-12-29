@@ -11,6 +11,7 @@ import {
   Box,
   Divider,
   Grid,
+  Hidden,
   InputLabel,
   MenuItem,
   makeStyles,
@@ -79,13 +80,13 @@ const CreatePost = ({ history }) => {
   return (
     <Box>
       <Grid container direction="row">
-        <Grid item lg={10}>
+        <Grid item lg={10} xs={10}>
           <Grid container direction="row" justify="center" alignItems="center">
-            <Grid item lg={10}>
+            <Grid item lg={10} xs={10}>
               <Typography variant="h3">Create a new Discussion</Typography>
               <Divider />
             </Grid>
-            <Grid item lg={2}>
+            <Grid item lg={2} xs={10}>
               <Breadcrumbs aria-label="breadcrumb">
                 <Link to="/">HomePage</Link>
                 <Link> Create</Link>
@@ -94,7 +95,7 @@ const CreatePost = ({ history }) => {
           </Grid>
         </Grid>
 
-        <Grid item lg={12} style={{ marginTop: "2rem" }}>
+        <Grid item lg={12} xs={12} style={{ marginTop: "2rem" }}>
           <Paper className={classes.MuiPaper}>
             <Typography align="center" variant="h6" gutterBottom>
               Be sure to read the rules before posting!
@@ -114,13 +115,13 @@ const CreatePost = ({ history }) => {
           </Paper>
         </Grid>
 
-        <Grid item lg={12}>
+        <Grid item lg={12} xs={12}>
           {loading ? (
             <LinearProgress variant="primary" />
           ) : (
             <form onSubmit={(e) => submitDiscussion(e)}>
               <Grid container alignItems="center" direction="row">
-                <Grid item lg={12}>
+                <Grid item lg={12} xs={10}>
                   {error && (
                     <Message
                       message="Error creating Discussion. Check all fields provided"
@@ -147,7 +148,7 @@ const CreatePost = ({ history }) => {
                   />
                 </Grid>
 
-                <Grid item lg={12}>
+                <Grid item lg={12} xs={10}>
                   <TextField
                     className={classes.MuiTextField}
                     id="body-text"
@@ -161,7 +162,7 @@ const CreatePost = ({ history }) => {
                     onChange={(e) => setBody(e.target.value)}
                   />
                 </Grid>
-                <Grid item lg={3}>
+                <Grid item lg={3} xs={10}>
                   <TextField
                     className={classes.MuiTextField}
                     id="badge"
@@ -172,27 +173,31 @@ const CreatePost = ({ history }) => {
                     onChange={(e) => setBadge(e.target.value)}
                   />
                 </Grid>
-                <Grid item lg={6}>
-                  <InputLabel
-                    className={classes.MuiSelect}
-                    id="select-category"
-                  >
-                    Category
-                  </InputLabel>
-                  <Select
-                    labelId="select-category"
-                    value={category}
-                    className={classes.MuiSelect}
-                    onChange={(e) => handleChange(e)}
-                  >
-                    <MenuItem value="General">General</MenuItem>
-                    <MenuItem value="Music Theory">Music Theory</MenuItem>
-                    <MenuItem value="Instrument Talk">Instrument Talk</MenuItem>
-                    <MenuItem value="New Music">New Music</MenuItem>
-                  </Select>
-                </Grid>
+                <Hidden smUp>
+                  <Grid item lg={6} xs={10}>
+                    <InputLabel
+                      className={classes.MuiSelect}
+                      id="select-category"
+                    >
+                      Category
+                    </InputLabel>
+                    <Select
+                      labelId="select-category"
+                      value={category}
+                      className={classes.MuiSelect}
+                      onChange={(e) => handleChange(e)}
+                    >
+                      <MenuItem value="General">General</MenuItem>
+                      <MenuItem value="Music Theory">Music Theory</MenuItem>
+                      <MenuItem value="Instrument Talk">
+                        Instrument Talk
+                      </MenuItem>
+                      <MenuItem value="New Music">New Music</MenuItem>
+                    </Select>
+                  </Grid>
+                </Hidden>
 
-                <Grid item lg={12}>
+                <Grid item lg={12} xs={10}>
                   <Button
                     className={classes.MuiButton}
                     variant="outlined"

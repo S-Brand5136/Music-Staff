@@ -63,7 +63,7 @@ const DiscussionListItem = ({ discussion }) => {
   return (
     <ListItem className={classes.MuiListItem}>
       <Grid container>
-        <Grid item lg={3}>
+        <Grid item lg={3} xs={4}>
           <ListItemText>
             <NavLink to={`/discussion/${_id}`} className="navLink">
               <Typography variant="subtitle1">
@@ -73,14 +73,14 @@ const DiscussionListItem = ({ discussion }) => {
             </NavLink>
           </ListItemText>
         </Grid>
-        <Grid item lg={3}>
+        <Grid item lg={3} xs={8}>
           <ListItemText>
             <NavLink to={`/profiles/${user}`} className="navLink">
               <Typography variant="subtitle1">Posted By: {postedBy}</Typography>
             </NavLink>
           </ListItemText>
         </Grid>
-        <Grid item lg={3}>
+        <Grid item lg={3} xs={6}>
           <ListItemText>
             <Typography variant="subtitle1">
               Created On: {new Date(createdAt).toLocaleDateString("en-gb")}
@@ -88,7 +88,7 @@ const DiscussionListItem = ({ discussion }) => {
           </ListItemText>
         </Grid>
 
-        <Grid item lg={3}>
+        <Grid item lg={3} xs={6}>
           {userInfo &&
           (userInfo._id === discussion.user || userInfo.isAdmin) ? (
             <ListItem>

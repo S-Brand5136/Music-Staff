@@ -12,6 +12,7 @@ import {
   Button,
   Divider,
   Grid,
+  Hidden,
   IconButton,
   InputBase,
   LinearProgress,
@@ -90,13 +91,28 @@ const HomePage = ({ history }) => {
             alignItems="flex-end"
             spacing={5}
           >
-            <Grid item xl={7} xs={12} md={8}>
-              <Typography variant="h3" className={classes.MuiTypography}>
-                {catloading ? "...." : catTitle.toString()}
-              </Typography>
+            <Grid item xl={8} lg={8} xs={12} md={8}>
+              <Hidden smUp>
+                <Typography
+                  style={{ marginTop: "2rem", marginLeft: "2rem" }}
+                  variant="h3"
+                  className={classes.MuiTypography}
+                >
+                  {catloading ? "...." : catTitle.toString()}
+                </Typography>
+              </Hidden>
+              <Hidden mdDown>
+                <Typography
+                  style={{ marginTop: "2rem", marginLeft: "2rem" }}
+                  variant="h3"
+                  className={classes.MuiTypography}
+                >
+                  {catloading ? "...." : catTitle.toString()}
+                </Typography>
+              </Hidden>
             </Grid>
 
-            <Grid item xl={4} xs={12} md={8}>
+            <Grid item xl={2} lg={2} xs={11} md={8}>
               <Paper
                 component="form"
                 onSubmit={(e) => searchHandler(e)}
@@ -118,7 +134,7 @@ const HomePage = ({ history }) => {
                 </IconButton>
               </Paper>
             </Grid>
-            <Grid item xl={11} xs={12} md={8}>
+            <Grid item xl={11} xs={10} md={8}>
               <Button
                 style={{ float: "right" }}
                 onClick={() => history.push("/createPost")}
@@ -130,15 +146,19 @@ const HomePage = ({ history }) => {
           </Grid>
         </Grid>
 
-        <Grid item xl={12}>
+        <Grid item xl={12} lg={12} xs={12}>
           <Grid container direction="row">
-            <Grid item>
-              <Typography className={classes.MuiTypography} variant="subtitle1">
+            <Grid item xs={4}>
+              <Typography
+                align="center"
+                className={classes.MuiTypography}
+                variant="subtitle1"
+              >
                 Discussions
               </Typography>
             </Grid>
 
-            <Grid item xl={12} lg={12}>
+            <Grid item xl={12} lg={12} xs={12}>
               {loading ? (
                 <LinearProgress color="primary" />
               ) : (
