@@ -43,15 +43,26 @@ const LoginPage = ({ location, history }) => {
       <Grid container direction="row">
         <Grid item id="signin" xs={12} lg={12} xl={12} md={12}>
           <Hidden smUp>
-            <Typography style={{ marginLeft: "1rem" }} variant="h3">
+            <Typography
+              style={{ marginLeft: "1rem", padding: "0", marginTop: "2rem" }}
+              variant="h3"
+            >
               Sign In
             </Typography>
-            <Typography style={{ margin: "1rem" }} variant="body1">
+            <Typography
+              style={{ margin: "1rem", padding: "0" }}
+              variant="body1"
+            >
               Welcome back! Enter your credentials below to sign in
             </Typography>
           </Hidden>
           <Hidden mdDown>
-            <Typography variant="h3">Sign In</Typography>
+            <Typography
+              style={{ marginLeft: "1rem", padding: "0", marginTop: "2rem" }}
+              variant="h3"
+            >
+              Sign In
+            </Typography>
             <Typography variant="body1">
               Welcome back! Enter your credentials below to sign in
             </Typography>
@@ -63,8 +74,8 @@ const LoginPage = ({ location, history }) => {
 
         <Grid item id="form">
           <form onSubmit={(e) => onSubmitHandler(e)}>
-            <Grid container spacing={6} direction="row">
-              <Grid item xs={12} md={9} lg={9} xl={12}>
+            <Grid container spacing={4} direction="row">
+              <Grid item xs={10} md={9} lg={9} xl={12}>
                 <TextField
                   id="email"
                   label="Email"
@@ -72,7 +83,7 @@ const LoginPage = ({ location, history }) => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12} md={9} lg={9} xl={12}>
+              <Grid item xs={10} md={9} lg={9} xl={12}>
                 <TextField
                   id="password"
                   label="Password"

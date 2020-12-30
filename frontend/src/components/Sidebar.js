@@ -217,7 +217,7 @@ const Sidebar = (props) => {
             <Typography
               align="center"
               style={{
-                left: "5rem",
+                left: "2.5rem",
                 marginRight: ".5rem",
                 marginTop: ".5rem",
                 position: "relative",
