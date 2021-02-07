@@ -10,13 +10,28 @@ import {
   Button,
   Divider,
   Grid,
-  Hidden,
   LinearProgress,
   TextField,
   Typography,
+  makeStyles,
 } from "@material-ui/core";
 
+const useStyles = makeStyles((theme) => ({
+  boxStyling: {
+    marginTop: "2rem",
+    paddingLeft: "2rem",
+    [theme.breakpoints.only("lg")]: {
+      paddingLeft: "17rem",
+    },
+    [theme.breakpoints.down("xs")]: {
+      paddingLeft: "0rem",
+    },
+  },
+}));
+
 const LoginPage = ({ location, history }) => {
+  const classes = useStyles();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -39,34 +54,18 @@ const LoginPage = ({ location, history }) => {
   };
 
   return (
-    <Box>
+    <Box className={classes.boxStyling}>
       <Grid container direction="row">
         <Grid item id="signin" xs={12} lg={12} xl={12} md={12}>
-          <Hidden smUp>
-            <Typography
-              style={{ marginLeft: "1rem", padding: "0", marginTop: "2rem" }}
-              variant="h3"
-            >
-              Sign In
-            </Typography>
-            <Typography
-              style={{ margin: "1rem", padding: "0" }}
-              variant="body1"
-            >
-              Welcome back! Enter your credentials below to sign in
-            </Typography>
-          </Hidden>
-          <Hidden mdDown>
-            <Typography
-              style={{ marginLeft: "1rem", padding: "0", marginTop: "2rem" }}
-              variant="h3"
-            >
-              Sign In
-            </Typography>
-            <Typography variant="body1">
-              Welcome back! Enter your credentials below to sign in
-            </Typography>
-          </Hidden>
+          <Typography
+            style={{ marginLeft: "1rem", padding: "0", marginTop: "2rem" }}
+            variant="h3"
+          >
+            Sign In
+          </Typography>
+          <Typography style={{ margin: "1rem", padding: "0" }} variant="body1">
+            Welcome back! Enter your credentials below to sign in
+          </Typography>
           {loading && <LinearProgress />}
           {error && <Message message={error} variant="error" open={true} />}
         </Grid>

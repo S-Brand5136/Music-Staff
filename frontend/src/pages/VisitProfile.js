@@ -22,6 +22,15 @@ const useStyles = makeStyles((theme) => ({
   MuiTypography: {
     margin: "2rem",
   },
+  boxStyling: {
+    marginTop: "5rem",
+    [theme.breakpoints.only("lg")]: {
+      paddingLeft: "17rem",
+    },
+    [theme.breakpoints.down("xs")]: {
+      paddingLeft: "0rem",
+    },
+  },
 }));
 
 const VisitProfile = ({ match, history }) => {
@@ -48,9 +57,11 @@ const VisitProfile = ({ match, history }) => {
   }
 
   return (
-    <Box>
+    <Box className={classes.boxStyling}>
       {error && (
-        <Typography variant="h6">Uh oh! User cannot be found!</Typography>
+        <Typography variant="h6" component="h6">
+          Uh oh! User cannot be found!
+        </Typography>
       )}
       {loading || !userProfileById ? (
         <LinearProgress color="primary" />
@@ -70,7 +81,11 @@ const VisitProfile = ({ match, history }) => {
             />
           </Grid>
           <Grid item xs={8} lg={6}>
-            <Typography variant="h2" className={classes.MuiTypography}>
+            <Typography
+              variant="h2"
+              component="h2"
+              className={classes.MuiTypography}
+            >
               {userProfileById.user.name}
             </Typography>
           </Grid>
@@ -79,13 +94,13 @@ const VisitProfile = ({ match, history }) => {
           </Grid>
           {!userProfileById.discussion && !userProfileById.comments ? (
             <Grid item lg={6} xs={12}>
-              <Typography variant="h5">
+              <Typography variant="h5" component="h5">
                 This User has not made any comments or posts!
               </Typography>
             </Grid>
           ) : (
             <>
-              <Grid item lg={12} xs={12}>
+              <Grid item lg={12} xs={12} style={{ paddingLeft: "3rem" }}>
                 <ProfileTabTable userProfile={userProfileById} />
               </Grid>
             </>

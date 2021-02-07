@@ -79,14 +79,8 @@ const UpdateUserLogin = ({ userInfo }) => {
         </Grid>
       )}
       <form onSubmit={(e) => submitHandler(e)}>
-        <Grid
-          container
-          direction="row"
-          justify="center"
-          alignItems="center"
-          spacing={2}
-        >
-          <Grid item xs={12} lg={12}>
+        <Grid container direction="row" justify="center" alignItems="center">
+          <Grid item container justify="center" xs={12} lg={12}>
             <Typography
               className={classes.MuiTypography}
               variant="h5"
@@ -97,7 +91,7 @@ const UpdateUserLogin = ({ userInfo }) => {
             <Divider variant="middle" />
           </Grid>
 
-          <Grid item xs={12} lg={6}>
+          <Grid item container justify="center" xs={12} lg={6}>
             <TextField
               className={classes.MuiTextField}
               id="email"
@@ -125,8 +119,8 @@ const UpdateUserLogin = ({ userInfo }) => {
               onChange={(e) => setPasswordConfirm(e.target.value)}
             />
           </Grid>
-          <Grid item lg={8}>
-            <Button variant="outlined" type="Submit" fullWidth>
+          <Grid item container justify="center" lg={12}>
+            <Button variant="outlined" type="Submit">
               Update User Info
             </Button>
           </Grid>

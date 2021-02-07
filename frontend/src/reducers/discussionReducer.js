@@ -71,7 +71,7 @@ export const createDiscussion = (state = {}, action) => {
     case CREATE_DISCUSSION_FAIL:
       return { loading: false, error: action.payload };
     case CREATE_DISCUSSION_CLEAR:
-      return { loading: true, success: false };
+      return { sucess: false, loading: false };
     default:
       return state;
   }

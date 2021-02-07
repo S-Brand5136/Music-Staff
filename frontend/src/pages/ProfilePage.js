@@ -16,7 +16,6 @@ import {
   Box,
   Divider,
   Grid,
-  Hidden,
   LinearProgress,
   List,
   makeStyles,
@@ -36,6 +35,16 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "100%",
     overflowY: "auto",
     overflowX: "hidden",
+  },
+  boxStyling: {
+    paddingLeft: "2rem",
+    marginTop: "2rem",
+    [theme.breakpoints.only("lg")]: {
+      paddingLeft: "20rem",
+    },
+    [theme.breakpoints.down("md")]: {
+      paddingLeft: "2rem",
+    },
   },
 }));
 
@@ -82,13 +91,12 @@ const ProfilePage = ({ history }) => {
     history.push("/");
   }
   return (
-    <Box>
+    <Box className={classes.boxStyling}>
       <Grid
         container
         direction="row"
         justify="space-evenly"
         alignItems="flex-start"
-        spacing={4}
         className={classes.marginBot}
       >
         <Grid
@@ -96,39 +104,27 @@ const ProfilePage = ({ history }) => {
           direction="row"
           justify="space-evenly"
           alignItems="center"
+          style={{ marginBottom: "3rem" }}
         >
-          <Hidden smUp>
-            <Grid style={{ marginTop: "1rem" }} item xs={10} lg={6}>
-              <Avatar
-                className={classes.large}
-                src={loading ? "loading.." : profile.avatar}
-              />
-            </Grid>
-            <Grid item style={{ marginTop: "1rem" }} xs={11} lg={6}>
-              <Typography
-                variant="h2"
-                style={{ padding: "none", margin: "none" }}
-              >
-                {userInfo.name}
-              </Typography>
-            </Grid>
-          </Hidden>
-          <Hidden mdDown>
-            <Grid item xs={10} lg={6}>
-              <Avatar
-                className={classes.large}
-                src={loading ? "loading.." : profile.avatar}
-              />
-            </Grid>
-            <Grid item xs={10} lg={6}>
-              <Typography variant="h2">{userInfo.name}</Typography>
-            </Grid>
-          </Hidden>
+          <Grid style={{ marginTop: "1rem" }} item lg={6}>
+            <Avatar
+              className={classes.large}
+              src={loading ? "loading.." : profile.avatar}
+            />
+          </Grid>
+          <Grid item style={{ marginTop: "1rem" }} lg={6}>
+            <Typography
+              variant="h2"
+              style={{ padding: "none", margin: "none" }}
+            >
+              {userInfo.name}
+            </Typography>
+          </Grid>
         </Grid>
         <Grid item lg={12}>
           <Divider />
         </Grid>
-        <Grid item lg={12}>
+        <Grid item lg={12} style={{ marginBottom: "3rem" }}>
           {error && (
             <Message
               variant="error"
@@ -196,10 +192,10 @@ const ProfilePage = ({ history }) => {
               </>
             ) : (
               <>
-                <Grid item xs={12} lg={12}>
+                <Grid item xs={12} lg={12} style={{ marginBottom: "3rem" }}>
                   <ProfileTabTable userProfile={profile} />
                 </Grid>
-                <Grid item xs={12} lg={6}>
+                <Grid item xs={12} lg={6} style={{ marginBottom: "3rem" }}>
                   <ProfileUpdateForm
                     userInfo={userInfo}
                     userProfile={profile}

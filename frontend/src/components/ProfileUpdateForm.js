@@ -130,13 +130,7 @@ const ProfileUpdateForm = ({ userInfo, userProfile }) => {
           {!userProfile ? (
             <LinearProgress color="primary" />
           ) : (
-            <Grid
-              container
-              direction="row"
-              justify="space-evenly"
-              alignItems="flex-start"
-              spacing={2}
-            >
+            <Grid container justify="center" direction="row">
               <Grid item xs={12} lg={12}>
                 <Typography
                   className={classes.MuiTypography}
@@ -147,7 +141,7 @@ const ProfileUpdateForm = ({ userInfo, userProfile }) => {
                 </Typography>
                 <Divider variant="middle" />
               </Grid>
-              <Grid item xs={12} lg={6}>
+              <Grid item container justify="center" xs={12} lg={6}>
                 <Typography
                   className={classes.MuiTypography}
                   variant="subtitle1"
@@ -169,7 +163,14 @@ const ProfileUpdateForm = ({ userInfo, userProfile }) => {
                 />
               </Grid>
 
-              <Grid item xs={12} lg={8}>
+              <Grid
+                item
+                container
+                alignItems="center"
+                justify="center"
+                xs={12}
+                lg={8}
+              >
                 <Typography
                   className={classes.MuiTypography}
                   variant="subtitle1"
@@ -214,7 +215,7 @@ const ProfileUpdateForm = ({ userInfo, userProfile }) => {
                       Social Links
                     </Typography>
                   </Grid>
-                  <Grid item xs={12} lg={6}>
+                  <Grid item container justify="center" xs={12} lg={6}>
                     <TextField
                       className={classes.MuiTextField}
                       id="youtube"
@@ -239,7 +240,7 @@ const ProfileUpdateForm = ({ userInfo, userProfile }) => {
                     />
                   </Grid>
 
-                  <Grid item xs={12} lg={6}>
+                  <Grid item container justify="center" xs={12} lg={6}>
                     <TextField
                       className={classes.MuiTextField}
                       id="instagram"
@@ -264,12 +265,8 @@ const ProfileUpdateForm = ({ userInfo, userProfile }) => {
                     />
                   </Grid>
                 </Grid>
-                <Grid item lg={12}>
-                  <Button
-                    variant="outlined"
-                    fullWidth
-                    onClick={(e) => submitHandler(e)}
-                  >
+                <Grid item container justify="center" lg={12}>
+                  <Button variant="outlined" onClick={(e) => submitHandler(e)}>
                     Update Profile
                   </Button>
                 </Grid>

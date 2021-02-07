@@ -12,7 +12,6 @@ import {
   Button,
   Divider,
   Grid,
-  Hidden,
   IconButton,
   InputBase,
   LinearProgress,
@@ -30,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     width: 400,
     backgroundColor: "#363538",
+    marginTop: "1rem",
+    [theme.breakpoints.down("md")]: {
+      marginBottom: "1rem",
+    },
   },
   input: {
     marginLeft: theme.spacing(1),
@@ -47,6 +50,34 @@ const useStyles = makeStyles((theme) => ({
   MuiListItem: {
     color: "white",
     margin: "1rem",
+  },
+  titleStyling: {
+    marginTop: "5rem",
+    [theme.breakpoints.down("md")]: {
+      marginTop: "2rem",
+      marginLeft: "1rem",
+    },
+  },
+  navGrid: {
+    justify: "flex-end",
+    alignItems: "flex-end",
+    [theme.breakpoints.down("md")]: {
+      justify: "flex-start",
+      alignItems: "flex-start",
+    },
+    marginBottom: "2rem",
+    marginLeft: "2rem",
+    [theme.breakpoints.down("xs")]: {
+      marginLeft: "0",
+    },
+  },
+  boxStyling: {
+    [theme.breakpoints.only("lg")]: {
+      paddingLeft: "15rem",
+    },
+    [theme.breakpoints.down("xs")]: {
+      paddingLeft: "0rem",
+    },
   },
 }));
 
@@ -78,73 +109,50 @@ const HomePage = ({ history }) => {
     if (success || createSuccess || catloading) {
       dispatch(getDiscussionsByCategory(catTitle));
     }
+    // eslint-disable-next-line
   }, [success, createSuccess]);
 
   return (
-    <Box>
+    <Box className={classes.boxStyling}>
       <Grid container direction="row">
-        <Grid item lg={12} xl={12}>
-          <Grid
-            container
-            container
-            direction="row"
-            justify="flex-end"
-            alignItems="center"
-            spacing={5}
-          >
-            <Grid item xl={12} lg={12} xs={12} md={8}>
-              <Hidden smUp>
-                <Typography
-                  style={{ marginTop: "2rem", marginLeft: "2rem" }}
-                  variant="h3"
-                  className={classes.MuiTypography}
-                >
-                  {catloading ? "...." : catTitle.toString()}
-                </Typography>
-              </Hidden>
-              <Hidden mdDown>
-                <Typography
-                  style={{ marginTop: "5rem", marginLeft: "2rem" }}
-                  variant="h3"
-                  className={classes.MuiTypography}
-                >
-                  {catloading ? "...." : catTitle.toString()}
-                </Typography>
-                <Divider />
-              </Hidden>
-            </Grid>
+        <Grid className={classes.navGrid} container>
+          <Grid item className={classes.titleStyling} lg={12} xs={12}>
+            <Typography variant="h3" className={classes.MuiTypography}>
+              {catloading ? "...." : catTitle.toString()}
+            </Typography>
+            <Divider />
+          </Grid>
 
-            <Grid item lg={4} xs={11} md={8}>
-              <Paper
-                component="form"
-                onSubmit={(e) => searchHandler(e)}
-                className={classes.root}
+          <Grid item container justify="flex-start" lg={10}>
+            <Paper
+              component="form"
+              onSubmit={(e) => searchHandler(e)}
+              className={classes.root}
+            >
+              <InputBase
+                className={classes.input}
+                placeholder="Search Forum..."
+                inputProps={{ "aria-label": "search google maps" }}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <Divider className={classes.divider} orientation="vertical" />
+              <IconButton
+                type="submit"
+                aria-label="search"
+                className={classes.iconButton}
               >
-                <InputBase
-                  className={classes.input}
-                  placeholder="Search Forum..."
-                  inputProps={{ "aria-label": "search google maps" }}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <Divider className={classes.divider} orientation="vertical" />
-                <IconButton
-                  type="submit"
-                  aria-label="search"
-                  className={classes.iconButton}
-                >
-                  <Search />
-                </IconButton>
-              </Paper>
-            </Grid>
-            <Grid item xl={12} xs={10} md={8}>
-              <Button
-                style={{ float: "right" }}
-                onClick={() => history.push("/createPost")}
-                variant="outlined"
-              >
-                <PostAdd /> New Post
-              </Button>
-            </Grid>
+                <Search />
+              </IconButton>
+            </Paper>
+          </Grid>
+          <Grid item lg={2}>
+            <Button
+              style={{ float: "right" }}
+              onClick={() => history.push("/createPost")}
+              variant="outlined"
+            >
+              <PostAdd /> New Post
+            </Button>
           </Grid>
         </Grid>
 
@@ -168,7 +176,7 @@ const HomePage = ({ history }) => {
                   <Divider />
                   {discussionList &&
                     discussionList.map((item) => (
-                      <div key={item}>
+                      <div key={item._id}>
                         {!item.archived && (
                           <>
                             <DiscussionListItem discussion={item} />

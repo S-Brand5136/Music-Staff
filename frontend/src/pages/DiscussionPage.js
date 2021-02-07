@@ -17,9 +17,18 @@ import {
   Typography,
 } from "@material-ui/core";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   AddMargin: {
     marginTop: "3rem",
+  },
+  boxStyling: {
+    marginTop: "5rem",
+    [theme.breakpoints.only("lg")]: {
+      paddingLeft: "20rem",
+    },
+    [theme.breakpoints.down("xs")]: {
+      paddingLeft: "0rem",
+    },
   },
 }));
 
@@ -49,12 +58,16 @@ const DiscussionPage = ({ match }) => {
   const { category: prevCategory } = category;
 
   return (
-    <Box>
+    <Box className={classes.boxStyling}>
       {loading || deleteLoader ? (
         <LinearProgress color="primary" />
       ) : (
-        <Grid container direction="row">
-          <Grid item lg={10}>
+        <Grid
+          container
+          style={{ marginLeft: "1rem", paddingRight: "2rem" }}
+          direction="row"
+        >
+          <Grid item lg={12} md={12} sm={12} xs={12}>
             <Typography variant="h3" className={classes.MuiTypography}>
               {discussItem.category} - {discussItem.title}{" "}
               {discussItem.badge && <Badge color="primary"></Badge>}
@@ -75,7 +88,7 @@ const DiscussionPage = ({ match }) => {
             )}
             <Divider />
           </Grid>
-          <Grid item lg={2}>
+          <Grid item lg={12} sm={12} xs={12}>
             <Breadcrumbs aria-label="breadcrumb">
               <Link to="/" onClick={() => dispatch(setCategory("General"))}>
                 HomePage
@@ -83,7 +96,14 @@ const DiscussionPage = ({ match }) => {
               /<Link to={`/`}>{prevCategory}</Link>
             </Breadcrumbs>
           </Grid>
-          <Grid item lg={12} className={classes.AddMargin}>
+          <Grid
+            item
+            lg={12}
+            sm={12}
+            xs={12}
+            md={12}
+            className={classes.AddMargin}
+          >
             <DiscussPageItem data={discussItem} OGpost={true} />
           </Grid>
           <Grid container direction="row" justify="center" alignItems="center">

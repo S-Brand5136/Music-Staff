@@ -11,23 +11,35 @@ import DiscussionPage from "./pages/DiscussionPage";
 import VisitProfile from "./pages/VisitProfile";
 
 // MaterialUI
-import { withStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 
-const GlobalCss = withStyles({
-  "@global": {
-    // ".MuiTypography-root": {
-    //   color: "white",
-    // },
+const useStyles = makeStyles((theme) => ({
+  containerStyles: {
+    paddingRight: "2rem",
+    paddingLeft: "16rem",
+    [theme.breakpoints.down("lg")]: {
+      margin: "0",
+      paddingLeft: "0",
+    },
+    [theme.breakpoints.down("xs")]: {
+      margin: "0",
+      paddingLeft: "1rem",
+    },
   },
-})(() => null);
+}));
 
 const App = () => {
+  const classes = useStyles();
+
   return (
     <Router>
       <Sidebar />
       <main>
-        <GlobalCss />
-        <Container disableGutters style={{ marginRight: "13rem" }}>
+        <Container
+          maxWidth="xl"
+          className={classes.containerStyles}
+          disableGutters
+        >
           <Route path="/" component={HomePage} exact />
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />

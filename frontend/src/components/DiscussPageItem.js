@@ -107,14 +107,13 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
   return (
     <Paper variant="outlined" square>
       <Grid container direction="row" spacing={4}>
-        <Grid item lg={6}>
+        <Grid item lg={6} md={12} sm={12}>
           <Grid
             className={classes.MuiGrid}
             container
-            justify="center"
-            spacing={2}
-            alignItems="center"
+            justify="flex-start"
             direction="row"
+            style={{ marginLeft: "1rem" }}
           >
             <Grid item lg={2}>
               <Avatar
@@ -124,7 +123,7 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
                 alt="Profile Image"
               />
             </Grid>
-            <Grid item lg={8}>
+            <Grid item lg={8} style={{ marginLeft: "1rem" }}>
               <Typography
                 style={{ color: "black" }}
                 variant="h6"
@@ -146,7 +145,7 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
             </Grid>
           </Grid>
         </Grid>
-        <Grid item lg={12}>
+        <Grid item lg={12} md={12} sm={12} xs={12}>
           <Typography
             style={{ color: "black" }}
             className={classes.MuiTypography}
@@ -156,8 +155,13 @@ const DiscussPageItem = ({ data, discussionId, OGpost }) => {
             {data.text}
           </Typography>
         </Grid>
-        <Grid item lg={4}>
-          <Grid container justify="center" direction="row" alignItems="center">
+        <Grid item lg={4} md={12}>
+          <Grid
+            container
+            justify="flex-start"
+            direction="row"
+            alignItems="center"
+          >
             <Grid item lg={12}>
               <IconButton color="primary" onClick={() => replyHandler()}>
                 <Reply />{" "}

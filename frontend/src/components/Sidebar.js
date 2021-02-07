@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   drawer: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up("lg")]: {
       width: drawerWidth,
       flexShrink: 0,
     },
@@ -197,7 +197,7 @@ const Sidebar = (props) => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <Hidden smUp>
+      <Hidden lgUp>
         <AppBar
           position="static"
           style={{ marginBottom: "1rem" }}
@@ -230,7 +230,7 @@ const Sidebar = (props) => {
         </AppBar>
       </Hidden>
       <nav className={classes.drawer} aria-label="mailbox folders">
-        <Hidden smUp implementation="css">
+        <Hidden lgUp implementation="css">
           <Drawer
             container={container}
             variant="temporary"
@@ -247,7 +247,7 @@ const Sidebar = (props) => {
             {drawer}
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
+        <Hidden mdDown implementation="css">
           <Drawer
             classes={{
               paper: classes.drawerPaper,

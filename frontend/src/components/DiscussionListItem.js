@@ -24,6 +24,9 @@ import { Delete, Flag } from "@material-ui/icons";
 const useStyles = makeStyles((theme) => ({
   MuiListItem: {
     margin: "1rem",
+    [theme.breakpoints.down("xs")]: {
+      margin: 0,
+    },
   },
 }));
 

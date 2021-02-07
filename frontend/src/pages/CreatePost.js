@@ -11,7 +11,6 @@ import {
   Box,
   Divider,
   Grid,
-  Hidden,
   InputLabel,
   MenuItem,
   makeStyles,
@@ -22,7 +21,7 @@ import {
   LinearProgress,
 } from "@material-ui/core";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   MuiTextField: {
     color: "white",
     marginTop: "1rem",
@@ -41,9 +40,19 @@ const useStyles = makeStyles(() => ({
     },
   },
   MuiSelect: {
+    marginLeft: "1rem",
     position: "relative",
     top: ".5rem",
     width: "10rem",
+  },
+  boxStyling: {
+    marginTop: "2rem",
+    [theme.breakpoints.only("lg")]: {
+      paddingLeft: "20rem",
+    },
+    [theme.breakpoints.down("sm")]: {
+      paddingLeft: "0rem",
+    },
   },
 }));
 
@@ -67,7 +76,7 @@ const CreatePost = ({ history }) => {
     e.preventDefault();
     if (title === "" || body === "") {
     }
-    dispatch(createDiscussion(title, body, badge, category));
+    dispatch(createDiscussion(body, title, badge, category));
     setTitle("");
     setBody("");
     setBadge("");
@@ -78,9 +87,9 @@ const CreatePost = ({ history }) => {
   };
 
   return (
-    <Box>
+    <Box className={classes.boxStyling}>
       <Grid container direction="row">
-        <Grid item lg={10} xs={10}>
+        <Grid item lg={12} xs={10}>
           <Grid container direction="row" justify="center" alignItems="center">
             <Grid item lg={10} xs={10}>
               <Typography variant="h3">Create a new Discussion</Typography>
@@ -95,7 +104,13 @@ const CreatePost = ({ history }) => {
           </Grid>
         </Grid>
 
-        <Grid item lg={12} xs={12} style={{ marginTop: "2rem" }}>
+        <Grid
+          item
+          lg={12}
+          xs={12}
+          md={12}
+          style={{ marginTop: "2rem", paddingLeft: "2rem" }}
+        >
           <Paper className={classes.MuiPaper}>
             <Typography align="center" variant="h6" gutterBottom>
               Be sure to read the rules before posting!
@@ -120,7 +135,12 @@ const CreatePost = ({ history }) => {
             <LinearProgress variant="primary" />
           ) : (
             <form onSubmit={(e) => submitDiscussion(e)}>
-              <Grid container alignItems="center" direction="row">
+              <Grid
+                container
+                alignItems="center"
+                justify="center"
+                direction="row"
+              >
                 <Grid item lg={12} xs={10}>
                   {error && (
                     <Message
@@ -173,29 +193,25 @@ const CreatePost = ({ history }) => {
                     onChange={(e) => setBadge(e.target.value)}
                   />
                 </Grid>
-                <Hidden smUp>
-                  <Grid item lg={6} xs={10}>
-                    <InputLabel
-                      className={classes.MuiSelect}
-                      id="select-category"
-                    >
-                      Category
-                    </InputLabel>
-                    <Select
-                      labelId="select-category"
-                      value={category}
-                      className={classes.MuiSelect}
-                      onChange={(e) => handleChange(e)}
-                    >
-                      <MenuItem value="General">General</MenuItem>
-                      <MenuItem value="Music Theory">Music Theory</MenuItem>
-                      <MenuItem value="Instrument Talk">
-                        Instrument Talk
-                      </MenuItem>
-                      <MenuItem value="New Music">New Music</MenuItem>
-                    </Select>
-                  </Grid>
-                </Hidden>
+                <Grid item lg={6} xs={10}>
+                  <InputLabel
+                    className={classes.MuiSelect}
+                    id="select-category"
+                  >
+                    Category
+                  </InputLabel>
+                  <Select
+                    labelId="select-category"
+                    value={category}
+                    className={classes.MuiSelect}
+                    onChange={(e) => handleChange(e)}
+                  >
+                    <MenuItem value="General">General</MenuItem>
+                    <MenuItem value="Music Theory">Music Theory</MenuItem>
+                    <MenuItem value="Instrument Talk">Instrument Talk</MenuItem>
+                    <MenuItem value="New Music">New Music</MenuItem>
+                  </Select>
+                </Grid>
 
                 <Grid item lg={12} xs={10}>
                   <Button
