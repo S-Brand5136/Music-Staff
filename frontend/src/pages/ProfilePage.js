@@ -62,11 +62,7 @@ const ProfilePage = ({ history }) => {
   const { reload } = updateProfile;
 
   const adminDeleteUser = useSelector((state) => state.adminDeleteUser);
-  const {
-    loading: adminDeleteUserLoading,
-    error: adminDeleteUserError,
-    success,
-  } = adminDeleteUser;
+  const { error: adminDeleteUserError, success } = adminDeleteUser;
 
   const discussions = useSelector((state) => state.discussions);
   const { discussionList: adminDiscussionList } = discussions;
@@ -85,6 +81,7 @@ const ProfilePage = ({ history }) => {
       dispatch(listUsersAdmin());
       dispatch(getDiscussions());
     }
+    // eslint-disable-next-line
   }, [reload, success]);
 
   if (!userInfo) {
