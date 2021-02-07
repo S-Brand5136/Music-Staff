@@ -4,6 +4,7 @@
   "description": "Forum for musicians to connect and discuss",
   "main": "server.js",
   "type": "module",
+  "engines": { "node": ">=12.19.0" },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
